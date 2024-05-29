@@ -1,5 +1,7 @@
 import lvgl as lv
 from ui.gui_guider import *
+#将NXP GUI_Builder生成的代码粘到这里
+
 # Create screen
 screen = lv.obj()
 screen.set_size(240, 240)
