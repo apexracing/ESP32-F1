@@ -1,12 +1,14 @@
 import lvgl as lv
-import cst816
+from lib import cst816
+
+
 class TouchDriver:
 	def __init__(self):
 		self.cst816 = cst816.CST816()
 		if self.cst816.who_am_i():
-		    print("CST816 detected.")
+			print("CST816 detected.")
 		else:
-		    print("CST816 not detected.")
+			print("CST816 not detected.")
 		indev_drv = lv.indev_drv_t()
 		indev_drv.init()
 		indev_drv.type=lv.INDEV_TYPE.POINTER
