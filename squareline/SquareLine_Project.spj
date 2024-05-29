@@ -881,7 +881,7 @@
               {
                 "disabled": false,
                 "nid": 1844375431,
-                "strtype": "BUTTON/EventHandler",
+                "strtype": "_event/EventHandler",
                 "strval": "CLICKED",
                 "childs": [
                   {
@@ -1440,7 +1440,7 @@
     "editor_version": "1.4.0",
     "image": "",
     "force_export_images": true,
-    "flat_export": true,
+    "flat_export": false,
     "advanced_alpha": false,
     "pointfilter": false,
     "theme_simplified": false,
@@ -1449,9 +1449,9 @@
     "theme_color2": 0,
     "uiExportFolderPath": "F:\\ESP32\\ui",
     "projectExportFolderPath": "F:\\ESP32",
-    "backup_cnt": 311,
+    "backup_cnt": 316,
     "autosave_cnt": 0,
-    "lvgl_version": "8.3.11",
+    "lvgl_version": "8.3.6",
     "callfuncsexport": "PY_FILE",
     "imageexport": "SOURCE",
     "lvgl_include_path": "",

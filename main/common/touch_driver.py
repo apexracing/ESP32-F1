@@ -6,15 +6,16 @@ class TouchDriver:
 	def __init__(self):
 		self.cst816 = cst816.CST816()
 		if self.cst816.who_am_i():
-			print("CST816 detected.")
+			print("CST816 触摸输入驱动已侦测.")
 		else:
-			print("CST816 not detected.")
+			print("CST816 未侦测.")
 		indev_drv = lv.indev_drv_t()
 		indev_drv.init()
 		indev_drv.type=lv.INDEV_TYPE.POINTER
 		indev_drv.read_cb = self.read_cb
 		# 注册驱动
 		indev_drv.register()
+
 
 	def read_cb(self,drv, data):
 		if self.cst816.get_touch():

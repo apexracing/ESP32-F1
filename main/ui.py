@@ -4,8 +4,7 @@
 # Project name: SquareLine_Project
 
 import lvgl as lv
-import ui_images
-
+import  ui_images
 dispp = lv.disp_get_default()
 theme = lv.theme_default_init(dispp, lv.palette_main(lv.PALETTE.BLUE), lv.palette_main(lv.PALETTE.RED), True, lv.font_default())
 dispp.set_theme(theme)
