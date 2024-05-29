@@ -167,7 +167,7 @@ def test_font(font_family, font_size):
                 return eval(f'lv.font_{family}_{size}')
         except AttributeError:
             try:
-                load_font = lv.font_load(f"Z:MicroPython/lv_font_{family}_{size}.fnt")
+                load_font = lv.font_load(f"Z:fonts/lv_font_{family}_{size}.fnt")
                 global_font_cache[font_family + str(font_size)] = load_font
                 return load_font
             except:
