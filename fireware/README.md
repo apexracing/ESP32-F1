@@ -99,9 +99,10 @@ target_link_libraries(${COMPONENT_LIB} INTERFACE rlottie)
 rlottie/CMakeList.txt
 rlottie/src/vector/vimageloader.cpp
 ````
-### 6.修改lv_conf.h
-````
-
+### 6.修改lv_conf.h头文件
+````shell
+cd lv_micropython/lib/lv_bindings
+vim lv_conf.h
 ````
 ### 7.编译
 ```shell
