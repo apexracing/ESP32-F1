@@ -9,6 +9,7 @@ source export.sh
 ```
 **注意** 如果开启一个新的shell窗口需要执行````source export.sh````
 ### 3. 编译一个基础的micropython固件
+
 ````shell
 git clone https://github.com/lvgl/lv_micropython.git -b release/v8
 cd lv_micropython
@@ -20,7 +21,9 @@ cd -
 make -C ports/esp32 LV_CFLAGS="-DLV_COLOR_DEPTH=16 -DLV_COLOR_16_SWAP=1 -DMICROPY_ENABLE_FINALISER=1" BOARD=GENERIC_S3_SPIRAM
 
 ````
-**第三步编译过程不出意外，会出意外，解决文案参考:**按这个[PullRquest](https://github.com/lvgl/lv_binding_micropython/pull/243/files#diff-a83d385a7a3e9e5931ba0ea4e886753ed2496df54b96f2cbc736832f67ec042d)代码去修改相应文件即可编译通过
+````
+第三步编译过程不出意外，会出意外，解决方案:按这个[PullRquest](https://github.com/lvgl/lv_binding_micropython/pull/243/files#diff-a83d385a7a3e9e5931ba0ea4e886753ed2496df54b96f2cbc736832f67ec042d)代码去修改相应文件即可编译通过
+````
 
 ### 4.配置ESP_IDF项目
 **需要在ubuntu桌面环境中运行shell**
