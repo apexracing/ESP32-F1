@@ -104,6 +104,16 @@ rlottie/src/vector/vimageloader.cpp
 cd lv_micropython/lib/lv_bindings
 vim lv_conf.h
 ````
+```text
+/*Rlottie library, if available */
+#define MICROPY_RLOTTIE 1 //开启动画功能
+#ifdef MICROPY_RLOTTIE
+    #define LV_USE_RLOTTIE 1
+#else
+    #define LV_USE_RLOTTIE 0
+#endif
+
+```
 ### 7.编译
 ```shell
 make -C ports/esp32 LV_CFLAGS="-DLV_COLOR_DEPTH=16 -DLV_COLOR_16_SWAP=1 -DMICROPY_ENABLE_FINALISER=1" BOARD=GENERIC_S3_SPIRAM
