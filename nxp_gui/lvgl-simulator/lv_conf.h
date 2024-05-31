@@ -1,13 +1,11 @@
 /*
-* Copyright 2023 NXP
+* Copyright 2024 NXP
 * NXP Confidential and Proprietary. This software is owned or controlled by NXP and may only be used strictly in
 * accordance with the applicable license terms. By expressly accepting such terms or by downloading, installing,
 * activating and/or otherwise using the software, you are agreeing that you have read, and that you agree to
 * comply with and are bound by, such license terms.  If you do not agree to be bound by the applicable license
 * terms, then you may not retain, install, activate or otherwise use the software.
 */
-
-
 #ifndef LV_CONF_H
 #define LV_CONF_H
 
@@ -18,10 +16,10 @@
  *====================*/
 
 /*Maximal horizontal resolution*/
-#define LV_HOR_RES_MAX (480)
+#define LV_HOR_RES_MAX (240)
 
 /*Maximal vertical resolution*/
-#define LV_VER_RES_MAX (272)
+#define LV_VER_RES_MAX (240)
 
 /*Color depth: 1 (1 byte per pixel), 8 (RGB332), 16 (RGB565), 32 (ARGB8888)*/
 #define LV_COLOR_DEPTH 16
@@ -73,7 +71,7 @@
  *====================*/
 
 /*Default display refresh period in milliseconds. LVG will redraw changed areas with this period time*/
-#define LV_DISP_DEF_REFR_PERIOD 20
+#define LV_DISP_DEF_REFR_PERIOD 80
 
 /*Input device read period in milliseconds*/
 #define LV_INDEV_DEF_READ_PERIOD 30
@@ -288,13 +286,6 @@
 
 /*Define a custom attribute to `lv_disp_flush_ready` function*/
 #define LV_ATTRIBUTE_FLUSH_READY 
-
-/*Required alignment size for buffers*/
-#define LV_ATTRIBUTE_MEM_ALIGN_SIZE 64
-
-/*Will be added where memories needs to be aligned (with -Os data might not be aligned to boundary by default).
- * E.g. __attribute__((aligned(4)))*/
-#define LV_ATTRIBUTE_MEM_ALIGN __attribute__((aligned(LV_ATTRIBUTE_MEM_ALIGN_SIZE)))
 
 #ifndef LV_ATTRIBUTE_LARGE_CONST
 /*Attribute to mark large constant arrays for example font's bitmaps*/
@@ -590,7 +581,7 @@
 #define LV_USE_FS_STDIO 0
 #if LV_USE_FS_STDIO
 /*Set an upper cased letter on which the drive will accessible (e.g. 'A')*/
-#define LV_FS_STDIO_LETTER 'C'
+#define LV_FS_STDIO_LETTER 'F'
 /*Set the working directory. File/directory paths will be appended to it.*/
 #define LV_FS_STDIO_PATH ""
 /*>0 to cache this number of bytes in lv_fs_read()*/
@@ -675,7 +666,7 @@
 #endif    /* LV_USE_FREETYPE */
 
 /*Rlottie library*/
-#define LV_USE_RLOTTIE 0
+#define LV_USE_RLOTTIE 1
 
 /*FFmpeg library for image decoding and playing videos
  *Supports all major image formats so do not enable other image decoder with it*/
@@ -729,8 +720,8 @@
 #define LV_USE_BARCODE 0
 
 #define LV_USE_GUIDER_SIMULATOR 1
+/* Enable the FreeMaster integration */
 #define LV_USE_FREEMASTER 0
-
 #include "lv_conf_ext.h"
 
 #endif
