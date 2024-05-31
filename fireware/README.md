@@ -109,5 +109,3 @@ make -C ports/esp32 LV_CFLAGS="-DLV_COLOR_DEPTH=16 -DLV_COLOR_16_SWAP=1 -DMICROP
 //下载固件
 ports/esp32/build_GENERIC_S3_SPIRAM/fireware.bin
 ```
-## 动画制作
-adobe Illustrator 2024 绘制矢量图后，用 https://app.lottiefiles.com/ 制作关键帧，导出json格式动画
