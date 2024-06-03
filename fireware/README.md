@@ -117,7 +117,20 @@ vim lv_conf.h
 #endif
 
 ```
-### 7.编译
+### 7.修改lvgl组件引用
+```text
+  #修改文件lv_micropython/lib/lv_bindings/lvgl/env_support/cmake/esp.cmake 添加REQUIRES
+  idf_component_register(
+    SRCS
+    ${SOURCES}
+    INCLUDE_DIRS
+    ${LVGL_ROOT_DIR}
+    ${LVGL_ROOT_DIR}/src
+    ${LVGL_ROOT_DIR}/../
+    REQUIRES
+    main rlottie)
+```
+### 8.编译
 ```shell
 make -C ports/esp32 LV_CFLAGS="-DLV_COLOR_DEPTH=16 -DLV_COLOR_16_SWAP=1 -DMICROPY_ENABLE_FINALISER=1" BOARD=GENERIC_S3_SPIRAM
 //下载固件
