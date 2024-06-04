@@ -22,7 +22,7 @@ ui_EmoilScreen_Container1.set_align( lv.ALIGN.CENTER)
 SetFlag(ui_EmoilScreen_Container1, lv.obj.FLAG.CLICKABLE, False)
 SetFlag(ui_EmoilScreen_Container1, lv.obj.FLAG.SCROLLABLE, False)
 
-with open('ui2/assets/e03.json','r') as f:
+with open('ui2/assets/e01.json','r') as f:
     lottie_data=f.read()
 lottie1=lv.rlottie_create_from_raw(ui_EmoilScreen_Container1,120,80,lottie_data)
 lottie1.set_width(lv.SIZE.CONTENT)	# 1
