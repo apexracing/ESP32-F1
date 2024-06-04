@@ -1,8 +1,3 @@
-# This file is executed on every boot (including wake-boot from deepsleep)
-#import esp
-#esp.osdebug(None)
-#import webrepl
-#webrepl.start()
 from common.touch_driver import TouchDriver
 from common.display_driver import DisplayDriver
 import lvgl as lv
@@ -15,7 +10,7 @@ touch_tensor=TouchDriver()
 scr1=FlashScreen()
 #加载Flash启动屏幕后，开启背光
 display.backlight_on()
-
+scr1.load()
 while True:
     lv.task_handler()
     time.sleep_ms(10)

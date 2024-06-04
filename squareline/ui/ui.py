@@ -10,6 +10,10 @@ dispp = lv.disp_get_default()
 theme = lv.theme_default_init(dispp, lv.palette_main(lv.PALETTE.BLUE), lv.palette_main(lv.PALETTE.RED), True, lv.font_default())
 dispp.set_theme(theme)
 
+font_F1R16 = lv.font_load("A:ui_font_F1R16.bin")
+font_F1B26 = lv.font_load("A:ui_font_F1B26.bin")
+font_F1B22 = lv.font_load("A:ui_font_F1B22.bin")
+
 def ui_theme_set(idx):
    return
 
@@ -169,8 +173,111 @@ def SwitchTheme(val):
     ui_theme_set(val)
     return
 
+def Flash_Animation(TargetObject, delay):
+  PropertyAnimation_0 = lv.anim_t()
+  PropertyAnimation_0.init()
+  PropertyAnimation_0.set_path_cb(lv.anim_t.path_ease_in_out)
+  PropertyAnimation_0.set_time(1000)
+  PropertyAnimation_0.set_var(TargetObject)
+  PropertyAnimation_0.set_custom_exec_cb(lambda a, v: TargetObject.set_style_opa(v,0))
+  PropertyAnimation_0.set_delay(delay + 0)
+  PropertyAnimation_0.set_repeat_count(lv.ANIM_REPEAT.INFINITE)
+  PropertyAnimation_0.set_repeat_delay(0) #+ 1000
+  PropertyAnimation_0.set_playback_delay(0)
+  PropertyAnimation_0.set_playback_time(1000)
+  PropertyAnimation_0.set_early_apply(False)
+  PropertyAnimation_0.set_values(255, 100)
+  lv.anim_t.start(PropertyAnimation_0)
+
+  print ("Flash_Animation called")
+  return
+
 # COMPONENTS
 ui____initial_actions0 = lv.obj()
+
+ui_MsgScreen = lv.obj()
+SetFlag(ui_MsgScreen, lv.obj.FLAG.SCROLLABLE, False)
+
+ui_Msg_Label2 = lv.label(ui_MsgScreen)
+ui_Msg_Label2.set_text("SPEED IMPRINT")
+ui_Msg_Label2.set_width(lv.SIZE.CONTENT)	# 1
+ui_Msg_Label2.set_height(lv.SIZE.CONTENT)   # 1
+ui_Msg_Label2.set_x(0)
+ui_Msg_Label2.set_y(lv.pct(15))
+ui_Msg_Label2.set_align( lv.ALIGN.TOP_MID)
+ui_Msg_Label2.set_style_text_font( font_F1R16, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_Msg_Container3 = lv.obj(ui_MsgScreen)
+ui_Msg_Container3.remove_style_all()
+ui_Msg_Container3.set_height(2)
+ui_Msg_Container3.set_width(lv.pct(50))
+ui_Msg_Container3.set_x(0)
+ui_Msg_Container3.set_y(25)
+ui_Msg_Container3.set_align( lv.ALIGN.TOP_MID)
+SetFlag(ui_Msg_Container3, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_Msg_Container3, lv.obj.FLAG.SCROLLABLE, False)
+ui_Msg_Container3.set_style_bg_color(lv.color_hex(0xFF0000), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Msg_Container3.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+
+ui_Msg_Container2 = lv.obj(ui_MsgScreen)
+ui_Msg_Container2.remove_style_all()
+ui_Msg_Container2.set_width(160)
+ui_Msg_Container2.set_height(50)
+ui_Msg_Container2.set_x(0)
+ui_Msg_Container2.set_y(-40)
+ui_Msg_Container2.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_Msg_Container2, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_Msg_Container2, lv.obj.FLAG.SCROLLABLE, False)
+
+ui_Msg_Container5 = lv.obj(ui_MsgScreen)
+ui_Msg_Container5.remove_style_all()
+ui_Msg_Container5.set_width(200)
+ui_Msg_Container5.set_height(lv.SIZE.CONTENT)   # 1
+ui_Msg_Container5.set_x(0)
+ui_Msg_Container5.set_y(10)
+ui_Msg_Container5.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_Msg_Container5, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_Msg_Container5, lv.obj.FLAG.SCROLLABLE, False)
+
+ui_Msg_Container4 = lv.obj(ui_Msg_Container5)
+ui_Msg_Container4.remove_style_all()
+ui_Msg_Container4.set_width(5)
+ui_Msg_Container4.set_height(26)
+ui_Msg_Container4.set_x(15)
+ui_Msg_Container4.set_y(0)
+ui_Msg_Container4.set_align( lv.ALIGN.LEFT_MID)
+SetFlag(ui_Msg_Container4, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_Msg_Container4, lv.obj.FLAG.SCROLLABLE, False)
+ui_Msg_Container4.set_style_bg_color(lv.color_hex(0x00D1BA), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Msg_Container4.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+
+ui_Msg_Label3 = lv.label(ui_Msg_Container5)
+ui_Msg_Label3.set_text("Loading")
+ui_Msg_Label3.set_width(lv.SIZE.CONTENT)	# 1
+ui_Msg_Label3.set_height(lv.SIZE.CONTENT)   # 1
+ui_Msg_Label3.set_x(25)
+ui_Msg_Label3.set_y(0)
+ui_Msg_Label3.set_align( lv.ALIGN.LEFT_MID)
+ui_Msg_Label3.set_style_text_font( font_F1B26, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_MsgScreen_Image3 = lv.img(ui_MsgScreen)
+ui_MsgScreen_Image3.set_src(ui_images.ui_img_loading_person_png)
+ui_MsgScreen_Image3.set_width(lv.SIZE.CONTENT)	# 1
+ui_MsgScreen_Image3.set_height(lv.SIZE.CONTENT)   # 1
+ui_MsgScreen_Image3.set_x(58)
+ui_MsgScreen_Image3.set_y(53)
+ui_MsgScreen_Image3.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_MsgScreen_Image3, lv.obj.FLAG.ADV_HITTEST, True)
+SetFlag(ui_MsgScreen_Image3, lv.obj.FLAG.SCROLLABLE, False)
+
+ui_MsgScreen_Label4 = lv.label(ui_MsgScreen)
+ui_MsgScreen_Label4.set_text("\"\"")
+ui_MsgScreen_Label4.set_width(lv.SIZE.CONTENT)	# 1
+ui_MsgScreen_Label4.set_height(lv.SIZE.CONTENT)   # 1
+ui_MsgScreen_Label4.set_x(-50)
+ui_MsgScreen_Label4.set_y(65)
+ui_MsgScreen_Label4.set_align( lv.ALIGN.CENTER)
+ui_MsgScreen_Label4.set_style_text_font( font_F1R16, lv.PART.MAIN | lv.STATE.DEFAULT )
 
 ui_EmoilScreen = lv.obj()
 SetFlag(ui_EmoilScreen, lv.obj.FLAG.SCROLLABLE, False)
@@ -188,4 +295,24 @@ ui_EmoilScreen_Container1.set_align( lv.ALIGN.CENTER)
 SetFlag(ui_EmoilScreen_Container1, lv.obj.FLAG.CLICKABLE, False)
 SetFlag(ui_EmoilScreen_Container1, lv.obj.FLAG.SCROLLABLE, False)
 
-lv.scr_load(ui_EmoilScreen)
+def Flash_eventhandler(event_struct):
+   event = event_struct.code
+   if event == lv.EVENT.SCREEN_LOADED and True:
+      Flash_Animation(ui_Flash_Label5, 100)
+   return
+
+ui_Flash = lv.obj()
+SetFlag(ui_Flash, lv.obj.FLAG.SCROLLABLE, False)
+
+ui_Flash_Label5 = lv.label(ui_Flash)
+ui_Flash_Label5.set_text("SPEED IMPRINT")
+ui_Flash_Label5.set_width(lv.SIZE.CONTENT)	# 1
+ui_Flash_Label5.set_height(lv.SIZE.CONTENT)   # 1
+ui_Flash_Label5.set_align( lv.ALIGN.CENTER)
+ui_Flash_Label5.set_style_text_color(lv.color_hex(0x80FF00), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Flash_Label5.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Flash_Label5.set_style_text_font( font_F1B22, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_Flash.add_event_cb(Flash_eventhandler, lv.EVENT.ALL, None)
+
+lv.scr_load(ui_MsgScreen)
