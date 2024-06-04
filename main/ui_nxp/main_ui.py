@@ -1,5 +1,5 @@
 import lvgl as lv
-from ui.gui_guider import *
+from ui_nxp.gui_guider import *
 #将NXP GUI_Builder生成的代码粘到这里
 # Create screen
 screen = lv.obj()
@@ -61,7 +61,7 @@ screen_slider_1.set_style_bg_grad_dir(lv.GRAD_DIR.NONE, lv.PART.KNOB|lv.STATE.DE
 screen_slider_1.set_style_radius(50, lv.PART.KNOB|lv.STATE.DEFAULT)
 screen_slider_1.set_size(160, 8)
 
-with open('ui/assets/team.json','r') as f:
+with open('ui_nxp/assets/team.json','r') as f:
     lottie_data=f.read()
 lottie1=lv.rlottie_create_from_raw(screen,160,50,lottie_data)
 lottie1.set_pos(40,65)

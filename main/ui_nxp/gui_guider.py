@@ -10,7 +10,7 @@ import usys as sys
 import lvgl as lv
 import lodepng as png
 import ustruct
-from ui import fs_driver
+from ui_nxp import fs_driver
 
 lv.init()
 fs_drv = lv.fs_drv_t()
