@@ -258,13 +258,13 @@
 					"name": "lottie_1",
 					"id": "nzhkyudp",
 					"type": "lottie",
-					"left": 40,
-					"top": 82,
+					"left": 0,
+					"top": 0,
 					"visible": true,
 					"flag": [],
-					"width": 160,
-					"height": 50,
-					"json_path": "F:\\ESP32\\nxp_gui\\import\\lottie\\team.json",
+					"width": 240,
+					"height": 240,
+					"json_path": "F:\\ESP32\\nxp_gui\\import\\lottie\\emoil.json",
 					"default_style": false,
 					"style": [
 						{
@@ -933,15 +933,15 @@
 						"visible": true,
 						"flag": [],
 						"pos": [
-							40,
-							82
+							0,
+							0
 						],
 						"size": [
-							160,
-							50
+							240,
+							240
 						],
 						"default_style": false,
-						"json_path": "F:\\ESP32\\nxp_gui\\import\\lottie\\team.json",
+						"json_path": "F:\\ESP32\\nxp_gui\\import\\lottie\\emoil.json",
 						"style": [
 							{
 								"part": "LV_PART_MAIN",
