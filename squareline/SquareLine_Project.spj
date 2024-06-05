@@ -15,7 +15,7 @@
               {
                 "nid": -229979642,
                 "strtype": "OBJECT/Name",
-                "strval": "Flash Label2",
+                "strval": "Msg Label2",
                 "InheritedType": 10
               },
               {
@@ -316,7 +316,7 @@
               {
                 "nid": -399114017,
                 "strtype": "OBJECT/Name",
-                "strval": "Flash Container3",
+                "strval": "Msg Container3",
                 "InheritedType": 10
               },
               {
@@ -607,7 +607,7 @@
               {
                 "nid": 396005605,
                 "strtype": "OBJECT/Name",
-                "strval": "Flash Container2",
+                "strval": "Msg Container2",
                 "InheritedType": 10
               },
               {
@@ -883,7 +883,7 @@
                   {
                     "nid": 1968643777,
                     "strtype": "OBJECT/Name",
-                    "strval": "Flash Container4",
+                    "strval": "Msg Container4",
                     "InheritedType": 10
                   },
                   {
@@ -1164,7 +1164,8 @@
                     "InheritedType": 11
                   }
                 ],
-                "saved_objtypeKey": "CONTAINER"
+                "saved_objtypeKey": "CONTAINER",
+                "tree_closed": true
               },
               {
                 "guid": "GUID16622000-117162S6963156",
@@ -1174,7 +1175,7 @@
                   {
                     "nid": 469331994,
                     "strtype": "OBJECT/Name",
-                    "strval": "Flash Label3",
+                    "strval": "Msg Label3",
                     "InheritedType": 10
                   },
                   {
@@ -1474,7 +1475,7 @@
               {
                 "nid": 502991209,
                 "strtype": "OBJECT/Name",
-                "strval": "Flash Container5",
+                "strval": "Msg Container5",
                 "InheritedType": 10
               },
               {
@@ -1745,7 +1746,7 @@
               {
                 "nid": -2138436626,
                 "strtype": "OBJECT/Name",
-                "strval": "FlashScreen Image3",
+                "strval": "MsgScreen Image3",
                 "InheritedType": 10
               },
               {
@@ -2039,7 +2040,7 @@
               {
                 "nid": 482449603,
                 "strtype": "OBJECT/Name",
-                "strval": "FlashScreen Label4",
+                "strval": "MsgScreen Label4",
                 "InheritedType": 10
               },
               {
@@ -3347,6 +3348,17 @@
                     "strval": "DEFAULT",
                     "childs": [
                       {
+                        "nid": -650856144,
+                        "strtype": "_style/Text_Color",
+                        "intarray": [
+                          128,
+                          255,
+                          0,
+                          255
+                        ],
+                        "InheritedType": 7
+                      },
+                      {
                         "nid": -2100862935,
                         "strtype": "_style/Text_Font",
                         "strval": "F1B22",
@@ -3581,6 +3593,83 @@
             "strtype": "SCREEN/Don't export screen",
             "strval": "False",
             "InheritedType": 2
+          },
+          {
+            "disabled": false,
+            "nid": 2121590510,
+            "strtype": "SCREEN/EventHandler",
+            "strval": "SCREEN_LOADED",
+            "childs": [
+              {
+                "nid": 1435044982,
+                "strtype": "_custom/name",
+                "strval": "Event1",
+                "InheritedType": 10
+              },
+              {
+                "nid": 814032682,
+                "strtype": "_custom/condition_C",
+                "strval": "",
+                "InheritedType": 10
+              },
+              {
+                "nid": -602832691,
+                "strtype": "_custom/condition_P",
+                "strval": "",
+                "InheritedType": 10
+              },
+              {
+                "nid": 457327762,
+                "strtype": "_custom/action",
+                "strval": "PLAY ANIMATION",
+                "childs": [
+                  {
+                    "nid": 1322676146,
+                    "strtype": "PLAY ANIMATION/Name",
+                    "strval": "PLAY ANIMATION",
+                    "InheritedType": 10
+                  },
+                  {
+                    "nid": -1872776929,
+                    "strtype": "PLAY ANIMATION/FunctionName",
+                    "strval": "Flash_Animation",
+                    "InheritedType": 10
+                  },
+                  {
+                    "nid": -1308597113,
+                    "strtype": "PLAY ANIMATION/Animation",
+                    "strval": "Flash",
+                    "InheritedType": 8
+                  },
+                  {
+                    "nid": 298053515,
+                    "strtype": "PLAY ANIMATION/Target",
+                    "strval": "GUID8413010-121021S6693156",
+                    "InheritedType": 9
+                  },
+                  {
+                    "nid": 1187877401,
+                    "strtype": "PLAY ANIMATION/Delay",
+                    "integer": 100,
+                    "InheritedType": 6
+                  },
+                  {
+                    "nid": -202120958,
+                    "strtype": "PLAY ANIMATION/Call",
+                    "strval": "<{FunctionName}>(<{Target}>, <{Delay}>)",
+                    "InheritedType": 10
+                  },
+                  {
+                    "nid": -1433117329,
+                    "strtype": "PLAY ANIMATION/CallC",
+                    "strval": "<{FunctionName}>(<{Target}>, <{Delay}>);",
+                    "InheritedType": 10
+                  }
+                ],
+                "InheritedType": 10
+              }
+            ],
+            "InheritedType": 4
           }
         ],
         "saved_objtypeKey": "SCREEN"
@@ -3597,7 +3686,207 @@
     ],
     "saved_objtypeKey": "STARTEVENTS"
   },
-  "animations": [],
+  "animations": [
+    {
+      "propertyAnimations": [
+        {
+          "Path": 3,
+          "KeyFrames": [
+            {
+              "Value": 255,
+              "Time": 0.0,
+              "InheritedType": 1
+            },
+            {
+              "Value": 100,
+              "Time": 1000.0,
+              "InheritedType": 1
+            }
+          ],
+          "TimeReference": 0,
+          "ValueReference": 0,
+          "EarlyApply": false,
+          "ImageSet": "",
+          "PlaybackTime": 1000,
+          "PlaybackDelay": 0,
+          "LoopCount": 0,
+          "LoopDelay": 0,
+          "LoopInfinite": true,
+          "guid": "GUID68106177-121614S206293156",
+          "deepid": 818816763,
+          "locked": false,
+          "properties": [
+            {
+              "nid": 947720386,
+              "strtype": "PROPERTYANIMATION/Name",
+              "strval": "Opacity",
+              "InheritedType": 10
+            },
+            {
+              "nid": 1563134391,
+              "strtype": "PROPERTYANIMATION/VariableName",
+              "strval": "PropertyAnimation_0",
+              "InheritedType": 10
+            },
+            {
+              "nid": -2143401572,
+              "strtype": "PROPERTYANIMATION/PropertyFunction",
+              "strval": "anim_callback_set_opacity",
+              "InheritedType": 10
+            },
+            {
+              "nid": -1598474554,
+              "strtype": "PROPERTYANIMATION/StartValue",
+              "integer": 255,
+              "InheritedType": 6
+            },
+            {
+              "nid": 1749638331,
+              "strtype": "PROPERTYANIMATION/EndValue",
+              "integer": 100,
+              "InheritedType": 6
+            },
+            {
+              "nid": -626731511,
+              "strtype": "PROPERTYANIMATION/AbsoluteReference",
+              "strval": "False",
+              "InheritedType": 2
+            },
+            {
+              "nid": 151358003,
+              "strtype": "PROPERTYANIMATION/Delay",
+              "InheritedType": 6
+            },
+            {
+              "nid": -477331371,
+              "strtype": "PROPERTYANIMATION/Duration",
+              "integer": 1000,
+              "InheritedType": 6
+            },
+            {
+              "nid": -78931670,
+              "strtype": "PROPERTYANIMATION/Path",
+              "strval": "ease_in_out",
+              "InheritedType": 3
+            },
+            {
+              "nid": 1060613305,
+              "strtype": "PROPERTYANIMATION/FullAnimationDuration",
+              "integer": 1000,
+              "InheritedType": 6
+            },
+            {
+              "nid": -928227086,
+              "strtype": "PROPERTYANIMATION/LoopCount",
+              "InheritedType": 6
+            },
+            {
+              "nid": 1468191022,
+              "strtype": "PROPERTYANIMATION/Forward",
+              "strval": "True",
+              "InheritedType": 2
+            },
+            {
+              "nid": 1758210610,
+              "strtype": "PROPERTYANIMATION/Backward",
+              "strval": "False",
+              "InheritedType": 2
+            },
+            {
+              "nid": 22835489,
+              "strtype": "PROPERTYANIMATION/EarlyApply",
+              "strval": "False",
+              "InheritedType": 2
+            },
+            {
+              "nid": 1015000011,
+              "strtype": "PROPERTYANIMATION/PropertyGetter",
+              "strval": "anim_callback_get_opacity",
+              "InheritedType": 10
+            },
+            {
+              "nid": 926467463,
+              "strtype": "PROPERTYANIMATION/LoopDelay",
+              "InheritedType": 6
+            },
+            {
+              "nid": 641817228,
+              "strtype": "PROPERTYANIMATION/PlaybackDelay",
+              "InheritedType": 6
+            },
+            {
+              "nid": -1476815876,
+              "strtype": "PROPERTYANIMATION/PlaybackTime",
+              "integer": 1000,
+              "InheritedType": 6
+            },
+            {
+              "nid": 2003152816,
+              "strtype": "PROPERTYANIMATION/LoopInfinite",
+              "strval": "True",
+              "InheritedType": 2
+            },
+            {
+              "nid": 1762634822,
+              "strtype": "PROPERTYANIMATION/ImageSet",
+              "strval": "",
+              "InheritedType": 14
+            }
+          ],
+          "saved_objtypeKey": "PROPERTYANIMATION",
+          "InheritedType": 1
+        }
+      ],
+      "guid": "GUID47619140-121605S7233156",
+      "deepid": -832114177,
+      "locked": false,
+      "properties": [
+        {
+          "nid": 1313100793,
+          "strtype": "ELOANIMATION/Name",
+          "strval": "Flash",
+          "InheritedType": 10
+        },
+        {
+          "nid": -1872021753,
+          "strtype": "ELOANIMATION/FunctionName",
+          "strval": "Flash_Animation",
+          "InheritedType": 10
+        },
+        {
+          "nid": -1344436967,
+          "strtype": "ELOANIMATION/AnimationTargetObjectType",
+          "strval": "BASIC",
+          "InheritedType": 10
+        },
+        {
+          "nid": 1835854106,
+          "strtype": "ELOANIMATION/PlayType",
+          "strval": "Forward",
+          "InheritedType": 3
+        },
+        {
+          "nid": 307890484,
+          "strtype": "ELOANIMATION/Loop",
+          "strval": "False",
+          "InheritedType": 2
+        },
+        {
+          "nid": -652126840,
+          "strtype": "ELOANIMATION/TestTarget",
+          "strval": "GUID8413010-121021S6693156",
+          "InheritedType": 10
+        },
+        {
+          "nid": 1447093102,
+          "strtype": "ELOANIMATION/TargetTypeFilter",
+          "strval": "",
+          "InheritedType": 10
+        }
+      ],
+      "saved_objtypeKey": "ELOANIMATION"
+    }
+  ],
   "selected_theme": "Default",
   "info": {
     "name": "SquareLine_Project.spj",
@@ -3624,7 +3913,7 @@
     "theme_color2": 0,
     "uiExportFolderPath": "F:\\ESP32\\squareline\\ui",
     "projectExportFolderPath": "",
-    "backup_cnt": 199,
+    "backup_cnt": 211,
     "autosave_cnt": 0,
     "lvgl_version": "8.3.11",
     "callfuncsexport": "PY_FILE",

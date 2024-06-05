@@ -78,7 +78,7 @@ class Screen:
         if id == 'Value': target.set_value(val, lv.ANIM.OFF)
         return
 
-    def ChangeScreen(self,src, fademode, speed, delay):
+    def ChangeScreen(self,src, fademode=lv.SCR_LOAD_ANIM.FADE_ON, speed=100, delay=0):
         lv.scr_load_anim(src, fademode, speed, delay, False)
         return
 

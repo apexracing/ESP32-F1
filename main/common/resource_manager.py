@@ -1,19 +1,18 @@
 import lvgl as lv
 from common import fs_driver
-import lodepng
+from imagetools import get_png_info, open_png
+import usys as sys
 
-
+def singleton(cls):
+    instance = None
+    def getinstance(*args, **kwargs):
+        nonlocal instance
+        if instance is None:
+            instance = cls(*args, **kwargs)
+        return instance
+    return getinstance
+@singleton
 class ResourceManager:
-    _instance=None
-    def __new__(cls, *args, **kwargs):
-        """
-        单例资源管理器，可直接new ResouceManger,引用同一个实例
-        :param args:
-        :param kwargs:
-        """
-        if not cls._instance:
-            cls._instance=super(ResourceManager,cls).__new__(cls)
-        return cls._instance
     def __init__(self):
         self.global_image_cache = {}
         self.global_font_cache = {}
@@ -22,13 +21,9 @@ class ResourceManager:
         fs_drv = lv.fs_drv_t()
         fs_driver.fs_register(fs_drv, 'Z')
         print("初始化文件系统Z:盘")
-
-    @staticmethod
-    def __load_png(filepath):
-        with open(filepath, "rb") as f:
-            png_data = f.read()
-            info, data = lodepng.decode(png_data)
-        return info, data
+        decoder = lv.img.decoder_create()
+        decoder.info_cb = get_png_info
+        decoder.open_cb = open_png
 
     def load_raw(self,file):
         """
@@ -37,8 +32,10 @@ class ResourceManager:
         :return:
         """
         if file in self.global_raw_cache:
+            print("hit file from cache->%s" % (file))
             return self.global_raw_cache[file]
         with open(file, 'r') as f:
+            print("loading file->%s" % (file))
             raw_data = f.read()
         return raw_data
 
@@ -50,7 +47,12 @@ class ResourceManager:
         """
         if file in self.global_image_cache:
             return self.global_image_cache[file]
-        info, data = self.__load_png(file)
+        try:
+            with open(file, 'rb') as f:
+                data = f.read()
+        except:
+            print(f'Could not open {file}')
+            sys.exit()
         img = lv.img_dsc_t({
             'data_size': len(data),
             'data': data
