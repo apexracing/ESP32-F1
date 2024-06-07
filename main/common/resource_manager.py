@@ -37,6 +37,7 @@ class ResourceManager:
         with open(file, 'r') as f:
             print("loading file->%s" % (file))
             raw_data = f.read()
+            self.global_raw_cache[file]=raw_data
         return raw_data
 
     def load_img(self, file):
@@ -88,6 +89,7 @@ class ResourceManager:
                 try:
                     load_font = lv.font_load(f"Z:ui/fonts/ui_font_{family}{size}.bin")
                     self.global_font_cache[font_family + str(font_size)] = load_font
+                    print(f'loading font->ui_font_{family}{size}.bin')
                     return load_font
                 except:
                     if family == font_family and size == font_size:

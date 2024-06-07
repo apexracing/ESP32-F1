@@ -1,5 +1,6 @@
 from ui.screen import Screen
 import lvgl as lv
+import uasyncio
 
 class FlashScreen(Screen):
     def __init__(self):
@@ -9,7 +10,6 @@ class FlashScreen(Screen):
         self.ui_Flash_Label5.set_width(lv.SIZE.CONTENT)  # 1
         self.ui_Flash_Label5.set_height(lv.SIZE.CONTENT)  # 1
         self.ui_Flash_Label5.set_align(lv.ALIGN.CENTER)
-        self.ui_Flash_Label5.set_style_text_color(lv.color_hex(0x80FF00), lv.PART.MAIN | lv.STATE.DEFAULT)
         self.ui_Flash_Label5.set_style_text_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
         self.ui_Flash_Label5.set_style_text_font(self.resourceManager.load_font("F1B",22), lv.PART.MAIN | lv.STATE.DEFAULT)
         self.screen.add_event_cb(self.Flash_eventhandler, lv.EVENT.ALL, None)
@@ -37,3 +37,10 @@ class FlashScreen(Screen):
         print("Flash_Animation called")
         return True
 
+    async def loadResouces(self):
+        await uasyncio.sleep(5)
+        self.resourceManager.load_raw('ui/assets/e01.json')
+        self.resourceManager.load_font("F1R", 14)
+        self.resourceManager.load_font("F1R", 16)
+        for i in range(16, 28, 2):
+            self.resourceManager.load_font("F1B", i)

@@ -23,11 +23,3 @@ class F1BoyScreen(Screen):
         lottie1.set_width(lv.SIZE.CONTENT)  # 1
         lottie1.set_height(lv.SIZE.CONTENT)  # 1
         lottie1.set_align(lv.ALIGN.CENTER)
-
-        async def loadResouces(self):
-            self.resourceManager.load_raw('ui/assets/e01.json')
-            self.resourceManager.load_raw('ui/assets/Helmet_RedBull.png')
-            self.resourceManager.load_font("F1R", 14)
-            self.resourceManager.load_font("F1R", 16)
-            for i in range(16, 28, 2):
-                self.resourceManager.load_font("F1B", i)

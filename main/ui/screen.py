@@ -14,9 +14,18 @@ class Screen:
         self.screen=lv.obj()
         self.resourceManager=ResourceManager()
         self.SetFlag(self.screen, lv.obj.FLAG.SCROLLABLE, False)
-    def load(self):
+    def src_load(self):
         lv.scr_load(self.screen)
+    def src_load_anim(self, fademode=lv.SCR_LOAD_ANIM.OVER_TOP,auto_del=False, speed=100, delay=0):
+        '''
 
+        :param fademode: FADE_IN,FADE_OUT,MOVE_TOP
+        :param speed:
+        :param delay:
+        :return:
+        '''
+        lv.scr_load_anim(self.screen, fademode, speed, delay, auto_del)
+        return
     def SetFlag(self,obj, flag, value):
         if (value):
             obj.add_flag(flag)
@@ -78,9 +87,7 @@ class Screen:
         if id == 'Value': target.set_value(val, lv.ANIM.OFF)
         return
 
-    def ChangeScreen(self,src, fademode=lv.SCR_LOAD_ANIM.FADE_ON, speed=100, delay=0):
-        lv.scr_load_anim(src, fademode, speed, delay, False)
-        return
+
 
     def DeleteScreen(self,src):
         return

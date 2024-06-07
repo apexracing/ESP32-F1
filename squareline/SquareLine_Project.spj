@@ -3348,17 +3348,6 @@
                     "strval": "DEFAULT",
                     "childs": [
                       {
-                        "nid": -650856144,
-                        "strtype": "_style/Text_Color",
-                        "intarray": [
-                          128,
-                          255,
-                          0,
-                          255
-                        ],
-                        "InheritedType": 7
-                      },
-                      {
                         "nid": -2100862935,
                         "strtype": "_style/Text_Font",
                         "strval": "F1B22",
@@ -3620,6 +3609,7 @@
               },
               {
                 "nid": 457327762,
+                "flags": 1048576,
                 "strtype": "_custom/action",
                 "strval": "PLAY ANIMATION",
                 "childs": [
@@ -3690,7 +3680,7 @@
     {
       "propertyAnimations": [
         {
-          "Path": 3,
+          "Path": 2,
           "KeyFrames": [
             {
               "Value": 255,
@@ -3749,7 +3739,7 @@
             {
               "nid": -626731511,
               "strtype": "PROPERTYANIMATION/AbsoluteReference",
-              "strval": "False",
+              "strval": "True",
               "InheritedType": 2
             },
             {
@@ -3766,7 +3756,7 @@
             {
               "nid": -78931670,
               "strtype": "PROPERTYANIMATION/Path",
-              "strval": "ease_in_out",
+              "strval": "ease_out",
               "InheritedType": 3
             },
             {
@@ -3913,7 +3903,7 @@
     "theme_color2": 0,
     "uiExportFolderPath": "F:\\ESP32\\squareline\\ui",
     "projectExportFolderPath": "",
-    "backup_cnt": 211,
+    "backup_cnt": 625,
     "autosave_cnt": 0,
     "lvgl_version": "8.3.11",
     "callfuncsexport": "PY_FILE",
