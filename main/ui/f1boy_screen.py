@@ -1,6 +1,7 @@
 from ui.screen import Screen
 import lvgl as lv
 from ui.assets import ui_images
+from ui.emoil import Emoil
 class F1BoyScreen(Screen):
     def __init__(self):
         super().__init__()
@@ -16,27 +17,25 @@ class F1BoyScreen(Screen):
         self.SetFlag(ui_EmoilScreen_Container2, lv.obj.FLAG.CLICKABLE, False)
         self.SetFlag(ui_EmoilScreen_Container2, lv.obj.FLAG.SCROLLABLE, False)
 
-        ui_EmoilScreen_Container1 = lv.obj(ui_EmoilScreen_Container2)
-        ui_EmoilScreen_Container1.remove_style_all()
-        ui_EmoilScreen_Container1.set_width(120)
-        ui_EmoilScreen_Container1.set_height(80)
-        ui_EmoilScreen_Container1.set_x(0)
-        ui_EmoilScreen_Container1.set_y(20)
-        ui_EmoilScreen_Container1.set_align(lv.ALIGN.CENTER)
-        self.SetFlag(ui_EmoilScreen_Container1, lv.obj.FLAG.CLICKABLE, False)
-        self.SetFlag(ui_EmoilScreen_Container1, lv.obj.FLAG.SCROLLABLE, False)
-        lottie_data = self.resourceManager.load_raw('ui/assets/e01.json')
-        lottie1 = lv.rlottie_create_from_raw(ui_EmoilScreen_Container1, 150, 80, lottie_data)
-        lottie1.set_width(lv.SIZE.CONTENT)  # 1
-        lottie1.set_height(lv.SIZE.CONTENT)  # 1
-        lottie1.set_align(lv.ALIGN.CENTER)
-        ui_EmoilScreen_Container1.add_event_cb(self.EmoilScreen_Container2_eventhandler, lv.EVENT.ALL, None)
+        self.ui_EmoilScreen_Container1 = lv.obj(ui_EmoilScreen_Container2)
+        self.ui_EmoilScreen_Container1.remove_style_all()
+        self.ui_EmoilScreen_Container1.set_width(120)
+        self.ui_EmoilScreen_Container1.set_height(80)
+        self.ui_EmoilScreen_Container1.set_x(0)
+        self.ui_EmoilScreen_Container1.set_y(20)
+        self.ui_EmoilScreen_Container1.set_align(lv.ALIGN.CENTER)
+        self.SetFlag(self.ui_EmoilScreen_Container1, lv.obj.FLAG.CLICKABLE, False)
+        self.SetFlag(self.ui_EmoilScreen_Container1, lv.obj.FLAG.SCROLLABLE, False)
+        self.last_emoil=Emoil(self.ui_EmoilScreen_Container1, 'ui/assets/e01.json')
+        self.screen.add_event_cb(self.EmoilScreen_Container2_eventhandler, lv.EVENT.ALL, None)
 
     def EmoilScreen_Container2_eventhandler(self,event_struct):
         event = event_struct.code
-        if event == lv.EVENT.RELEASED and True:
+        if event == lv.EVENT.RELEASED:
             self.play_emoil(event_struct)
         return
 
     def play_emoil(self,event_struct):
-        print("hello")
+        self.ui_EmoilScreen_Container1.clean()
+        self.last_emoil=Emoil(self.ui_EmoilScreen_Container1,'ui/assets/e02.json',False,self.last_emoil)
+
