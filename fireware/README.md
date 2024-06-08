@@ -103,7 +103,7 @@ target_link_libraries(${COMPONENT_LIB} INTERFACE rlottie)
 rlottie/CMakeList.txt
 rlottie/src/vector/vimageloader.cpp
 ````
-### 6.修改lv_conf.h头文件
+### 6.修改lv_conf.h头文件,支持矢量动画播放
 ````shell
 cd lv_micropython/lib/lv_bindings
 vim lv_conf.h
@@ -131,7 +131,9 @@ vim lv_conf.h
     REQUIRES
     main rlottie)
 ```
-### 8.编译
+### 8.修改了lv_rlottie支持从整个文件中控制帧播放范围
+[lv_rlottie.c](./lv_rlottie.c),[lv_rlottie.h](./lv_rlottie.h) 这个可以根据个人需求选择是否修改源文件
+### 9.编译
 ```shell
 make -C ports/esp32 LV_CFLAGS="-DLV_COLOR_DEPTH=16 -DLV_COLOR_16_SWAP=1 -DMICROPY_ENABLE_FINALISER=1" BOARD=GENERIC_S3_SPIRAM
 //下载固件

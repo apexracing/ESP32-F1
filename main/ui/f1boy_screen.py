@@ -30,13 +30,13 @@ class F1BoyScreen(Screen):
         lottie1.set_width(lv.SIZE.CONTENT)  # 1
         lottie1.set_height(lv.SIZE.CONTENT)  # 1
         lottie1.set_align(lv.ALIGN.CENTER)
-        ui_EmoilScreen_Container2.add_event_cb(self.EmoilScreen_Container2_eventhandler, lv.EVENT.ALL, None)
+        ui_EmoilScreen_Container1.add_event_cb(self.EmoilScreen_Container2_eventhandler, lv.EVENT.ALL, None)
 
-        def EmoilScreen_Container2_eventhandler(self,event_struct):
-            event = event_struct.code
-            if event == lv.EVENT.RELEASED and True:
-                self.play_emoil(event_struct)
-            return
+    def EmoilScreen_Container2_eventhandler(self,event_struct):
+        event = event_struct.code
+        if event == lv.EVENT.RELEASED and True:
+            self.play_emoil(event_struct)
+        return
 
-        def play_emoil(self,event_struct):
-            pass
+    def play_emoil(self,event_struct):
+        print("hello")
