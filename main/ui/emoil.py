@@ -12,51 +12,27 @@ class Emoil:
         :param last_emoil 如果不为None,从一个表情过渡到另一个表情时，需要等侍上一个表情播完后，播放当前表情
     '''
 
-    def __init__(self, lv_obj, raw_file,width=150,height=80, skip_trans=True, last_emoil=None):
+    def __init__(self, lv_obj, raw_file,width=150,height=80):
         self.parent = lv_obj
         self.width=width
         self.height=height
-        self.last_emoil = last_emoil
-        self.skip_trans = skip_trans
         self.resourceManager = ResourceManager()
-        self.raw_file=raw_file
+        self._raw_file=raw_file
+        self.lottie_data = self.resourceManager.load_raw(self._raw_file)
+        self._lottie=None
+        self.play() 
 
-        lottie_data = self.resourceManager.load_raw(raw_file)
-        if skip_trans:
-            self.play_main()
-        else:
-            if last_emoil is None:
-                self.play_head()
-            else:
-                self.last_emoil.lottie.add_event_cb(self.lottie_eventhandler, lv.EVENT.ALL, None)
-
-    def lottie_eventhandler(self, event_struct):
-        event = event_struct.code
-        target = event_struct.target
-        if event == lv.EVENT.READY and target == self.lottie:
-            self.play_main()
-        if event == lv.EVENT.READY and target == self.last_emoil.lottie:
-            self.play_head()
-        return
-
-    def play_head(self):
+    def play(self):
         self.parent.clean()
-        self.lottie = lv.rlottie_create_from_raw_range(self.parent, self.width, self.height, self.raw_file, 0, 5)
-        lv.rlottie_set_play_mode(self.lottie, lv.RLOTTIE_CTRL.PLAY)
-        self.lottie.set_width(lv.SIZE.CONTENT)  # 1
-        self.lottie.set_height(lv.SIZE.CONTENT)  # 1
-        self.lottie.set_align(lv.ALIGN.CENTER)
-        self.lottie.add_event_cb(self.lottie_eventhandler, lv.EVENT.ALL, None)
-
-    def play_main(self):
-        self.parent.clean()
-        lottie_data = self.resourceManager.load_raw(self.raw_file)
-        self.lottie = lv.rlottie_create_from_raw_range(self.parent, self.width, self.height, self.raw_file, 5,0)
-        lv.rlottie_set_play_mode(self.lottie, lv.RLOTTIE_CTRL.LOOP)
-        self.lottie.set_width(lv.SIZE.CONTENT)  # 1
-        self.lottie.set_height(lv.SIZE.CONTENT)  # 1
-        self.lottie.set_align(lv.ALIGN.CENTER)
+        self._lottie = lv.rlottie_create_from_raw(self.parent, self.width, self.height,self.lottie_data)
+        lv.rlottie_set_play_mode(self._lottie, lv.RLOTTIE_CTRL.LOOP)
+        self._lottie.set_width(lv.SIZE.CONTENT)  # 1
+        self._lottie.set_height(lv.SIZE.CONTENT)  # 1
+        self._lottie.set_align(lv.ALIGN.CENTER)
 
     @property
-    def value(self):
-        return self.lottie
+    def lottie(self):
+        return self._lottie
+    @property
+    def raw_file(self):
+        return self._raw_file

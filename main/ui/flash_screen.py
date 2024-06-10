@@ -38,8 +38,9 @@ class FlashScreen(Screen):
         return True
 
     async def loadResouces(self):
-        await uasyncio.sleep(5)
-        self.resourceManager.load_raw('ui/assets/e01.json')
+        await uasyncio.sleep(3)
+        for i in range(1,10):
+            self.resourceManager.load_raw(f'ui/assets/e{i:02}.json')
         self.resourceManager.load_font("F1R", 14)
         self.resourceManager.load_font("F1R", 16)
         for i in range(16, 28, 2):

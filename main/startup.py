@@ -10,13 +10,14 @@ from common.resource_manager import ResourceManager
 lv.init()
 print("LVGL VERSION:%d.%d.%d"%(lv.version_major(),lv.version_minor(),lv.version_patch()))
 display=DisplayDriver()
-touch_tensor=TouchDriver()
 #开机动画
 scr1=FlashScreen()
 scr1.src_load()
 #加载Flash启动屏幕后，开启背光
 display.backlight_on()
 uasyncio.run(scr1.loadResouces())
+touch_tensor=TouchDriver()
 scr2=F1BoyScreen()
-scr2.src_load_anim(fademode=lv.SCR_LOAD_ANIM.MOVE_TOP,speed=200)
+scr2.src_load_anim(fademode=lv.SCR_LOAD_ANIM.MOVE_TOP,speed=250)
+print("协程任务框架循环开始")
 
