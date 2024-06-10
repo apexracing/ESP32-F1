@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_图层_1" data-name="图层 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 289.33 278.33">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        stroke-width: 0px;
+      }
+    </style>
+  </defs>
+  <g id="_表情-正常" data-name="表情-正常">
+    <rect class="cls-1" x="100.45" y="108.91" width="19" height="40" rx="1.49" ry="1.49"/>
+    <rect class="cls-1" x="166.92" y="108.91" width="19" height="40" rx="1.49" ry="1.49"/>
+  </g>
+</svg>
