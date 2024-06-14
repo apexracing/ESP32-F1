@@ -11,7 +11,6 @@
 >- 上传项目代码[main](./main)里的所有目录及文件到ESP32设备上，运行test.py文件测试
 ### UI开发
 使用两种不同编辑器示例代码
->- SquareLine Studio打开[UI2项目](./squareline)
->- 用GUI Guider打开[UI1项目](./nxp_gui)即可进行UI编辑
+>- SquareLine Studio打开[squareline项目](./squareline)
 ### 动画制作
 >adobe Illustrator 2024 绘制矢量图后，用 https://app.lottiefiles.com/ 制作关键帧，导出json格式动画
