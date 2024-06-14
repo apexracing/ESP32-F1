@@ -205,6 +205,8 @@ def Flash_Animation(TargetObject, delay):
 # COMPONENTS
 
 # COMPONENTS
+
+# COMPONENTS
 ui____initial_actions0 = lv.obj()
 
 ui_MsgScreen = lv.obj()
