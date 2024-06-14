@@ -1,0 +1,16 @@
+{
+  "codename": "F1B22",
+  "ttf_path": "/assets/Formula1-Bold.otf",
+  "bin_path": "/assets\\ui_font_F1B22.bin",
+  "c_path": "/assets\\ui_font_F1B22.c",
+  "cfg_path": "/assets\\ui_font_F1B22.fcfg",
+  "size": 22,
+  "bpp": 1,
+  "letters": 0,
+  "ranges": [
+    "0x20-0x7f"
+  ],
+  "symbols": "",
+  "customparams": "--no-compress --no-prefilter",
+  "uploaded": false
+}
