@@ -1,1 +1,0 @@
-GEN_CSRCS += lottie_team.c

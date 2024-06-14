@@ -5,15 +5,24 @@
 
 import lvgl as lv
 import ui_images
-import ui_events
 
 dispp = lv.disp_get_default()
 theme = lv.theme_default_init(dispp, lv.palette_main(lv.PALETTE.BLUE), lv.palette_main(lv.PALETTE.RED), True, lv.font_default())
 dispp.set_theme(theme)
 
-font_F1R16 = lv.font_load("A:ui_font_F1R16.bin")
-font_F1B26 = lv.font_load("A:ui_font_F1B26.bin")
+font_F1R14 = lv.font_load("A:ui_font_F1R14.bin")
+font_F1R10 = lv.font_load("A:ui_font_F1R10.bin")
+font_F1B18 = lv.font_load("A:ui_font_F1B18.bin")
 font_F1B22 = lv.font_load("A:ui_font_F1B22.bin")
+font_DISPLAYB14 = lv.font_load("A:ui_font_DISPLAYB14.bin")
+font_DISPLAYM10 = lv.font_load("A:ui_font_DISPLAYM10.bin")
+font_F1R12 = lv.font_load("A:ui_font_F1R12.bin")
+font_DISPLAYR60 = lv.font_load("A:ui_font_DISPLAYR60.bin")
+font_DISPLAYM14 = lv.font_load("A:ui_font_DISPLAYM14.bin")
+font_DISPLAYR30 = lv.font_load("A:ui_font_DISPLAYR30.bin")
+font_DISPLAYB80 = lv.font_load("A:ui_font_DISPLAYB80.bin")
+font_DISPLAYM24 = lv.font_load("A:ui_font_DISPLAYM24.bin")
+font_DISPLAYM18 = lv.font_load("A:ui_font_DISPLAYM18.bin")
 
 def ui_theme_set(idx):
    return
@@ -194,142 +203,510 @@ def Flash_Animation(TargetObject, delay):
   return
 
 # COMPONENTS
-
-# COMPONENTS
 ui____initial_actions0 = lv.obj()
 
 ui_MsgScreen = lv.obj()
 SetFlag(ui_MsgScreen, lv.obj.FLAG.SCROLLABLE, False)
+ui_MsgScreen.set_style_bg_color(lv.color_hex(0x000000), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_MsgScreen.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
 
-ui_Msg_Label2 = lv.label(ui_MsgScreen)
-ui_Msg_Label2.set_text("SPEED IMPRINT")
-ui_Msg_Label2.set_width(lv.SIZE.CONTENT)	# 1
-ui_Msg_Label2.set_height(lv.SIZE.CONTENT)   # 1
-ui_Msg_Label2.set_x(0)
-ui_Msg_Label2.set_y(lv.pct(15))
-ui_Msg_Label2.set_align( lv.ALIGN.TOP_MID)
-ui_Msg_Label2.set_style_text_font( font_F1R16, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Team_Label = lv.label(ui_MsgScreen)
+ui_Team_Label.set_text("Mercedes")
+ui_Team_Label.set_width(lv.SIZE.CONTENT)	# 1
+ui_Team_Label.set_height(lv.SIZE.CONTENT)   # 1
+ui_Team_Label.set_x(-1)
+ui_Team_Label.set_y(lv.pct(12))
+ui_Team_Label.set_align( lv.ALIGN.TOP_MID)
+ui_Team_Label.set_style_text_font( font_F1R14, lv.PART.MAIN | lv.STATE.DEFAULT )
 
-ui_Msg_Container3 = lv.obj(ui_MsgScreen)
-ui_Msg_Container3.remove_style_all()
-ui_Msg_Container3.set_height(2)
-ui_Msg_Container3.set_width(lv.pct(50))
-ui_Msg_Container3.set_x(0)
-ui_Msg_Container3.set_y(25)
-ui_Msg_Container3.set_align( lv.ALIGN.TOP_MID)
-SetFlag(ui_Msg_Container3, lv.obj.FLAG.CLICKABLE, False)
-SetFlag(ui_Msg_Container3, lv.obj.FLAG.SCROLLABLE, False)
-ui_Msg_Container3.set_style_bg_color(lv.color_hex(0xFF0000), lv.PART.MAIN | lv.STATE.DEFAULT )
-ui_Msg_Container3.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Team_Color_Container = lv.obj(ui_MsgScreen)
+ui_Team_Color_Container.remove_style_all()
+ui_Team_Color_Container.set_width(105)
+ui_Team_Color_Container.set_height(3)
+ui_Team_Color_Container.set_x(67)
+ui_Team_Color_Container.set_y(19)
+SetFlag(ui_Team_Color_Container, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_Team_Color_Container, lv.obj.FLAG.SCROLLABLE, False)
+ui_Team_Color_Container.set_style_bg_color(lv.color_hex(0xFF0000), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Team_Color_Container.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
 
-ui_Msg_Container2 = lv.obj(ui_MsgScreen)
-ui_Msg_Container2.remove_style_all()
-ui_Msg_Container2.set_width(160)
-ui_Msg_Container2.set_height(50)
-ui_Msg_Container2.set_x(0)
-ui_Msg_Container2.set_y(-40)
-ui_Msg_Container2.set_align( lv.ALIGN.CENTER)
-SetFlag(ui_Msg_Container2, lv.obj.FLAG.CLICKABLE, False)
-SetFlag(ui_Msg_Container2, lv.obj.FLAG.SCROLLABLE, False)
+ui_wave_Container = lv.obj(ui_MsgScreen)
+ui_wave_Container.remove_style_all()
+ui_wave_Container.set_width(178)
+ui_wave_Container.set_height(44)
+ui_wave_Container.set_x(0)
+ui_wave_Container.set_y(-50)
+ui_wave_Container.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_wave_Container, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_wave_Container, lv.obj.FLAG.SCROLLABLE, False)
 
-ui_Msg_Container5 = lv.obj(ui_MsgScreen)
-ui_Msg_Container5.remove_style_all()
-ui_Msg_Container5.set_width(200)
-ui_Msg_Container5.set_height(lv.SIZE.CONTENT)   # 1
-ui_Msg_Container5.set_x(0)
-ui_Msg_Container5.set_y(10)
-ui_Msg_Container5.set_align( lv.ALIGN.CENTER)
-SetFlag(ui_Msg_Container5, lv.obj.FLAG.CLICKABLE, False)
-SetFlag(ui_Msg_Container5, lv.obj.FLAG.SCROLLABLE, False)
+ui_Msg_Container = lv.obj(ui_MsgScreen)
+ui_Msg_Container.remove_style_all()
+ui_Msg_Container.set_width(193)
+ui_Msg_Container.set_height(163)
+ui_Msg_Container.set_x(32)
+ui_Msg_Container.set_y(48)
+SetFlag(ui_Msg_Container, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_Msg_Container, lv.obj.FLAG.SCROLLABLE, False)
 
-ui_Msg_Container4 = lv.obj(ui_Msg_Container5)
-ui_Msg_Container4.remove_style_all()
-ui_Msg_Container4.set_width(5)
-ui_Msg_Container4.set_height(26)
-ui_Msg_Container4.set_x(15)
-ui_Msg_Container4.set_y(0)
-ui_Msg_Container4.set_align( lv.ALIGN.LEFT_MID)
-SetFlag(ui_Msg_Container4, lv.obj.FLAG.CLICKABLE, False)
-SetFlag(ui_Msg_Container4, lv.obj.FLAG.SCROLLABLE, False)
-ui_Msg_Container4.set_style_bg_color(lv.color_hex(0x00D1BA), lv.PART.MAIN | lv.STATE.DEFAULT )
-ui_Msg_Container4.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Team_Color_Container2 = lv.obj(ui_Msg_Container)
+ui_Team_Color_Container2.remove_style_all()
+ui_Team_Color_Container2.set_width(5)
+ui_Team_Color_Container2.set_height(25)
+ui_Team_Color_Container2.set_x(7)
+ui_Team_Color_Container2.set_y(54)
+SetFlag(ui_Team_Color_Container2, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_Team_Color_Container2, lv.obj.FLAG.SCROLLABLE, False)
+ui_Team_Color_Container2.set_style_bg_color(lv.color_hex(0x00CCB7), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Team_Color_Container2.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Team_Color_Container2.set_style_shadow_color(lv.color_hex(0x00CCB7), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Team_Color_Container2.set_style_shadow_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Team_Color_Container2.set_style_shadow_width( 3, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Team_Color_Container2.set_style_shadow_spread( 0, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Team_Color_Container2.set_style_shadow_ofs_x( 0, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Team_Color_Container2.set_style_shadow_ofs_y( 0, lv.PART.MAIN | lv.STATE.DEFAULT )
 
-ui_Msg_Label3 = lv.label(ui_Msg_Container5)
-ui_Msg_Label3.set_text("Loading")
-ui_Msg_Label3.set_width(lv.SIZE.CONTENT)	# 1
-ui_Msg_Label3.set_height(lv.SIZE.CONTENT)   # 1
-ui_Msg_Label3.set_x(25)
-ui_Msg_Label3.set_y(0)
-ui_Msg_Label3.set_align( lv.ALIGN.LEFT_MID)
-ui_Msg_Label3.set_style_text_font( font_F1B26, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Customer_Person = lv.img(ui_Msg_Container)
+ui_Customer_Person.set_src(ui_images.ui_img_loading_person_png)
+ui_Customer_Person.set_width(lv.SIZE.CONTENT)	# 1
+ui_Customer_Person.set_height(lv.SIZE.CONTENT)   # 1
+ui_Customer_Person.set_x(63)
+ui_Customer_Person.set_y(42)
+ui_Customer_Person.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_Customer_Person, lv.obj.FLAG.ADV_HITTEST, True)
+SetFlag(ui_Customer_Person, lv.obj.FLAG.SCROLLABLE, False)
+ui_Customer_Person.set_zoom(235)
 
-ui_MsgScreen_Image3 = lv.img(ui_MsgScreen)
-ui_MsgScreen_Image3.set_src(ui_images.ui_img_loading_person_png)
-ui_MsgScreen_Image3.set_width(lv.SIZE.CONTENT)	# 1
-ui_MsgScreen_Image3.set_height(lv.SIZE.CONTENT)   # 1
-ui_MsgScreen_Image3.set_x(58)
-ui_MsgScreen_Image3.set_y(53)
-ui_MsgScreen_Image3.set_align( lv.ALIGN.CENTER)
-SetFlag(ui_MsgScreen_Image3, lv.obj.FLAG.ADV_HITTEST, True)
-SetFlag(ui_MsgScreen_Image3, lv.obj.FLAG.SCROLLABLE, False)
+ui_Msg_Label = lv.label(ui_Msg_Container)
+ui_Msg_Label.set_text("\"I CAN'T BELIEVE YOU GUYS *** *** ME. CAN'T TELL YOU HOW **** *I AM\"")
+ui_Msg_Label.set_width(134)
+ui_Msg_Label.set_height(54)
+ui_Msg_Label.set_x(7)
+ui_Msg_Label.set_y(93)
+ui_Msg_Label.set_style_text_color(lv.color_hex(0x00CCB7), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Msg_Label.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Msg_Label.set_style_text_letter_space( 0, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Msg_Label.set_style_text_line_space( 3, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Msg_Label.set_style_text_align( lv.TEXT_ALIGN.LEFT, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Msg_Label.set_style_text_font( font_F1R10, lv.PART.MAIN | lv.STATE.DEFAULT )
 
-ui_MsgScreen_Label4 = lv.label(ui_MsgScreen)
-ui_MsgScreen_Label4.set_text("\"\"")
-ui_MsgScreen_Label4.set_width(lv.SIZE.CONTENT)	# 1
-ui_MsgScreen_Label4.set_height(lv.SIZE.CONTENT)   # 1
-ui_MsgScreen_Label4.set_x(-50)
-ui_MsgScreen_Label4.set_y(65)
-ui_MsgScreen_Label4.set_align( lv.ALIGN.CENTER)
-ui_MsgScreen_Label4.set_style_text_font( font_F1R16, lv.PART.MAIN | lv.STATE.DEFAULT )
-
-def EmoilScreen_Container2_eventhandler(event_struct):
-   event = event_struct.code
-   if event == lv.EVENT.RELEASED and True:
-      play_emoil( event_struct )
-   return
+ui_Driver_Label = lv.label(ui_Msg_Container)
+ui_Driver_Label.set_text("HAM")
+ui_Driver_Label.set_width(lv.SIZE.CONTENT)	# 1
+ui_Driver_Label.set_height(lv.SIZE.CONTENT)   # 1
+ui_Driver_Label.set_x(20)
+ui_Driver_Label.set_y(57)
+ui_Driver_Label.set_style_text_font( font_F1B18, lv.PART.MAIN | lv.STATE.DEFAULT )
 
 ui_EmoilScreen = lv.obj()
 SetFlag(ui_EmoilScreen, lv.obj.FLAG.SCROLLABLE, False)
-ui_EmoilScreen.set_style_bg_color(lv.color_hex(0x0084CD), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_EmoilScreen.set_style_bg_color(lv.color_hex(0x0A00A9), lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_EmoilScreen.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
-ui_EmoilScreen.set_style_bg_img_src( ui_images.ui_img_helmet_redbull_png, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_EmoilScreen.set_style_bg_grad_color(lv.color_hex(0x000000), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_EmoilScreen.set_style_bg_main_stop( 0, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_EmoilScreen.set_style_bg_grad_stop( 255, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_EmoilScreen.set_style_bg_grad_dir( lv.GRAD_DIR.VER, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_EmoilScreen.set_style_bg_img_src( ui_images.ui_img_grid_png, lv.PART.MAIN | lv.STATE.DEFAULT )
 
-ui_EmoilScreen_Container2 = lv.obj(ui_EmoilScreen)
-ui_EmoilScreen_Container2.remove_style_all()
-ui_EmoilScreen_Container2.set_width(lv.pct(100))
-ui_EmoilScreen_Container2.set_height(lv.pct(100))
-ui_EmoilScreen_Container2.set_align( lv.ALIGN.CENTER)
-SetFlag(ui_EmoilScreen_Container2, lv.obj.FLAG.CLICKABLE, False)
-SetFlag(ui_EmoilScreen_Container2, lv.obj.FLAG.SCROLLABLE, False)
+ui_EmoilScreen_Image1 = lv.img(ui_EmoilScreen)
+ui_EmoilScreen_Image1.set_src(ui_images.ui_img_helmet_redbull_png)
+ui_EmoilScreen_Image1.set_width(lv.SIZE.CONTENT)	# 1
+ui_EmoilScreen_Image1.set_height(lv.SIZE.CONTENT)   # 1
+ui_EmoilScreen_Image1.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_EmoilScreen_Image1, lv.obj.FLAG.ADV_HITTEST, True)
+SetFlag(ui_EmoilScreen_Image1, lv.obj.FLAG.SCROLLABLE, False)
 
-ui_EmoilScreen_Container1 = lv.obj(ui_EmoilScreen_Container2)
+ui_EmoilScreen_Container1 = lv.obj(ui_EmoilScreen)
 ui_EmoilScreen_Container1.remove_style_all()
 ui_EmoilScreen_Container1.set_width(150)
 ui_EmoilScreen_Container1.set_height(80)
 ui_EmoilScreen_Container1.set_x(0)
-ui_EmoilScreen_Container1.set_y(20)
+ui_EmoilScreen_Container1.set_y(15)
 ui_EmoilScreen_Container1.set_align( lv.ALIGN.CENTER)
 SetFlag(ui_EmoilScreen_Container1, lv.obj.FLAG.CLICKABLE, False)
 SetFlag(ui_EmoilScreen_Container1, lv.obj.FLAG.SCROLLABLE, False)
 
-ui_EmoilScreen_Container2.add_event_cb(EmoilScreen_Container2_eventhandler, lv.EVENT.ALL, None)
-
-def Flash_eventhandler(event_struct):
+def FlashScreen_eventhandler(event_struct):
    event = event_struct.code
    if event == lv.EVENT.SCREEN_LOADED and True:
       Flash_Animation(ui_Flash_Label5, 100)
    return
 
-ui_Flash = lv.obj()
-SetFlag(ui_Flash, lv.obj.FLAG.SCROLLABLE, False)
+ui_FlashScreen = lv.obj()
+SetFlag(ui_FlashScreen, lv.obj.FLAG.SCROLLABLE, False)
+ui_FlashScreen.set_style_bg_color(lv.color_hex(0x000000), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_FlashScreen.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
 
-ui_Flash_Label5 = lv.label(ui_Flash)
+ui_Flash_Label5 = lv.label(ui_FlashScreen)
 ui_Flash_Label5.set_text("SPEED IMPRINT")
 ui_Flash_Label5.set_width(lv.SIZE.CONTENT)	# 1
 ui_Flash_Label5.set_height(lv.SIZE.CONTENT)   # 1
 ui_Flash_Label5.set_align( lv.ALIGN.CENTER)
 ui_Flash_Label5.set_style_text_font( font_F1B22, lv.PART.MAIN | lv.STATE.DEFAULT )
 
-ui_Flash.add_event_cb(Flash_eventhandler, lv.EVENT.ALL, None)
+ui_FlashScreen.add_event_cb(FlashScreen_eventhandler, lv.EVENT.ALL, None)
+
+ui_ScheduleScreen = lv.obj()
+SetFlag(ui_ScheduleScreen, lv.obj.FLAG.SCROLLABLE, False)
+ui_ScheduleScreen.set_style_bg_color(lv.color_hex(0x000000), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_ScheduleScreen.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_ScheduleScreen.set_style_bg_img_opa( 255, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_Second_Arc = lv.arc(ui_ScheduleScreen)
+ui_Second_Arc.set_width(230)
+ui_Second_Arc.set_height(230)
+ui_Second_Arc.set_align( lv.ALIGN.CENTER)
+ui_Second_Arc.set_range(0,60)
+ui_Second_Arc.set_value(45)
+ui_Second_Arc.set_bg_angles(0,360)
+ui_Second_Arc.set_rotation(-90)
+ui_Second_Arc.set_style_arc_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Second_Arc.set_style_arc_opa(0, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Second_Arc.set_style_arc_width( 3, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_Second_Arc.set_style_arc_color(lv.color_hex(0xFFDD00), lv.PART.INDICATOR | lv.STATE.DEFAULT )
+ui_Second_Arc.set_style_arc_opa(255, lv.PART.INDICATOR| lv.STATE.DEFAULT )
+ui_Second_Arc.set_style_arc_width( 2, lv.PART.INDICATOR | lv.STATE.DEFAULT )
+ui_Second_Arc.set_style_arc_rounded( True, lv.PART.INDICATOR | lv.STATE.DEFAULT )
+
+ui_Second_Arc.set_style_opa( 0, lv.PART.KNOB | lv.STATE.DEFAULT )
+
+ui_Upcoming_Label = lv.label(ui_ScheduleScreen)
+ui_Upcoming_Label.set_text("Upcoming")
+ui_Upcoming_Label.set_width(lv.SIZE.CONTENT)	# 1
+ui_Upcoming_Label.set_height(lv.SIZE.CONTENT)   # 1
+ui_Upcoming_Label.set_x(0)
+ui_Upcoming_Label.set_y(20)
+ui_Upcoming_Label.set_align( lv.ALIGN.TOP_MID)
+ui_Upcoming_Label.set_style_text_color(lv.color_hex(0x8D8D8D), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Upcoming_Label.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Upcoming_Label.set_style_text_font( font_DISPLAYB14, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_Gmt_Label = lv.label(ui_ScheduleScreen)
+ui_Gmt_Label.set_text("UTC/GMT +8")
+ui_Gmt_Label.set_width(lv.SIZE.CONTENT)	# 1
+ui_Gmt_Label.set_height(lv.SIZE.CONTENT)   # 1
+ui_Gmt_Label.set_x(0)
+ui_Gmt_Label.set_y(-80)
+ui_Gmt_Label.set_align( lv.ALIGN.BOTTOM_MID)
+ui_Gmt_Label.set_style_text_color(lv.color_hex(0x9E9E9E), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Gmt_Label.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Gmt_Label.set_style_text_letter_space( 0, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Gmt_Label.set_style_text_line_space( 0, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Gmt_Label.set_style_text_font( font_DISPLAYM10, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_Session_Label = lv.label(ui_ScheduleScreen)
+ui_Session_Label.set_text("Canadian Grand Prix")
+ui_Session_Label.set_width(lv.SIZE.CONTENT)	# 1
+ui_Session_Label.set_height(lv.SIZE.CONTENT)   # 1
+ui_Session_Label.set_x(0)
+ui_Session_Label.set_y(51)
+ui_Session_Label.set_align( lv.ALIGN.CENTER)
+ui_Session_Label.set_style_text_color(lv.color_hex(0xFFDD00), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Session_Label.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Session_Label.set_style_text_align( lv.TEXT_ALIGN.CENTER, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Session_Label.set_style_text_font( font_F1R12, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_Event_Label = lv.label(ui_ScheduleScreen)
+ui_Event_Label.set_text("Practice 1")
+ui_Event_Label.set_width(lv.SIZE.CONTENT)	# 1
+ui_Event_Label.set_height(lv.SIZE.CONTENT)   # 1
+ui_Event_Label.set_x(0)
+ui_Event_Label.set_y(79)
+ui_Event_Label.set_align( lv.ALIGN.CENTER)
+ui_Event_Label.set_style_text_color(lv.color_hex(0xFF0101), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Event_Label.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Event_Label.set_style_text_align( lv.TEXT_ALIGN.CENTER, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Event_Label.set_style_text_font( font_F1R14, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_Time_Label = lv.label(ui_ScheduleScreen)
+ui_Time_Label.set_text("10:14 ")
+ui_Time_Label.set_width(lv.SIZE.CONTENT)	# 1
+ui_Time_Label.set_height(lv.SIZE.CONTENT)   # 1
+ui_Time_Label.set_x(5)
+ui_Time_Label.set_y(4)
+ui_Time_Label.set_align( lv.ALIGN.CENTER)
+ui_Time_Label.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Time_Label.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Time_Label.set_style_text_font( font_DISPLAYR60, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_Days = lv.label(ui_ScheduleScreen)
+ui_Days.set_text("5")
+ui_Days.set_width(lv.SIZE.CONTENT)	# 1
+ui_Days.set_height(lv.SIZE.CONTENT)   # 1
+ui_Days.set_x(18)
+ui_Days.set_y(95)
+ui_Days.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Days.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Days.set_style_text_align( lv.TEXT_ALIGN.LEFT, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Days.set_style_text_font( font_DISPLAYM14, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_Hours = lv.label(ui_ScheduleScreen)
+ui_Hours.set_text("22")
+ui_Hours.set_width(22)
+ui_Hours.set_height(10)
+ui_Hours.set_x(18)
+ui_Hours.set_y(121)
+ui_Hours.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Hours.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Hours.set_style_text_align( lv.TEXT_ALIGN.LEFT, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Hours.set_style_text_font( font_DISPLAYM14, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_Minutes = lv.label(ui_ScheduleScreen)
+ui_Minutes.set_text("13")
+ui_Minutes.set_width(22)
+ui_Minutes.set_height(10)
+ui_Minutes.set_x(18)
+ui_Minutes.set_y(146)
+ui_Minutes.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Minutes.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Minutes.set_style_text_align( lv.TEXT_ALIGN.LEFT, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Minutes.set_style_text_font( font_DISPLAYM14, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_Days_Label = lv.label(ui_ScheduleScreen)
+ui_Days_Label.set_text("Days")
+ui_Days_Label.set_width(lv.SIZE.CONTENT)	# 1
+ui_Days_Label.set_height(lv.SIZE.CONTENT)   # 1
+ui_Days_Label.set_x(18)
+ui_Days_Label.set_y(83)
+ui_Days_Label.set_style_text_color(lv.color_hex(0x9E9E9E), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Days_Label.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Days_Label.set_style_text_align( lv.TEXT_ALIGN.LEFT, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Days_Label.set_style_text_font( font_DISPLAYM10, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_Hours_Label = lv.label(ui_ScheduleScreen)
+ui_Hours_Label.set_text("Hours")
+ui_Hours_Label.set_width(lv.SIZE.CONTENT)	# 1
+ui_Hours_Label.set_height(lv.SIZE.CONTENT)   # 1
+ui_Hours_Label.set_x(18)
+ui_Hours_Label.set_y(109)
+ui_Hours_Label.set_style_text_color(lv.color_hex(0x9E9E9E), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Hours_Label.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Hours_Label.set_style_text_align( lv.TEXT_ALIGN.LEFT, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Hours_Label.set_style_text_font( font_DISPLAYM10, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_Minutes_Label = lv.label(ui_ScheduleScreen)
+ui_Minutes_Label.set_text("Mins")
+ui_Minutes_Label.set_width(lv.SIZE.CONTENT)	# 1
+ui_Minutes_Label.set_height(lv.SIZE.CONTENT)   # 1
+ui_Minutes_Label.set_x(19)
+ui_Minutes_Label.set_y(135)
+ui_Minutes_Label.set_style_text_color(lv.color_hex(0x9E9E9E), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Minutes_Label.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Minutes_Label.set_style_text_align( lv.TEXT_ALIGN.LEFT, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Minutes_Label.set_style_text_font( font_DISPLAYM10, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_ScheduleScreen_Container2 = lv.obj(ui_ScheduleScreen)
+ui_ScheduleScreen_Container2.remove_style_all()
+ui_ScheduleScreen_Container2.set_width(40)
+ui_ScheduleScreen_Container2.set_height(40)
+ui_ScheduleScreen_Container2.set_x(-27)
+ui_ScheduleScreen_Container2.set_y(-53)
+ui_ScheduleScreen_Container2.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_ScheduleScreen_Container2, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_ScheduleScreen_Container2, lv.obj.FLAG.SCROLLABLE, False)
+ui_ScheduleScreen_Container2.set_style_radius( 10, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_ScheduleScreen_Container2.set_style_bg_color(lv.color_hex(0x1A1A1A), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_ScheduleScreen_Container2.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+
+ui_Calendar_Month = lv.label(ui_ScheduleScreen_Container2)
+ui_Calendar_Month.set_text("05")
+ui_Calendar_Month.set_width(lv.SIZE.CONTENT)	# 1
+ui_Calendar_Month.set_height(lv.SIZE.CONTENT)   # 1
+ui_Calendar_Month.set_align( lv.ALIGN.CENTER)
+ui_Calendar_Month.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Calendar_Month.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Calendar_Month.set_style_text_font( font_DISPLAYR30, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_ScheduleScreen_Container3 = lv.obj(ui_ScheduleScreen)
+ui_ScheduleScreen_Container3.remove_style_all()
+ui_ScheduleScreen_Container3.set_width(40)
+ui_ScheduleScreen_Container3.set_height(40)
+ui_ScheduleScreen_Container3.set_x(34)
+ui_ScheduleScreen_Container3.set_y(-53)
+ui_ScheduleScreen_Container3.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_ScheduleScreen_Container3, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_ScheduleScreen_Container3, lv.obj.FLAG.SCROLLABLE, False)
+ui_ScheduleScreen_Container3.set_style_radius( 10, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_ScheduleScreen_Container3.set_style_bg_color(lv.color_hex(0x1A1A1A), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_ScheduleScreen_Container3.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+
+ui_Calendar_Day = lv.label(ui_ScheduleScreen_Container3)
+ui_Calendar_Day.set_text("28")
+ui_Calendar_Day.set_width(lv.SIZE.CONTENT)	# 1
+ui_Calendar_Day.set_height(lv.SIZE.CONTENT)   # 1
+ui_Calendar_Day.set_align( lv.ALIGN.CENTER)
+ui_Calendar_Day.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Calendar_Day.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Calendar_Day.set_style_text_font( font_DISPLAYR30, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_TelemetryScreen = lv.obj()
+SetFlag(ui_TelemetryScreen, lv.obj.FLAG.SCROLLABLE, False)
+ui_TelemetryScreen.set_style_bg_color(lv.color_hex(0x000000), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_TelemetryScreen.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+
+ui_Speed_Arc = lv.arc(ui_TelemetryScreen)
+ui_Speed_Arc.set_width(230)
+ui_Speed_Arc.set_height(230)
+ui_Speed_Arc.set_align( lv.ALIGN.CENTER)
+ui_Speed_Arc.set_range(0,360)
+ui_Speed_Arc.set_value(280)
+ui_Speed_Arc.set_bg_angles(0,280)
+ui_Speed_Arc.set_rotation(130)
+ui_Speed_Arc.set_style_bg_img_src( ui_images.ui_img_telemety_txt_png, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Speed_Arc.set_style_arc_color(lv.color_hex(0x3D3D3D), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Speed_Arc.set_style_arc_opa(200, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Speed_Arc.set_style_arc_width( 17, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Speed_Arc.set_style_arc_rounded( False, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_Speed_Arc.set_style_arc_color(lv.color_hex(0x0093CC), lv.PART.INDICATOR | lv.STATE.DEFAULT )
+ui_Speed_Arc.set_style_arc_opa(255, lv.PART.INDICATOR| lv.STATE.DEFAULT )
+ui_Speed_Arc.set_style_arc_width( 17, lv.PART.INDICATOR | lv.STATE.DEFAULT )
+ui_Speed_Arc.set_style_arc_rounded( False, lv.PART.INDICATOR | lv.STATE.DEFAULT )
+ui_Speed_Arc.set_style_arc_img_src( ui_images.ui_img_speed_png, lv.PART.INDICATOR | lv.STATE.DEFAULT )
+
+ui_Speed_Arc.set_style_bg_color(lv.color_hex(0xFFFFFF), lv.PART.KNOB | lv.STATE.DEFAULT )
+ui_Speed_Arc.set_style_bg_opa(0, lv.PART.KNOB| lv.STATE.DEFAULT )
+
+ui_Throttle_Arc = lv.arc(ui_TelemetryScreen)
+ui_Throttle_Arc.set_width(190)
+ui_Throttle_Arc.set_height(190)
+ui_Throttle_Arc.set_align( lv.ALIGN.CENTER)
+ui_Throttle_Arc.set_value(80)
+ui_Throttle_Arc.set_bg_angles(0,178)
+ui_Throttle_Arc.set_rotation(130)
+ui_Throttle_Arc.set_style_arc_color(lv.color_hex(0x3D3D3D), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Throttle_Arc.set_style_arc_opa(200, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Throttle_Arc.set_style_arc_width( 20, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Throttle_Arc.set_style_arc_rounded( False, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_Throttle_Arc.set_style_arc_color(lv.color_hex(0x00FD3B), lv.PART.INDICATOR | lv.STATE.DEFAULT )
+ui_Throttle_Arc.set_style_arc_opa(255, lv.PART.INDICATOR| lv.STATE.DEFAULT )
+ui_Throttle_Arc.set_style_arc_width( 20, lv.PART.INDICATOR | lv.STATE.DEFAULT )
+ui_Throttle_Arc.set_style_arc_rounded( False, lv.PART.INDICATOR | lv.STATE.DEFAULT )
+ui_Throttle_Arc.set_style_arc_img_src( ui_images.ui_img_throttle_png, lv.PART.INDICATOR | lv.STATE.DEFAULT )
+
+ui_Throttle_Arc.set_style_bg_color(lv.color_hex(0xFFFFFF), lv.PART.KNOB | lv.STATE.DEFAULT )
+ui_Throttle_Arc.set_style_bg_opa(0, lv.PART.KNOB| lv.STATE.DEFAULT )
+
+ui_Brake_Arc = lv.arc(ui_TelemetryScreen)
+ui_Brake_Arc.set_width(190)
+ui_Brake_Arc.set_height(190)
+ui_Brake_Arc.set_align( lv.ALIGN.CENTER)
+ui_Brake_Arc.set_value(40)
+ui_Brake_Arc.set_bg_angles(0,100)
+ui_Brake_Arc.set_mode(ui_Brake_Arc.MODE.REVERSE)
+ui_Brake_Arc.set_rotation(310)
+ui_Brake_Arc.set_style_arc_color(lv.color_hex(0x3D3D3D), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Brake_Arc.set_style_arc_opa(200, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Brake_Arc.set_style_arc_width( 20, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Brake_Arc.set_style_arc_rounded( False, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_Brake_Arc.set_style_arc_color(lv.color_hex(0x00FD3B), lv.PART.INDICATOR | lv.STATE.DEFAULT )
+ui_Brake_Arc.set_style_arc_opa(255, lv.PART.INDICATOR| lv.STATE.DEFAULT )
+ui_Brake_Arc.set_style_arc_width( 20, lv.PART.INDICATOR | lv.STATE.DEFAULT )
+ui_Brake_Arc.set_style_arc_rounded( False, lv.PART.INDICATOR | lv.STATE.DEFAULT )
+ui_Brake_Arc.set_style_arc_img_src( ui_images.ui_img_brake_png, lv.PART.INDICATOR | lv.STATE.DEFAULT )
+
+ui_Brake_Arc.set_style_bg_color(lv.color_hex(0xFFFFFF), lv.PART.KNOB | lv.STATE.DEFAULT )
+ui_Brake_Arc.set_style_bg_opa(0, lv.PART.KNOB| lv.STATE.DEFAULT )
+
+ui_Gear = lv.label(ui_TelemetryScreen)
+ui_Gear.set_text("N")
+ui_Gear.set_width(lv.SIZE.CONTENT)	# 1
+ui_Gear.set_height(lv.SIZE.CONTENT)   # 1
+ui_Gear.set_x(0)
+ui_Gear.set_y(-18)
+ui_Gear.set_align( lv.ALIGN.CENTER)
+ui_Gear.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Gear.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Gear.set_style_text_align( lv.TEXT_ALIGN.CENTER, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Gear.set_style_text_font( font_DISPLAYB80, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_Gear_Label = lv.label(ui_TelemetryScreen)
+ui_Gear_Label.set_text("GEAR")
+ui_Gear_Label.set_width(lv.SIZE.CONTENT)	# 1
+ui_Gear_Label.set_height(lv.SIZE.CONTENT)   # 1
+ui_Gear_Label.set_x(-45)
+ui_Gear_Label.set_y(-25)
+ui_Gear_Label.set_align( lv.ALIGN.CENTER)
+ui_Gear_Label.set_style_text_color(lv.color_hex(0x9E9E9E), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Gear_Label.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Gear_Label.set_style_text_font( font_DISPLAYM10, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_RPM_Label = lv.label(ui_TelemetryScreen)
+ui_RPM_Label.set_text("RPM")
+ui_RPM_Label.set_width(lv.SIZE.CONTENT)	# 1
+ui_RPM_Label.set_height(lv.SIZE.CONTENT)   # 1
+ui_RPM_Label.set_x(0)
+ui_RPM_Label.set_y(41)
+ui_RPM_Label.set_align( lv.ALIGN.CENTER)
+ui_RPM_Label.set_style_text_color(lv.color_hex(0x9E9E9E), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_RPM_Label.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_RPM_Label.set_style_text_font( font_DISPLAYM10, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_KHM_Label = lv.label(ui_TelemetryScreen)
+ui_KHM_Label.set_text("KHM")
+ui_KHM_Label.set_width(lv.SIZE.CONTENT)	# 1
+ui_KHM_Label.set_height(lv.SIZE.CONTENT)   # 1
+ui_KHM_Label.set_x(43)
+ui_KHM_Label.set_y(92)
+ui_KHM_Label.set_align( lv.ALIGN.CENTER)
+ui_KHM_Label.set_style_text_color(lv.color_hex(0x9E9E9E), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_KHM_Label.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_KHM_Label.set_style_text_font( font_DISPLAYM10, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_RPM = lv.label(ui_TelemetryScreen)
+ui_RPM.set_text("7463")
+ui_RPM.set_width(lv.SIZE.CONTENT)	# 1
+ui_RPM.set_height(lv.SIZE.CONTENT)   # 1
+ui_RPM.set_x(0)
+ui_RPM.set_y(21)
+ui_RPM.set_align( lv.ALIGN.CENTER)
+ui_RPM.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_RPM.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_RPM.set_style_text_align( lv.TEXT_ALIGN.CENTER, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_RPM.set_style_text_font( font_DISPLAYM24, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_RPM2 = lv.label(ui_TelemetryScreen)
+ui_RPM2.set_text("365")
+ui_RPM2.set_width(lv.SIZE.CONTENT)	# 1
+ui_RPM2.set_height(lv.SIZE.CONTENT)   # 1
+ui_RPM2.set_x(0)
+ui_RPM2.set_y(93)
+ui_RPM2.set_align( lv.ALIGN.CENTER)
+ui_RPM2.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_RPM2.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_RPM2.set_style_text_align( lv.TEXT_ALIGN.CENTER, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_RPM2.set_style_text_font( font_DISPLAYM24, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_TelemetryScreen_Container1 = lv.obj(ui_TelemetryScreen)
+ui_TelemetryScreen_Container1.remove_style_all()
+ui_TelemetryScreen_Container1.set_width(52)
+ui_TelemetryScreen_Container1.set_height(20)
+ui_TelemetryScreen_Container1.set_x(0)
+ui_TelemetryScreen_Container1.set_y(65)
+ui_TelemetryScreen_Container1.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_TelemetryScreen_Container1, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_TelemetryScreen_Container1, lv.obj.FLAG.SCROLLABLE, False)
+ui_TelemetryScreen_Container1.set_style_bg_color(lv.color_hex(0xFF0101), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_TelemetryScreen_Container1.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+
+ui_TelemetryScreen_Label4 = lv.label(ui_TelemetryScreen_Container1)
+ui_TelemetryScreen_Label4.set_text("DRS")
+ui_TelemetryScreen_Label4.set_width(lv.SIZE.CONTENT)	# 1
+ui_TelemetryScreen_Label4.set_height(lv.SIZE.CONTENT)   # 1
+ui_TelemetryScreen_Label4.set_align( lv.ALIGN.CENTER)
+ui_TelemetryScreen_Label4.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_TelemetryScreen_Label4.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_TelemetryScreen_Label4.set_style_text_font( font_DISPLAYM18, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_RaceScreen = lv.obj()
+SetFlag(ui_RaceScreen, lv.obj.FLAG.SCROLLABLE, False)
+ui_RaceScreen.set_style_bg_color(lv.color_hex(0x000000), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_RaceScreen.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_RaceScreen.set_style_bg_img_src( ui_images.ui_img_b_png, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_RaceScreen.set_style_bg_img_src( ui_images.TemporaryImage, lv.PART.SCROLLBAR | lv.STATE.DEFAULT )
 
 lv.scr_load(ui_MsgScreen)
