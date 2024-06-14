@@ -1,0 +1,16 @@
+{
+  "codename": "DISPLAYR60",
+  "ttf_path": "/assets/SFPRODISPLAYREGULAR.OTF",
+  "bin_path": "/assets\\ui_font_DISPLAYR60.bin",
+  "c_path": "/assets\\ui_font_DISPLAYR60.c",
+  "cfg_path": "/assets\\ui_font_DISPLAYR60.fcfg",
+  "size": 60,
+  "bpp": 4,
+  "letters": 0,
+  "ranges": [
+    "0x20-0x7f"
+  ],
+  "symbols": "",
+  "customparams": "--no-compress --no-prefilter",
+  "uploaded": false
+}

@@ -1,0 +1,16 @@
+{
+  "codename": "DISPLAYM18",
+  "ttf_path": "/assets/SFPRODISPLAYMEDIUM.OTF",
+  "bin_path": "/assets\\ui_font_DISPLAYM18.bin",
+  "c_path": "/assets\\ui_font_DISPLAYM18.c",
+  "cfg_path": "/assets\\ui_font_DISPLAYM18.fcfg",
+  "size": 18,
+  "bpp": 4,
+  "letters": 0,
+  "ranges": [
+    "0x20-0x7f"
+  ],
+  "symbols": "",
+  "customparams": "--no-compress --no-prefilter",
+  "uploaded": false
+}
