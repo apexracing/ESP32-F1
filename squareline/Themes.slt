@@ -1,8 +1,128 @@
 {
   "deftheme": {
     "name": "Default",
-    "properties": []
+    "properties": [
+      {
+        "nid": 0,
+        "strtype": "THEME_COLOR",
+        "strval": "ColorTeamThree",
+        "intarray": [
+          255,
+          221,
+          0,
+          255
+        ],
+        "InheritedType": 0
+      },
+      {
+        "nid": 0,
+        "strtype": "THEME_COLOR",
+        "strval": "ColorTeam",
+        "intarray": [
+          54,
+          113,
+          198,
+          255
+        ],
+        "InheritedType": 0
+      },
+      {
+        "nid": 0,
+        "strtype": "THEME_COLOR",
+        "strval": "ColorTeamSecond",
+        "intarray": [
+          255,
+          1,
+          1,
+          255
+        ],
+        "InheritedType": 0
+      }
+    ]
   },
-  "themes": [],
+  "themes": [
+    {
+      "name": "AMG",
+      "properties": [
+        {
+          "nid": 0,
+          "strtype": "THEME_COLOR",
+          "strval": "ColorTeamThree",
+          "intarray": [
+            255,
+            221,
+            0,
+            255
+          ],
+          "InheritedType": 0
+        },
+        {
+          "nid": 0,
+          "strtype": "THEME_COLOR",
+          "strval": "ColorTeam",
+          "intarray": [
+            0,
+            209,
+            186,
+            255
+          ],
+          "InheritedType": 0
+        },
+        {
+          "nid": 0,
+          "strtype": "THEME_COLOR",
+          "strval": "ColorTeamSecond",
+          "intarray": [
+            255,
+            1,
+            1,
+            255
+          ],
+          "InheritedType": 0
+        }
+      ]
+    },
+    {
+      "name": "ferrari ",
+      "properties": [
+        {
+          "nid": 0,
+          "strtype": "THEME_COLOR",
+          "strval": "ColorTeamThree",
+          "intarray": [
+            255,
+            221,
+            0,
+            255
+          ],
+          "InheritedType": 0
+        },
+        {
+          "nid": 0,
+          "strtype": "THEME_COLOR",
+          "strval": "ColorTeam",
+          "intarray": [
+            255,
+            40,
+            0,
+            255
+          ],
+          "InheritedType": 0
+        },
+        {
+          "nid": 0,
+          "strtype": "THEME_COLOR",
+          "strval": "ColorTeamSecond",
+          "intarray": [
+            255,
+            221,
+            0,
+            255
+          ],
+          "InheritedType": 0
+        }
+      ]
+    }
+  ],
   "selected_theme": "Default"
 }

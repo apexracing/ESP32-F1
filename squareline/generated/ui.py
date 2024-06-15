@@ -17,15 +17,118 @@ font_F1B22 = lv.font_load("A:ui_font_F1B22.bin")
 font_DISPLAYB14 = lv.font_load("A:ui_font_DISPLAYB14.bin")
 font_DISPLAYM10 = lv.font_load("A:ui_font_DISPLAYM10.bin")
 font_F1R12 = lv.font_load("A:ui_font_F1R12.bin")
-font_DISPLAYR60 = lv.font_load("A:ui_font_DISPLAYR60.bin")
 font_DISPLAYM14 = lv.font_load("A:ui_font_DISPLAYM14.bin")
 font_DISPLAYR30 = lv.font_load("A:ui_font_DISPLAYR30.bin")
+font_DISPLAYR60 = lv.font_load("A:ui_font_DISPLAYR60.bin")
 font_DISPLAYB80 = lv.font_load("A:ui_font_DISPLAYB80.bin")
 font_DISPLAYM24 = lv.font_load("A:ui_font_DISPLAYM24.bin")
 font_DISPLAYM18 = lv.font_load("A:ui_font_DISPLAYM18.bin")
+font_DISPLAYM12 = lv.font_load("A:ui_font_DISPLAYM12.bin")
+font_Chinese12 = lv.font_load("A:ui_font_Chinese12.bin")
 
-def ui_theme_set(idx):
-   return
+_ui_theme_color_Default = [0xFFDD00, 0x3671C6, 0xFF0101]
+_ui_theme_alpha_Default = [255, 255, 255]
+
+_ui_theme_color_AMG = [0xFFDD00, 0x00D1BA, 0xFF0101]
+_ui_theme_alpha_AMG = [255, 255, 255]
+
+_ui_theme_color_ferrari_ = [0xFFDD00, 0xFF2800, 0xFFDD00]
+_ui_theme_alpha_ferrari_ = [255, 255, 255]
+
+_ui_theme_list_colors = [_ui_theme_color_Default, _ui_theme_color_AMG, _ui_theme_color_ferrari_]
+_ui_theme_list_alphas = [_ui_theme_alpha_Default, _ui_theme_alpha_AMG, _ui_theme_alpha_ferrari_]
+
+ui_theme_current_colors=[]
+
+ui_theme_current_alphas=[]
+
+
+
+UI_THEME_DEFAULT = 0
+
+UI_THEME_AMG = 1
+
+UI_THEME_FERRARI_ = 2
+UI_THEME_COLOR_COLORTEAMTHREE = 0
+UI_THEME_COLOR_COLORTEAM = 1
+UI_THEME_COLOR_COLORTEAMSECOND = 2
+# THEME MANAGER
+
+ui_local_style_list = {}
+
+class _ui_theme_variable:
+    def __init__(self):
+        self.target = None
+        self.color = 0
+
+def ui_object_set_themeable_style_property(target, selector, property, coloridx):
+
+   if not (id(target) in ui_local_style_list):
+      ui_local_style_list[id(target)] = {}
+
+   if not property in ui_local_style_list[id(target)]:
+      ui_local_style_list[id(target)][property] = {}
+
+   ui_local_style_list[id(target)][property][selector] = _ui_theme_variable()
+   ui_local_style_list[id(target)][property][selector].target = target
+   ui_local_style_list[id(target)][property][selector].color = coloridx
+   ui_update_theme_value( target, property, selector )
+
+def ui_update_theme_value(target, property, selector):
+
+   if not (id(target) in ui_local_style_list):
+       return
+
+   if not property in ui_local_style_list[id(target)]:
+       return
+
+   if not selector in ui_local_style_list[id(target)][property]:
+       return
+
+   coloridx = ui_local_style_list[id(target)][property][selector].color
+   color = lv.style_value_t()
+
+   if (property ==  lv.STYLE.BG_COLOR or
+          property == lv.STYLE.BG_GRAD_COLOR or
+          property == lv.STYLE.BORDER_COLOR or
+          property == lv.STYLE.OUTLINE_COLOR or
+          property == lv.STYLE.TEXT_COLOR or
+          property == lv.STYLE.LINE_COLOR or
+          property == lv.STYLE.ARC_COLOR or
+          property == lv.STYLE.SHADOW_COLOR or
+          property == lv.STYLE.BG_IMG_RECOLOR or
+          property == lv.STYLE.IMG_RECOLOR ):
+      color.color = lv.color_hex(ui_theme_current_colors[coloridx])
+   else: color.num = ui_theme_current_alphas[coloridx]
+   target.set_local_style_prop(property,color,selector)
+
+def ui_theme_manager_reset():
+   ui_local_style_list = {}
+
+def ui_theme_update_all():
+   for obj in ui_local_style_list:
+      targetid = obj
+      proplist = ui_local_style_list[obj]
+      for prop in proplist:
+         lvprop = prop
+         selectlist = ui_local_style_list[obj][prop]
+         for select in selectlist:
+            lvselect = select
+            target = ui_local_style_list[obj][prop][lvselect].target
+            ui_update_theme_value(target, lvprop,lvselect)
+
+def ui_theme_set( index ):
+   global ui_theme_current_colors
+   global ui_theme_current_alphas
+   ui_theme_current_colors = _ui_theme_list_colors[index]
+   ui_theme_current_alphas = _ui_theme_list_alphas[index]
+   ui_theme_update_all()
+
+ui_theme_manager_reset()
+
+
+
+ui_theme_set(UI_THEME_DEFAULT)
 
 def SetFlag( obj, flag, value):
     if (value):
@@ -202,12 +305,264 @@ def Flash_Animation(TargetObject, delay):
   print ("Flash_Animation called")
   return
 
-# COMPONENTS
+def left_Animation(TargetObject, delay):
+  PropertyAnimation_0 = lv.anim_t()
+  PropertyAnimation_0.init()
+  PropertyAnimation_0.set_path_cb(lv.anim_t.path_overshoot)
+  PropertyAnimation_0.set_time(500)
+  PropertyAnimation_0.set_var(TargetObject)
+  PropertyAnimation_0.set_custom_exec_cb(lambda a, v: TargetObject.set_x(v))
+  PropertyAnimation_0.set_delay(delay + 0)
+  PropertyAnimation_0.set_repeat_count(0)
+  PropertyAnimation_0.set_repeat_delay(0) #+ 500
+  PropertyAnimation_0.set_playback_delay(0)
+  PropertyAnimation_0.set_playback_time(0)
+  PropertyAnimation_0.set_early_apply(False)
+  PropertyAnimation_0.set_values(-100, 0)
+  PropertyAnimation_0.set_get_value_cb(lambda a: TargetObject.get_x_aligned())
+  lv.anim_t.start(PropertyAnimation_0)
+  PropertyAnimation_1 = lv.anim_t()
+  PropertyAnimation_1.init()
+  PropertyAnimation_1.set_path_cb(lv.anim_t.path_linear)
+  PropertyAnimation_1.set_time(300)
+  PropertyAnimation_1.set_var(TargetObject)
+  PropertyAnimation_1.set_custom_exec_cb(lambda a, v: TargetObject.set_style_opa(v,0))
+  PropertyAnimation_1.set_delay(delay + 0)
+  PropertyAnimation_1.set_repeat_count(0)
+  PropertyAnimation_1.set_repeat_delay(0) #+ 500
+  PropertyAnimation_1.set_playback_delay(0)
+  PropertyAnimation_1.set_playback_time(0)
+  PropertyAnimation_1.set_early_apply(False)
+  PropertyAnimation_1.set_values(0, 255)
+  PropertyAnimation_1.set_get_value_cb(lambda a: TargetObject.get_style_opa(0))
+  lv.anim_t.start(PropertyAnimation_1)
+
+  print ("left_Animation called")
+  return
+
+def right_Animation(TargetObject, delay):
+  PropertyAnimation_0 = lv.anim_t()
+  PropertyAnimation_0.init()
+  PropertyAnimation_0.set_path_cb(lv.anim_t.path_overshoot)
+  PropertyAnimation_0.set_time(500)
+  PropertyAnimation_0.set_var(TargetObject)
+  PropertyAnimation_0.set_custom_exec_cb(lambda a, v: TargetObject.set_x(v))
+  PropertyAnimation_0.set_delay(delay + 0)
+  PropertyAnimation_0.set_repeat_count(0)
+  PropertyAnimation_0.set_repeat_delay(0) #+ 500
+  PropertyAnimation_0.set_playback_delay(0)
+  PropertyAnimation_0.set_playback_time(0)
+  PropertyAnimation_0.set_early_apply(False)
+  PropertyAnimation_0.set_values(150, 0)
+  PropertyAnimation_0.set_get_value_cb(lambda a: TargetObject.get_x_aligned())
+  lv.anim_t.start(PropertyAnimation_0)
+  PropertyAnimation_1 = lv.anim_t()
+  PropertyAnimation_1.init()
+  PropertyAnimation_1.set_path_cb(lv.anim_t.path_linear)
+  PropertyAnimation_1.set_time(300)
+  PropertyAnimation_1.set_var(TargetObject)
+  PropertyAnimation_1.set_custom_exec_cb(lambda a, v: TargetObject.set_style_opa(v,0))
+  PropertyAnimation_1.set_delay(delay + 0)
+  PropertyAnimation_1.set_repeat_count(0)
+  PropertyAnimation_1.set_repeat_delay(0) #+ 500
+  PropertyAnimation_1.set_playback_delay(0)
+  PropertyAnimation_1.set_playback_time(0)
+  PropertyAnimation_1.set_early_apply(False)
+  PropertyAnimation_1.set_values(0, 255)
+  PropertyAnimation_1.set_get_value_cb(lambda a: TargetObject.get_style_opa(0))
+  lv.anim_t.start(PropertyAnimation_1)
+
+  print ("right_Animation called")
+  return
+
+def opa_on_Animation(TargetObject, delay):
+  PropertyAnimation_0 = lv.anim_t()
+  PropertyAnimation_0.init()
+  PropertyAnimation_0.set_path_cb(lv.anim_t.path_linear)
+  PropertyAnimation_0.set_time(500)
+  PropertyAnimation_0.set_var(TargetObject)
+  PropertyAnimation_0.set_custom_exec_cb(lambda a, v: TargetObject.set_style_opa(v,0))
+  PropertyAnimation_0.set_delay(delay + 0)
+  PropertyAnimation_0.set_repeat_count(0)
+  PropertyAnimation_0.set_repeat_delay(0) #+ 500
+  PropertyAnimation_0.set_playback_delay(0)
+  PropertyAnimation_0.set_playback_time(0)
+  PropertyAnimation_0.set_early_apply(False)
+  PropertyAnimation_0.set_values(0, 255)
+  PropertyAnimation_0.set_get_value_cb(lambda a: TargetObject.get_style_opa(0))
+  lv.anim_t.start(PropertyAnimation_0)
+
+  print ("opa_on_Animation called")
+  return
+
+def top_Animation(TargetObject, delay):
+  PropertyAnimation_0 = lv.anim_t()
+  PropertyAnimation_0.init()
+  PropertyAnimation_0.set_path_cb(lv.anim_t.path_overshoot)
+  PropertyAnimation_0.set_time(400)
+  PropertyAnimation_0.set_var(TargetObject)
+  PropertyAnimation_0.set_custom_exec_cb(lambda a, v: TargetObject.set_y(v))
+  PropertyAnimation_0.set_delay(delay + 0)
+  PropertyAnimation_0.set_repeat_count(0)
+  PropertyAnimation_0.set_repeat_delay(0) #+ 400
+  PropertyAnimation_0.set_playback_delay(0)
+  PropertyAnimation_0.set_playback_time(0)
+  PropertyAnimation_0.set_early_apply(False)
+  PropertyAnimation_0.set_values(-100, 0)
+  PropertyAnimation_0.set_get_value_cb(lambda a: TargetObject.get_y_aligned())
+  lv.anim_t.start(PropertyAnimation_0)
+
+  print ("top_Animation called")
+  return
+
+def bottom_Animation(TargetObject, delay):
+  PropertyAnimation_0 = lv.anim_t()
+  PropertyAnimation_0.init()
+  PropertyAnimation_0.set_path_cb(lv.anim_t.path_overshoot)
+  PropertyAnimation_0.set_time(400)
+  PropertyAnimation_0.set_var(TargetObject)
+  PropertyAnimation_0.set_custom_exec_cb(lambda a, v: TargetObject.set_y(v))
+  PropertyAnimation_0.set_delay(delay + 0)
+  PropertyAnimation_0.set_repeat_count(0)
+  PropertyAnimation_0.set_repeat_delay(0) #+ 400
+  PropertyAnimation_0.set_playback_delay(0)
+  PropertyAnimation_0.set_playback_time(0)
+  PropertyAnimation_0.set_early_apply(False)
+  PropertyAnimation_0.set_values(150, 0)
+  PropertyAnimation_0.set_get_value_cb(lambda a: TargetObject.get_y_aligned())
+  lv.anim_t.start(PropertyAnimation_0)
+
+  print ("bottom_Animation called")
+  return
+
+def driver_left_Animation(TargetObject, delay):
+  PropertyAnimation_0 = lv.anim_t()
+  PropertyAnimation_0.init()
+  PropertyAnimation_0.set_path_cb(lv.anim_t.path_linear)
+  PropertyAnimation_0.set_time(300)
+  PropertyAnimation_0.set_var(TargetObject)
+  PropertyAnimation_0.set_custom_exec_cb(lambda a, v: TargetObject.set_x(v))
+  PropertyAnimation_0.set_delay(delay + 0)
+  PropertyAnimation_0.set_repeat_count(0)
+  PropertyAnimation_0.set_repeat_delay(0) #+ 300
+  PropertyAnimation_0.set_playback_delay(0)
+  PropertyAnimation_0.set_playback_time(0)
+  PropertyAnimation_0.set_early_apply(False)
+  PropertyAnimation_0.set_values(100, 0)
+  PropertyAnimation_0.set_get_value_cb(lambda a: TargetObject.get_x_aligned())
+  lv.anim_t.start(PropertyAnimation_0)
+  PropertyAnimation_1 = lv.anim_t()
+  PropertyAnimation_1.init()
+  PropertyAnimation_1.set_path_cb(lv.anim_t.path_linear)
+  PropertyAnimation_1.set_time(300)
+  PropertyAnimation_1.set_var(TargetObject)
+  PropertyAnimation_1.set_custom_exec_cb(lambda a, v: TargetObject.set_style_opa(v,0))
+  PropertyAnimation_1.set_delay(delay + 0)
+  PropertyAnimation_1.set_repeat_count(0)
+  PropertyAnimation_1.set_repeat_delay(0) #+ 300
+  PropertyAnimation_1.set_playback_delay(0)
+  PropertyAnimation_1.set_playback_time(0)
+  PropertyAnimation_1.set_early_apply(False)
+  PropertyAnimation_1.set_values(0, 255)
+  PropertyAnimation_1.set_get_value_cb(lambda a: TargetObject.get_style_opa(0))
+  lv.anim_t.start(PropertyAnimation_1)
+
+  print ("driver_left_Animation called")
+  return
 
 # COMPONENTS
 
-# COMPONENTS
+ # COMPONENT DriverContainer
+def ui_DriverContainer_create(comp_parent):
+    cui_DriverContainer = lv.obj(comp_parent)
+    cui_DriverContainer.remove_style_all()
+    cui_DriverContainer.set_width(131)
+    cui_DriverContainer.set_height(16)
+    cui_DriverContainer.set_x(0)
+    cui_DriverContainer.set_y(-39)
+    cui_DriverContainer.set_align( lv.ALIGN.CENTER)
+    SetFlag(cui_DriverContainer, lv.obj.FLAG.CLICKABLE, False)
+    SetFlag(cui_DriverContainer, lv.obj.FLAG.SCROLLABLE, False)
+    cui_RaceScreen_Label1 = lv.label(cui_DriverContainer)
+    cui_RaceScreen_Label1.set_text("22")
+    cui_RaceScreen_Label1.set_width(16)
+    cui_RaceScreen_Label1.set_height(16)
+    cui_RaceScreen_Label1.set_x(5)
+    cui_RaceScreen_Label1.set_y(0)
+    cui_RaceScreen_Label1.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_RaceScreen_Label1.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+    cui_RaceScreen_Label1.set_style_text_align( lv.TEXT_ALIGN.RIGHT, lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_RaceScreen_Label1.set_style_text_font( font_DISPLAYM14, lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_RaceScreen_Container3 = lv.obj(cui_DriverContainer)
+    cui_RaceScreen_Container3.remove_style_all()
+    cui_RaceScreen_Container3.set_width(3)
+    cui_RaceScreen_Container3.set_height(14)
+    cui_RaceScreen_Container3.set_x(25)
+    cui_RaceScreen_Container3.set_y(0)
+    SetFlag(cui_RaceScreen_Container3, lv.obj.FLAG.CLICKABLE, False)
+    SetFlag(cui_RaceScreen_Container3, lv.obj.FLAG.SCROLLABLE, False)
+    cui_RaceScreen_Container3.set_style_bg_color(lv.color_hex(0x3671C6), lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_RaceScreen_Container3.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+    cui_RaceScreen_Label3 = lv.label(cui_DriverContainer)
+    cui_RaceScreen_Label3.set_text("VER")
+    cui_RaceScreen_Label3.set_width(lv.SIZE.CONTENT)	# 1
+    cui_RaceScreen_Label3.set_height(lv.SIZE.CONTENT)   # 1
+    cui_RaceScreen_Label3.set_x(33)
+    cui_RaceScreen_Label3.set_y(0)
+    cui_RaceScreen_Label3.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_RaceScreen_Label3.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+    cui_RaceScreen_Label3.set_style_text_font( font_DISPLAYM14, lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_RaceScreen_Label4 = lv.label(cui_DriverContainer)
+    cui_RaceScreen_Label4.set_text("Interval")
+    cui_RaceScreen_Label4.set_width(60)
+    cui_RaceScreen_Label4.set_height(16)
+    cui_RaceScreen_Label4.set_x(70)
+    cui_RaceScreen_Label4.set_y(0)
+    cui_RaceScreen_Label4.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_RaceScreen_Label4.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+    cui_RaceScreen_Label4.set_style_text_align( lv.TEXT_ALIGN.RIGHT, lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_RaceScreen_Label4.set_style_text_font( font_DISPLAYM14, lv.PART.MAIN | lv.STATE.DEFAULT )
+    _ui_comp_table[id(cui_DriverContainer)]= {"DriverContainer" : cui_DriverContainer,"RaceScreen_Label1" : cui_RaceScreen_Label1,"RaceScreen_Container3" : cui_RaceScreen_Container3,"RaceScreen_Label3" : cui_RaceScreen_Label3,"RaceScreen_Label4" : cui_RaceScreen_Label4, "_CompName" : "DriverContainer"}
+    return cui_DriverContainer
+
+ # COMPONENT WiFiItem
+def ui_WiFiItem_create(comp_parent):
+    cui_WiFiItem = lv.obj(comp_parent)
+    cui_WiFiItem.remove_style_all()
+    cui_WiFiItem.set_width(170)
+    cui_WiFiItem.set_height(25)
+    cui_WiFiItem.set_align( lv.ALIGN.CENTER)
+    SetFlag(cui_WiFiItem, lv.obj.FLAG.CLICKABLE, False)
+    SetFlag(cui_WiFiItem, lv.obj.FLAG.SCROLLABLE, False)
+    cui_WifiName = lv.label(cui_WiFiItem)
+    cui_WifiName.set_text("XiaoMiao")
+    cui_WifiName.set_width(lv.SIZE.CONTENT)	# 1
+    cui_WifiName.set_height(lv.SIZE.CONTENT)   # 1
+    cui_WifiName.set_align( lv.ALIGN.LEFT_MID)
+    cui_WifiName.set_style_text_color(lv.color_hex(0x01A3D8), lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_WifiName.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+    cui_WifiName.set_style_text_font( font_DISPLAYM18, lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_WiFiImg = lv.img(cui_WiFiItem)
+    cui_WiFiImg.set_src(ui_images.ui_img_wifi_strong_png)
+    cui_WiFiImg.set_width(lv.SIZE.CONTENT)	# 1
+    cui_WiFiImg.set_height(lv.SIZE.CONTENT)   # 1
+    cui_WiFiImg.set_align( lv.ALIGN.RIGHT_MID)
+    SetFlag(cui_WiFiImg, lv.obj.FLAG.ADV_HITTEST, True)
+    SetFlag(cui_WiFiImg, lv.obj.FLAG.SCROLLABLE, False)
+    cui_WiFiImg.set_style_blend_mode( lv.BLEND_MODE.NORMAL, lv.PART.MAIN | lv.STATE.DEFAULT )
+    _ui_comp_table[id(cui_WiFiItem)]= {"WiFiItem" : cui_WiFiItem,"WifiName" : cui_WifiName,"WiFiImg" : cui_WiFiImg, "_CompName" : "WiFiItem"}
+    return cui_WiFiItem
+
 ui____initial_actions0 = lv.obj()
+
+def MsgScreen_eventhandler(event_struct):
+   event = event_struct.code
+   if event == lv.EVENT.SCREEN_LOADED and True:
+      left_Animation(ui_Team_Color_Container, 0)
+      right_Animation(ui_Team_Label, 0)
+      opa_on_Animation(ui_wave_Container, 0)
+      opa_on_Animation(ui_Driver_Label, 0)
+   return
 
 ui_MsgScreen = lv.obj()
 SetFlag(ui_MsgScreen, lv.obj.FLAG.SCROLLABLE, False)
@@ -215,12 +570,14 @@ ui_MsgScreen.set_style_bg_color(lv.color_hex(0x000000), lv.PART.MAIN | lv.STATE.
 ui_MsgScreen.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
 
 ui_Team_Label = lv.label(ui_MsgScreen)
-ui_Team_Label.set_text("Mercedes")
+ui_Team_Label.set_text("RedBull Racing")
 ui_Team_Label.set_width(lv.SIZE.CONTENT)	# 1
 ui_Team_Label.set_height(lv.SIZE.CONTENT)   # 1
 ui_Team_Label.set_x(-1)
 ui_Team_Label.set_y(lv.pct(12))
 ui_Team_Label.set_align( lv.ALIGN.TOP_MID)
+ui_Team_Label.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Team_Label.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
 ui_Team_Label.set_style_text_font( font_F1R14, lv.PART.MAIN | lv.STATE.DEFAULT )
 
 ui_Team_Color_Container = lv.obj(ui_MsgScreen)
@@ -231,8 +588,8 @@ ui_Team_Color_Container.set_x(67)
 ui_Team_Color_Container.set_y(19)
 SetFlag(ui_Team_Color_Container, lv.obj.FLAG.CLICKABLE, False)
 SetFlag(ui_Team_Color_Container, lv.obj.FLAG.SCROLLABLE, False)
-ui_Team_Color_Container.set_style_bg_color(lv.color_hex(0xFF0000), lv.PART.MAIN | lv.STATE.DEFAULT )
-ui_Team_Color_Container.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_object_set_themeable_style_property( ui_Team_Color_Container, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.BG_COLOR, UI_THEME_COLOR_COLORTEAMSECOND)
+ui_object_set_themeable_style_property( ui_Team_Color_Container, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.BG_OPA, UI_THEME_COLOR_COLORTEAMSECOND)
 
 ui_wave_Container = lv.obj(ui_MsgScreen)
 ui_wave_Container.remove_style_all()
@@ -261,8 +618,8 @@ ui_Team_Color_Container2.set_x(7)
 ui_Team_Color_Container2.set_y(54)
 SetFlag(ui_Team_Color_Container2, lv.obj.FLAG.CLICKABLE, False)
 SetFlag(ui_Team_Color_Container2, lv.obj.FLAG.SCROLLABLE, False)
-ui_Team_Color_Container2.set_style_bg_color(lv.color_hex(0x00CCB7), lv.PART.MAIN | lv.STATE.DEFAULT )
-ui_Team_Color_Container2.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_object_set_themeable_style_property( ui_Team_Color_Container2, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.BG_COLOR, UI_THEME_COLOR_COLORTEAM)
+ui_object_set_themeable_style_property( ui_Team_Color_Container2, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.BG_OPA, UI_THEME_COLOR_COLORTEAM)
 ui_Team_Color_Container2.set_style_shadow_color(lv.color_hex(0x00CCB7), lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_Team_Color_Container2.set_style_shadow_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
 ui_Team_Color_Container2.set_style_shadow_width( 3, lv.PART.MAIN | lv.STATE.DEFAULT )
@@ -287,23 +644,39 @@ ui_Msg_Label.set_width(134)
 ui_Msg_Label.set_height(54)
 ui_Msg_Label.set_x(7)
 ui_Msg_Label.set_y(93)
-ui_Msg_Label.set_style_text_color(lv.color_hex(0x00CCB7), lv.PART.MAIN | lv.STATE.DEFAULT )
-ui_Msg_Label.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_object_set_themeable_style_property( ui_Msg_Label, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_COLOR, UI_THEME_COLOR_COLORTEAM)
+ui_object_set_themeable_style_property( ui_Msg_Label, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_OPA, UI_THEME_COLOR_COLORTEAM)
 ui_Msg_Label.set_style_text_letter_space( 0, lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_Msg_Label.set_style_text_line_space( 3, lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_Msg_Label.set_style_text_align( lv.TEXT_ALIGN.LEFT, lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_Msg_Label.set_style_text_font( font_F1R10, lv.PART.MAIN | lv.STATE.DEFAULT )
 
 ui_Driver_Label = lv.label(ui_Msg_Container)
-ui_Driver_Label.set_text("HAM")
+ui_Driver_Label.set_text("VER")
 ui_Driver_Label.set_width(lv.SIZE.CONTENT)	# 1
 ui_Driver_Label.set_height(lv.SIZE.CONTENT)   # 1
 ui_Driver_Label.set_x(20)
 ui_Driver_Label.set_y(57)
+ui_Driver_Label.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Driver_Label.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
 ui_Driver_Label.set_style_text_font( font_F1B18, lv.PART.MAIN | lv.STATE.DEFAULT )
 
+ui_MsgScreen.add_event_cb(MsgScreen_eventhandler, lv.EVENT.ALL, None)
+
+def EmoilScreen_eventhandler(event_struct):
+   event = event_struct.code
+   if event == lv.EVENT.SCREEN_LOADED and True:
+      top_Animation(ui_EmoilScreen_Image1, 0)
+      opa_on_Animation(ui_EmoilScreen_Container1, 200)
+   return
+
 ui_EmoilScreen = lv.obj()
+SetFlag(ui_EmoilScreen, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_EmoilScreen, lv.obj.FLAG.PRESS_LOCK, False)
 SetFlag(ui_EmoilScreen, lv.obj.FLAG.SCROLLABLE, False)
+SetFlag(ui_EmoilScreen, lv.obj.FLAG.SCROLL_ELASTIC, False)
+SetFlag(ui_EmoilScreen, lv.obj.FLAG.SCROLL_MOMENTUM, False)
+ui_EmoilScreen.set_scrollbar_mode(lv.SCROLLBAR_MODE.OFF)
 ui_EmoilScreen.set_style_bg_color(lv.color_hex(0x0A00A9), lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_EmoilScreen.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
 ui_EmoilScreen.set_style_bg_grad_color(lv.color_hex(0x000000), lv.PART.MAIN | lv.STATE.DEFAULT )
@@ -317,8 +690,14 @@ ui_EmoilScreen_Image1.set_src(ui_images.ui_img_helmet_redbull_png)
 ui_EmoilScreen_Image1.set_width(lv.SIZE.CONTENT)	# 1
 ui_EmoilScreen_Image1.set_height(lv.SIZE.CONTENT)   # 1
 ui_EmoilScreen_Image1.set_align( lv.ALIGN.CENTER)
-SetFlag(ui_EmoilScreen_Image1, lv.obj.FLAG.ADV_HITTEST, True)
+SetFlag(ui_EmoilScreen_Image1, lv.obj.FLAG.PRESS_LOCK, False)
+SetFlag(ui_EmoilScreen_Image1, lv.obj.FLAG.CLICK_FOCUSABLE, False)
+SetFlag(ui_EmoilScreen_Image1, lv.obj.FLAG.SNAPPABLE, False)
 SetFlag(ui_EmoilScreen_Image1, lv.obj.FLAG.SCROLLABLE, False)
+SetFlag(ui_EmoilScreen_Image1, lv.obj.FLAG.SCROLL_ELASTIC, False)
+SetFlag(ui_EmoilScreen_Image1, lv.obj.FLAG.SCROLL_MOMENTUM, False)
+SetFlag(ui_EmoilScreen_Image1, lv.obj.FLAG.SCROLL_CHAIN, False)
+ui_EmoilScreen_Image1.set_scrollbar_mode(lv.SCROLLBAR_MODE.OFF)
 
 ui_EmoilScreen_Container1 = lv.obj(ui_EmoilScreen)
 ui_EmoilScreen_Container1.remove_style_all()
@@ -328,7 +707,17 @@ ui_EmoilScreen_Container1.set_x(0)
 ui_EmoilScreen_Container1.set_y(15)
 ui_EmoilScreen_Container1.set_align( lv.ALIGN.CENTER)
 SetFlag(ui_EmoilScreen_Container1, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_EmoilScreen_Container1, lv.obj.FLAG.PRESS_LOCK, False)
+SetFlag(ui_EmoilScreen_Container1, lv.obj.FLAG.CLICK_FOCUSABLE, False)
+SetFlag(ui_EmoilScreen_Container1, lv.obj.FLAG.GESTURE_BUBBLE, False)
+SetFlag(ui_EmoilScreen_Container1, lv.obj.FLAG.SNAPPABLE, False)
 SetFlag(ui_EmoilScreen_Container1, lv.obj.FLAG.SCROLLABLE, False)
+SetFlag(ui_EmoilScreen_Container1, lv.obj.FLAG.SCROLL_ELASTIC, False)
+SetFlag(ui_EmoilScreen_Container1, lv.obj.FLAG.SCROLL_MOMENTUM, False)
+SetFlag(ui_EmoilScreen_Container1, lv.obj.FLAG.SCROLL_CHAIN, False)
+ui_EmoilScreen_Container1.set_scrollbar_mode(lv.SCROLLBAR_MODE.OFF)
+
+ui_EmoilScreen.add_event_cb(EmoilScreen_eventhandler, lv.EVENT.ALL, None)
 
 def FlashScreen_eventhandler(event_struct):
    event = event_struct.code
@@ -337,7 +726,12 @@ def FlashScreen_eventhandler(event_struct):
    return
 
 ui_FlashScreen = lv.obj()
+SetFlag(ui_FlashScreen, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_FlashScreen, lv.obj.FLAG.PRESS_LOCK, False)
 SetFlag(ui_FlashScreen, lv.obj.FLAG.SCROLLABLE, False)
+SetFlag(ui_FlashScreen, lv.obj.FLAG.SCROLL_ELASTIC, False)
+SetFlag(ui_FlashScreen, lv.obj.FLAG.SCROLL_MOMENTUM, False)
+ui_FlashScreen.set_scrollbar_mode(lv.SCROLLBAR_MODE.OFF)
 ui_FlashScreen.set_style_bg_color(lv.color_hex(0x000000), lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_FlashScreen.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
 
@@ -346,9 +740,51 @@ ui_Flash_Label5.set_text("SPEED IMPRINT")
 ui_Flash_Label5.set_width(lv.SIZE.CONTENT)	# 1
 ui_Flash_Label5.set_height(lv.SIZE.CONTENT)   # 1
 ui_Flash_Label5.set_align( lv.ALIGN.CENTER)
+ui_Flash_Label5.set_style_text_color(lv.color_hex(0xFBFBFB), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Flash_Label5.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
 ui_Flash_Label5.set_style_text_font( font_F1B22, lv.PART.MAIN | lv.STATE.DEFAULT )
 
 ui_FlashScreen.add_event_cb(FlashScreen_eventhandler, lv.EVENT.ALL, None)
+
+def ScheduleScreen_eventhandler(event_struct):
+   event = event_struct.code
+   if event == lv.EVENT.SCREEN_LOADED and True:
+      top_Animation(ui_Calendar_Month, 0)
+      top_Animation(ui_Calendar_Day, 0)
+      left_Animation(ui_Time_Hour_Label, 0)
+      right_Animation(ui_Time_Min_Label, 0)
+      opa_on_Animation(ui_Days, 0)
+      opa_on_Animation(ui_Hours, 0)
+      opa_on_Animation(ui_Minutes, 0)
+      opa_on_Animation(ui_Session_Label, 0)
+      bottom_Animation(ui_Event_Label, 0)
+   return
+
+def Calendar_Month_eventhandler(event_struct):
+   event = event_struct.code
+   if event == lv.EVENT.SCREEN_LOADED and True:
+      opa_on_Animation(ui_Calendar_Month, 0)
+      opa_on_Animation(ui_Calendar_Day, 0)
+      right_Animation(ui_Time_Min_Label, 0)
+   return
+
+def Time_Dot_Label_eventhandler(event_struct):
+   event = event_struct.code
+   if event == lv.EVENT.SCREEN_LOADED and True:
+      Flash_Animation(ui_Upcoming_Label, 0)
+   return
+
+def Time_Min_Label_eventhandler(event_struct):
+   event = event_struct.code
+   if event == lv.EVENT.SCREEN_LOADED and True:
+      Flash_Animation(ui_Upcoming_Label, 0)
+   return
+
+def Time_Hour_Label_eventhandler(event_struct):
+   event = event_struct.code
+   if event == lv.EVENT.SCREEN_LOADED and True:
+      Flash_Animation(ui_Upcoming_Label, 0)
+   return
 
 ui_ScheduleScreen = lv.obj()
 SetFlag(ui_ScheduleScreen, lv.obj.FLAG.SCROLLABLE, False)
@@ -368,8 +804,8 @@ ui_Second_Arc.set_style_arc_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STAT
 ui_Second_Arc.set_style_arc_opa(0, lv.PART.MAIN| lv.STATE.DEFAULT )
 ui_Second_Arc.set_style_arc_width( 3, lv.PART.MAIN | lv.STATE.DEFAULT )
 
-ui_Second_Arc.set_style_arc_color(lv.color_hex(0xFFDD00), lv.PART.INDICATOR | lv.STATE.DEFAULT )
-ui_Second_Arc.set_style_arc_opa(255, lv.PART.INDICATOR| lv.STATE.DEFAULT )
+ui_object_set_themeable_style_property( ui_Second_Arc, lv.PART.INDICATOR | lv.STATE.DEFAULT, lv.STYLE.ARC_COLOR, UI_THEME_COLOR_COLORTEAMTHREE)
+ui_object_set_themeable_style_property( ui_Second_Arc, lv.PART.INDICATOR | lv.STATE.DEFAULT, lv.STYLE.ARC_OPA, UI_THEME_COLOR_COLORTEAMTHREE)
 ui_Second_Arc.set_style_arc_width( 2, lv.PART.INDICATOR | lv.STATE.DEFAULT )
 ui_Second_Arc.set_style_arc_rounded( True, lv.PART.INDICATOR | lv.STATE.DEFAULT )
 
@@ -406,8 +842,8 @@ ui_Session_Label.set_height(lv.SIZE.CONTENT)   # 1
 ui_Session_Label.set_x(0)
 ui_Session_Label.set_y(51)
 ui_Session_Label.set_align( lv.ALIGN.CENTER)
-ui_Session_Label.set_style_text_color(lv.color_hex(0xFFDD00), lv.PART.MAIN | lv.STATE.DEFAULT )
-ui_Session_Label.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_object_set_themeable_style_property( ui_Session_Label, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_COLOR, UI_THEME_COLOR_COLORTEAMTHREE)
+ui_object_set_themeable_style_property( ui_Session_Label, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_OPA, UI_THEME_COLOR_COLORTEAMTHREE)
 ui_Session_Label.set_style_text_align( lv.TEXT_ALIGN.CENTER, lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_Session_Label.set_style_text_font( font_F1R12, lv.PART.MAIN | lv.STATE.DEFAULT )
 
@@ -418,21 +854,10 @@ ui_Event_Label.set_height(lv.SIZE.CONTENT)   # 1
 ui_Event_Label.set_x(0)
 ui_Event_Label.set_y(79)
 ui_Event_Label.set_align( lv.ALIGN.CENTER)
-ui_Event_Label.set_style_text_color(lv.color_hex(0xFF0101), lv.PART.MAIN | lv.STATE.DEFAULT )
-ui_Event_Label.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_object_set_themeable_style_property( ui_Event_Label, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_COLOR, UI_THEME_COLOR_COLORTEAMSECOND)
+ui_object_set_themeable_style_property( ui_Event_Label, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_OPA, UI_THEME_COLOR_COLORTEAMSECOND)
 ui_Event_Label.set_style_text_align( lv.TEXT_ALIGN.CENTER, lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_Event_Label.set_style_text_font( font_F1R14, lv.PART.MAIN | lv.STATE.DEFAULT )
-
-ui_Time_Label = lv.label(ui_ScheduleScreen)
-ui_Time_Label.set_text("10:14 ")
-ui_Time_Label.set_width(lv.SIZE.CONTENT)	# 1
-ui_Time_Label.set_height(lv.SIZE.CONTENT)   # 1
-ui_Time_Label.set_x(5)
-ui_Time_Label.set_y(4)
-ui_Time_Label.set_align( lv.ALIGN.CENTER)
-ui_Time_Label.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
-ui_Time_Label.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
-ui_Time_Label.set_style_text_font( font_DISPLAYR60, lv.PART.MAIN | lv.STATE.DEFAULT )
 
 ui_Days = lv.label(ui_ScheduleScreen)
 ui_Days.set_text("5")
@@ -440,8 +865,8 @@ ui_Days.set_width(lv.SIZE.CONTENT)	# 1
 ui_Days.set_height(lv.SIZE.CONTENT)   # 1
 ui_Days.set_x(18)
 ui_Days.set_y(95)
-ui_Days.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
-ui_Days.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_object_set_themeable_style_property( ui_Days, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_COLOR, UI_THEME_COLOR_COLORTEAM)
+ui_object_set_themeable_style_property( ui_Days, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_OPA, UI_THEME_COLOR_COLORTEAM)
 ui_Days.set_style_text_align( lv.TEXT_ALIGN.LEFT, lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_Days.set_style_text_font( font_DISPLAYM14, lv.PART.MAIN | lv.STATE.DEFAULT )
 
@@ -451,8 +876,8 @@ ui_Hours.set_width(22)
 ui_Hours.set_height(10)
 ui_Hours.set_x(18)
 ui_Hours.set_y(121)
-ui_Hours.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
-ui_Hours.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_object_set_themeable_style_property( ui_Hours, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_COLOR, UI_THEME_COLOR_COLORTEAMSECOND)
+ui_object_set_themeable_style_property( ui_Hours, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_OPA, UI_THEME_COLOR_COLORTEAMSECOND)
 ui_Hours.set_style_text_align( lv.TEXT_ALIGN.LEFT, lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_Hours.set_style_text_font( font_DISPLAYM14, lv.PART.MAIN | lv.STATE.DEFAULT )
 
@@ -462,8 +887,8 @@ ui_Minutes.set_width(22)
 ui_Minutes.set_height(10)
 ui_Minutes.set_x(18)
 ui_Minutes.set_y(146)
-ui_Minutes.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
-ui_Minutes.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_object_set_themeable_style_property( ui_Minutes, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_COLOR, UI_THEME_COLOR_COLORTEAMTHREE)
+ui_object_set_themeable_style_property( ui_Minutes, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_OPA, UI_THEME_COLOR_COLORTEAMTHREE)
 ui_Minutes.set_style_text_align( lv.TEXT_ALIGN.LEFT, lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_Minutes.set_style_text_font( font_DISPLAYM14, lv.PART.MAIN | lv.STATE.DEFAULT )
 
@@ -522,6 +947,7 @@ ui_Calendar_Month.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv
 ui_Calendar_Month.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
 ui_Calendar_Month.set_style_text_font( font_DISPLAYR30, lv.PART.MAIN | lv.STATE.DEFAULT )
 
+ui_Calendar_Month.add_event_cb(Calendar_Month_eventhandler, lv.EVENT.ALL, None)
 ui_ScheduleScreen_Container3 = lv.obj(ui_ScheduleScreen)
 ui_ScheduleScreen_Container3.remove_style_all()
 ui_ScheduleScreen_Container3.set_width(40)
@@ -544,6 +970,52 @@ ui_Calendar_Day.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.S
 ui_Calendar_Day.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
 ui_Calendar_Day.set_style_text_font( font_DISPLAYR30, lv.PART.MAIN | lv.STATE.DEFAULT )
 
+ui_Time_Dot_Label = lv.label(ui_ScheduleScreen)
+ui_Time_Dot_Label.set_text(":")
+ui_Time_Dot_Label.set_width(lv.SIZE.CONTENT)	# 1
+ui_Time_Dot_Label.set_height(lv.SIZE.CONTENT)   # 1
+ui_Time_Dot_Label.set_x(-1)
+ui_Time_Dot_Label.set_y(4)
+ui_Time_Dot_Label.set_align( lv.ALIGN.CENTER)
+ui_Time_Dot_Label.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Time_Dot_Label.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Time_Dot_Label.set_style_text_font( font_DISPLAYR60, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_Time_Dot_Label.add_event_cb(Time_Dot_Label_eventhandler, lv.EVENT.ALL, None)
+ui_Time_Min_Label = lv.label(ui_ScheduleScreen)
+ui_Time_Min_Label.set_text("14")
+ui_Time_Min_Label.set_width(lv.SIZE.CONTENT)	# 1
+ui_Time_Min_Label.set_height(lv.SIZE.CONTENT)   # 1
+ui_Time_Min_Label.set_x(35)
+ui_Time_Min_Label.set_y(3)
+ui_Time_Min_Label.set_align( lv.ALIGN.CENTER)
+ui_Time_Min_Label.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Time_Min_Label.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Time_Min_Label.set_style_text_font( font_DISPLAYR60, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_Time_Min_Label.add_event_cb(Time_Min_Label_eventhandler, lv.EVENT.ALL, None)
+ui_Time_Hour_Label = lv.label(ui_ScheduleScreen)
+ui_Time_Hour_Label.set_text("10")
+ui_Time_Hour_Label.set_width(lv.SIZE.CONTENT)	# 1
+ui_Time_Hour_Label.set_height(lv.SIZE.CONTENT)   # 1
+ui_Time_Hour_Label.set_x(-40)
+ui_Time_Hour_Label.set_y(3)
+ui_Time_Hour_Label.set_align( lv.ALIGN.CENTER)
+ui_Time_Hour_Label.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Time_Hour_Label.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Time_Hour_Label.set_style_text_font( font_DISPLAYR60, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_Time_Hour_Label.add_event_cb(Time_Hour_Label_eventhandler, lv.EVENT.ALL, None)
+ui_ScheduleScreen.add_event_cb(ScheduleScreen_eventhandler, lv.EVENT.ALL, None)
+
+def TelemetryScreen_eventhandler(event_struct):
+   event = event_struct.code
+   if event == lv.EVENT.SCREEN_LOADED and True:
+      bottom_Animation(ui_SPEED, 0)
+      right_Animation(ui_RPM, 0)
+      opa_on_Animation(ui_Gear, 0)
+   return
+
 ui_TelemetryScreen = lv.obj()
 SetFlag(ui_TelemetryScreen, lv.obj.FLAG.SCROLLABLE, False)
 ui_TelemetryScreen.set_style_bg_color(lv.color_hex(0x000000), lv.PART.MAIN | lv.STATE.DEFAULT )
@@ -553,6 +1025,15 @@ ui_Speed_Arc = lv.arc(ui_TelemetryScreen)
 ui_Speed_Arc.set_width(230)
 ui_Speed_Arc.set_height(230)
 ui_Speed_Arc.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_Speed_Arc, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_Speed_Arc, lv.obj.FLAG.PRESS_LOCK, False)
+SetFlag(ui_Speed_Arc, lv.obj.FLAG.CLICK_FOCUSABLE, False)
+SetFlag(ui_Speed_Arc, lv.obj.FLAG.GESTURE_BUBBLE, False)
+SetFlag(ui_Speed_Arc, lv.obj.FLAG.SNAPPABLE, False)
+SetFlag(ui_Speed_Arc, lv.obj.FLAG.SCROLLABLE, False)
+SetFlag(ui_Speed_Arc, lv.obj.FLAG.SCROLL_ELASTIC, False)
+SetFlag(ui_Speed_Arc, lv.obj.FLAG.SCROLL_MOMENTUM, False)
+SetFlag(ui_Speed_Arc, lv.obj.FLAG.SCROLL_CHAIN, False)
 ui_Speed_Arc.set_range(0,360)
 ui_Speed_Arc.set_value(280)
 ui_Speed_Arc.set_bg_angles(0,280)
@@ -563,8 +1044,8 @@ ui_Speed_Arc.set_style_arc_opa(200, lv.PART.MAIN| lv.STATE.DEFAULT )
 ui_Speed_Arc.set_style_arc_width( 17, lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_Speed_Arc.set_style_arc_rounded( False, lv.PART.MAIN | lv.STATE.DEFAULT )
 
-ui_Speed_Arc.set_style_arc_color(lv.color_hex(0x0093CC), lv.PART.INDICATOR | lv.STATE.DEFAULT )
-ui_Speed_Arc.set_style_arc_opa(255, lv.PART.INDICATOR| lv.STATE.DEFAULT )
+ui_object_set_themeable_style_property( ui_Speed_Arc, lv.PART.INDICATOR | lv.STATE.DEFAULT, lv.STYLE.ARC_COLOR, UI_THEME_COLOR_COLORTEAM)
+ui_object_set_themeable_style_property( ui_Speed_Arc, lv.PART.INDICATOR | lv.STATE.DEFAULT, lv.STYLE.ARC_OPA, UI_THEME_COLOR_COLORTEAM)
 ui_Speed_Arc.set_style_arc_width( 17, lv.PART.INDICATOR | lv.STATE.DEFAULT )
 ui_Speed_Arc.set_style_arc_rounded( False, lv.PART.INDICATOR | lv.STATE.DEFAULT )
 ui_Speed_Arc.set_style_arc_img_src( ui_images.ui_img_speed_png, lv.PART.INDICATOR | lv.STATE.DEFAULT )
@@ -667,22 +1148,22 @@ ui_RPM.set_height(lv.SIZE.CONTENT)   # 1
 ui_RPM.set_x(0)
 ui_RPM.set_y(21)
 ui_RPM.set_align( lv.ALIGN.CENTER)
-ui_RPM.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
-ui_RPM.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_object_set_themeable_style_property( ui_RPM, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_COLOR, UI_THEME_COLOR_COLORTEAMTHREE)
+ui_object_set_themeable_style_property( ui_RPM, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_OPA, UI_THEME_COLOR_COLORTEAMTHREE)
 ui_RPM.set_style_text_align( lv.TEXT_ALIGN.CENTER, lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_RPM.set_style_text_font( font_DISPLAYM24, lv.PART.MAIN | lv.STATE.DEFAULT )
 
-ui_RPM2 = lv.label(ui_TelemetryScreen)
-ui_RPM2.set_text("365")
-ui_RPM2.set_width(lv.SIZE.CONTENT)	# 1
-ui_RPM2.set_height(lv.SIZE.CONTENT)   # 1
-ui_RPM2.set_x(0)
-ui_RPM2.set_y(93)
-ui_RPM2.set_align( lv.ALIGN.CENTER)
-ui_RPM2.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
-ui_RPM2.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
-ui_RPM2.set_style_text_align( lv.TEXT_ALIGN.CENTER, lv.PART.MAIN | lv.STATE.DEFAULT )
-ui_RPM2.set_style_text_font( font_DISPLAYM24, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_SPEED = lv.label(ui_TelemetryScreen)
+ui_SPEED.set_text("365")
+ui_SPEED.set_width(lv.SIZE.CONTENT)	# 1
+ui_SPEED.set_height(lv.SIZE.CONTENT)   # 1
+ui_SPEED.set_x(0)
+ui_SPEED.set_y(93)
+ui_SPEED.set_align( lv.ALIGN.CENTER)
+ui_object_set_themeable_style_property( ui_SPEED, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_COLOR, UI_THEME_COLOR_COLORTEAMSECOND)
+ui_object_set_themeable_style_property( ui_SPEED, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_OPA, UI_THEME_COLOR_COLORTEAMSECOND)
+ui_SPEED.set_style_text_align( lv.TEXT_ALIGN.CENTER, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_SPEED.set_style_text_font( font_DISPLAYM24, lv.PART.MAIN | lv.STATE.DEFAULT )
 
 ui_TelemetryScreen_Container1 = lv.obj(ui_TelemetryScreen)
 ui_TelemetryScreen_Container1.remove_style_all()
@@ -705,12 +1186,711 @@ ui_TelemetryScreen_Label4.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.M
 ui_TelemetryScreen_Label4.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
 ui_TelemetryScreen_Label4.set_style_text_font( font_DISPLAYM18, lv.PART.MAIN | lv.STATE.DEFAULT )
 
+ui_TelemetryScreen.add_event_cb(TelemetryScreen_eventhandler, lv.EVENT.ALL, None)
+
+def RaceScreen_eventhandler(event_struct):
+   event = event_struct.code
+   if event == lv.EVENT.SCREEN_LOADED and True:
+      opa_on_Animation(ui_WindImg, 0)
+      opa_on_Animation(ui_TrackTempImg, 0)
+      opa_on_Animation(ui_Weather_Image, 0)
+      opa_on_Animation(ui_HumidnessImg, 0)
+      left_Animation(ui_Air_Temp, 0)
+      right_Animation(ui_Track_Temp, 0)
+      top_Animation(ui_Humidness, 0)
+      bottom_Animation(ui_Wind, 0)
+      driver_left_Animation(ui_d1, 0)
+      driver_left_Animation(ui_d2, 50)
+      driver_left_Animation(ui_d3, 100)
+      driver_left_Animation(ui_d4, 150)
+      driver_left_Animation(ui_d5, 200)
+      opa_on_Animation(ui_Flag_Container, 0)
+      opa_on_Animation(ui_AirTempArc, 0)
+      opa_on_Animation(ui_TrackTempArc, 0)
+      opa_on_Animation(ui_HumidnessArc, 0)
+      opa_on_Animation(ui_WindArc, 0)
+   return
+
+def WindArc_eventhandler(event_struct):
+   event = event_struct.code
+   if event == lv.EVENT.SCREEN_LOADED and True:
+      opa_on_Animation(ui_Weather_Image, 0)
+   return
+
 ui_RaceScreen = lv.obj()
 SetFlag(ui_RaceScreen, lv.obj.FLAG.SCROLLABLE, False)
 ui_RaceScreen.set_style_bg_color(lv.color_hex(0x000000), lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_RaceScreen.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
-ui_RaceScreen.set_style_bg_img_src( ui_images.ui_img_b_png, lv.PART.MAIN | lv.STATE.DEFAULT )
 
-ui_RaceScreen.set_style_bg_img_src( ui_images.TemporaryImage, lv.PART.SCROLLBAR | lv.STATE.DEFAULT )
+ui_Weather_Image = lv.img(ui_RaceScreen)
+ui_Weather_Image.set_src(ui_images.ui_img_air_clear_png)
+ui_Weather_Image.set_width(lv.SIZE.CONTENT)	# 1
+ui_Weather_Image.set_height(lv.SIZE.CONTENT)   # 1
+ui_Weather_Image.set_x(-85)
+ui_Weather_Image.set_y(-29)
+ui_Weather_Image.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_Weather_Image, lv.obj.FLAG.ADV_HITTEST, True)
+SetFlag(ui_Weather_Image, lv.obj.FLAG.SCROLLABLE, False)
+
+ui_WindImg = lv.img(ui_RaceScreen)
+ui_WindImg.set_src(ui_images.ui_img_wind_png)
+ui_WindImg.set_width(lv.SIZE.CONTENT)	# 1
+ui_WindImg.set_height(lv.SIZE.CONTENT)   # 1
+ui_WindImg.set_x(-17)
+ui_WindImg.set_y(77)
+ui_WindImg.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_WindImg, lv.obj.FLAG.ADV_HITTEST, True)
+SetFlag(ui_WindImg, lv.obj.FLAG.SCROLLABLE, False)
+
+ui_TrackTempImg = lv.img(ui_RaceScreen)
+ui_TrackTempImg.set_src(ui_images.ui_img_track_temps_png)
+ui_TrackTempImg.set_width(lv.SIZE.CONTENT)	# 1
+ui_TrackTempImg.set_height(lv.SIZE.CONTENT)   # 1
+ui_TrackTempImg.set_x(90)
+ui_TrackTempImg.set_y(-29)
+ui_TrackTempImg.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_TrackTempImg, lv.obj.FLAG.ADV_HITTEST, True)
+SetFlag(ui_TrackTempImg, lv.obj.FLAG.SCROLLABLE, False)
+
+ui_HumidnessImg = lv.img(ui_RaceScreen)
+ui_HumidnessImg.set_src(ui_images.ui_img_humidness_png)
+ui_HumidnessImg.set_width(lv.SIZE.CONTENT)	# 1
+ui_HumidnessImg.set_height(lv.SIZE.CONTENT)   # 1
+ui_HumidnessImg.set_x(-23)
+ui_HumidnessImg.set_y(-88)
+ui_HumidnessImg.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_HumidnessImg, lv.obj.FLAG.ADV_HITTEST, True)
+SetFlag(ui_HumidnessImg, lv.obj.FLAG.SCROLLABLE, False)
+
+ui_PercetImg = lv.img(ui_RaceScreen)
+ui_PercetImg.set_src(ui_images.ui_img_celsius_png)
+ui_PercetImg.set_width(lv.SIZE.CONTENT)	# 1
+ui_PercetImg.set_height(lv.SIZE.CONTENT)   # 1
+ui_PercetImg.set_x(90)
+ui_PercetImg.set_y(30)
+ui_PercetImg.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_PercetImg, lv.obj.FLAG.ADV_HITTEST, True)
+SetFlag(ui_PercetImg, lv.obj.FLAG.SCROLLABLE, False)
+
+ui_PercetImg2 = lv.img(ui_RaceScreen)
+ui_PercetImg2.set_src(ui_images.ui_img_celsius_png)
+ui_PercetImg2.set_width(lv.SIZE.CONTENT)	# 1
+ui_PercetImg2.set_height(lv.SIZE.CONTENT)   # 1
+ui_PercetImg2.set_x(-85)
+ui_PercetImg2.set_y(30)
+ui_PercetImg2.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_PercetImg2, lv.obj.FLAG.ADV_HITTEST, True)
+SetFlag(ui_PercetImg2, lv.obj.FLAG.SCROLLABLE, False)
+
+ui_Air_Temp = lv.label(ui_RaceScreen)
+ui_Air_Temp.set_text("32")
+ui_Air_Temp.set_width(lv.SIZE.CONTENT)	# 1
+ui_Air_Temp.set_height(lv.SIZE.CONTENT)   # 1
+ui_Air_Temp.set_x(-86)
+ui_Air_Temp.set_y(10)
+ui_Air_Temp.set_align( lv.ALIGN.CENTER)
+ui_Air_Temp.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Air_Temp.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Air_Temp.set_style_text_font( font_DISPLAYM18, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_Track_Temp = lv.label(ui_RaceScreen)
+ui_Track_Temp.set_text("55")
+ui_Track_Temp.set_width(lv.SIZE.CONTENT)	# 1
+ui_Track_Temp.set_height(lv.SIZE.CONTENT)   # 1
+ui_Track_Temp.set_x(92)
+ui_Track_Temp.set_y(12)
+ui_Track_Temp.set_align( lv.ALIGN.CENTER)
+ui_Track_Temp.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Track_Temp.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Track_Temp.set_style_text_font( font_DISPLAYM18, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_AirLabel = lv.label(ui_RaceScreen)
+ui_AirLabel.set_text("Air")
+ui_AirLabel.set_width(lv.SIZE.CONTENT)	# 1
+ui_AirLabel.set_height(lv.SIZE.CONTENT)   # 1
+ui_AirLabel.set_x(-85)
+ui_AirLabel.set_y(-8)
+ui_AirLabel.set_align( lv.ALIGN.CENTER)
+ui_AirLabel.set_style_text_color(lv.color_hex(0x9E9E9E), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_AirLabel.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_AirLabel.set_style_text_font( font_DISPLAYM12, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_TrackLabel = lv.label(ui_RaceScreen)
+ui_TrackLabel.set_text("Track")
+ui_TrackLabel.set_width(lv.SIZE.CONTENT)	# 1
+ui_TrackLabel.set_height(lv.SIZE.CONTENT)   # 1
+ui_TrackLabel.set_x(91)
+ui_TrackLabel.set_y(-6)
+ui_TrackLabel.set_align( lv.ALIGN.CENTER)
+ui_TrackLabel.set_style_text_color(lv.color_hex(0x9E9E9E), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_TrackLabel.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_TrackLabel.set_style_text_font( font_DISPLAYM12, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_WindLabel2 = lv.label(ui_RaceScreen)
+ui_WindLabel2.set_text("m/s")
+ui_WindLabel2.set_width(lv.SIZE.CONTENT)	# 1
+ui_WindLabel2.set_height(lv.SIZE.CONTENT)   # 1
+ui_WindLabel2.set_x(17)
+ui_WindLabel2.set_y(93)
+ui_WindLabel2.set_align( lv.ALIGN.CENTER)
+ui_WindLabel2.set_style_text_color(lv.color_hex(0x9E9E9E), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_WindLabel2.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_WindLabel2.set_style_text_font( font_DISPLAYM12, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_WindLabel = lv.label(ui_RaceScreen)
+ui_WindLabel.set_text("Wind")
+ui_WindLabel.set_width(lv.SIZE.CONTENT)	# 1
+ui_WindLabel.set_height(lv.SIZE.CONTENT)   # 1
+ui_WindLabel.set_x(-16)
+ui_WindLabel.set_y(93)
+ui_WindLabel.set_align( lv.ALIGN.CENTER)
+ui_WindLabel.set_style_text_color(lv.color_hex(0x9E9E9E), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_WindLabel.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_WindLabel.set_style_text_font( font_DISPLAYM12, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_Humidness = lv.label(ui_RaceScreen)
+ui_Humidness.set_text("100")
+ui_Humidness.set_width(lv.SIZE.CONTENT)	# 1
+ui_Humidness.set_height(lv.SIZE.CONTENT)   # 1
+ui_Humidness.set_x(3)
+ui_Humidness.set_y(-88)
+ui_Humidness.set_align( lv.ALIGN.CENTER)
+ui_Humidness.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Humidness.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Humidness.set_style_text_font( font_DISPLAYM18, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_Wind = lv.label(ui_RaceScreen)
+ui_Wind.set_text("2.3")
+ui_Wind.set_width(lv.SIZE.CONTENT)	# 1
+ui_Wind.set_height(lv.SIZE.CONTENT)   # 1
+ui_Wind.set_x(16)
+ui_Wind.set_y(77)
+ui_Wind.set_align( lv.ALIGN.CENTER)
+ui_Wind.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Wind.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Wind.set_style_text_font( font_DISPLAYM18, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_HumidnessP = lv.label(ui_RaceScreen)
+ui_HumidnessP.set_text("%")
+ui_HumidnessP.set_width(lv.SIZE.CONTENT)	# 1
+ui_HumidnessP.set_height(lv.SIZE.CONTENT)   # 1
+ui_HumidnessP.set_x(26)
+ui_HumidnessP.set_y(-89)
+ui_HumidnessP.set_align( lv.ALIGN.CENTER)
+ui_HumidnessP.set_style_text_color(lv.color_hex(0x9E9E9E), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_HumidnessP.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_HumidnessP.set_style_text_font( font_DISPLAYM18, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_AirTempArc = lv.arc(ui_RaceScreen)
+ui_AirTempArc.set_width(230)
+ui_AirTempArc.set_height(230)
+ui_AirTempArc.set_align( lv.ALIGN.CENTER)
+ui_AirTempArc.set_range(0,42)
+ui_AirTempArc.set_value(32)
+ui_AirTempArc.set_bg_angles(155,205)
+ui_AirTempArc.set_style_arc_width( 3, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_AirTempArc.set_style_arc_rounded( False, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_AirTempArc.set_style_arc_width( 3, lv.PART.INDICATOR | lv.STATE.DEFAULT )
+ui_AirTempArc.set_style_arc_rounded( False, lv.PART.INDICATOR | lv.STATE.DEFAULT )
+ui_AirTempArc.set_style_arc_img_src( ui_images.ui_img_d_png, lv.PART.INDICATOR | lv.STATE.DEFAULT )
+
+ui_AirTempArc.set_style_bg_color(lv.color_hex(0xFFFFFF), lv.PART.KNOB | lv.STATE.DEFAULT )
+ui_AirTempArc.set_style_bg_opa(0, lv.PART.KNOB| lv.STATE.DEFAULT )
+
+ui_TrackTempArc = lv.arc(ui_RaceScreen)
+ui_TrackTempArc.set_width(230)
+ui_TrackTempArc.set_height(230)
+ui_TrackTempArc.set_align( lv.ALIGN.CENTER)
+ui_TrackTempArc.set_range(0,60)
+ui_TrackTempArc.set_value(55)
+ui_TrackTempArc.set_bg_angles(155,205)
+ui_TrackTempArc.set_mode(ui_TrackTempArc.MODE.REVERSE)
+ui_TrackTempArc.set_rotation(180)
+ui_TrackTempArc.set_style_arc_width( 3, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_TrackTempArc.set_style_arc_rounded( False, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_TrackTempArc.set_style_arc_width( 3, lv.PART.INDICATOR | lv.STATE.DEFAULT )
+ui_TrackTempArc.set_style_arc_rounded( False, lv.PART.INDICATOR | lv.STATE.DEFAULT )
+ui_TrackTempArc.set_style_arc_img_src( ui_images.ui_img_d_png, lv.PART.INDICATOR | lv.STATE.DEFAULT )
+
+ui_TrackTempArc.set_style_bg_color(lv.color_hex(0xFFFFFF), lv.PART.KNOB | lv.STATE.DEFAULT )
+ui_TrackTempArc.set_style_bg_opa(0, lv.PART.KNOB| lv.STATE.DEFAULT )
+
+ui_HumidnessArc = lv.arc(ui_RaceScreen)
+ui_HumidnessArc.set_width(230)
+ui_HumidnessArc.set_height(230)
+ui_HumidnessArc.set_align( lv.ALIGN.CENTER)
+ui_HumidnessArc.set_value(50)
+ui_HumidnessArc.set_bg_angles(140,220)
+ui_HumidnessArc.set_rotation(90)
+ui_HumidnessArc.set_style_arc_width( 3, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_HumidnessArc.set_style_arc_rounded( False, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_object_set_themeable_style_property( ui_HumidnessArc, lv.PART.INDICATOR | lv.STATE.DEFAULT, lv.STYLE.ARC_COLOR, UI_THEME_COLOR_COLORTEAM)
+ui_object_set_themeable_style_property( ui_HumidnessArc, lv.PART.INDICATOR | lv.STATE.DEFAULT, lv.STYLE.ARC_OPA, UI_THEME_COLOR_COLORTEAM)
+ui_HumidnessArc.set_style_arc_width( 3, lv.PART.INDICATOR | lv.STATE.DEFAULT )
+ui_HumidnessArc.set_style_arc_rounded( False, lv.PART.INDICATOR | lv.STATE.DEFAULT )
+
+ui_HumidnessArc.set_style_bg_color(lv.color_hex(0xFFFFFF), lv.PART.KNOB | lv.STATE.DEFAULT )
+ui_HumidnessArc.set_style_bg_opa(0, lv.PART.KNOB| lv.STATE.DEFAULT )
+
+ui_WindArc = lv.arc(ui_RaceScreen)
+ui_WindArc.set_width(230)
+ui_WindArc.set_height(230)
+ui_WindArc.set_align( lv.ALIGN.CENTER)
+ui_WindArc.set_range(0,50)
+ui_WindArc.set_value(30)
+ui_WindArc.set_bg_angles(140,220)
+ui_WindArc.set_mode(ui_WindArc.MODE.REVERSE)
+ui_WindArc.set_rotation(270)
+ui_WindArc.set_style_arc_width( 3, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_WindArc.set_style_arc_rounded( False, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_object_set_themeable_style_property( ui_WindArc, lv.PART.INDICATOR | lv.STATE.DEFAULT, lv.STYLE.ARC_COLOR, UI_THEME_COLOR_COLORTEAMTHREE)
+ui_object_set_themeable_style_property( ui_WindArc, lv.PART.INDICATOR | lv.STATE.DEFAULT, lv.STYLE.ARC_OPA, UI_THEME_COLOR_COLORTEAMTHREE)
+ui_WindArc.set_style_arc_width( 3, lv.PART.INDICATOR | lv.STATE.DEFAULT )
+ui_WindArc.set_style_arc_rounded( False, lv.PART.INDICATOR | lv.STATE.DEFAULT )
+
+ui_WindArc.set_style_bg_color(lv.color_hex(0xFFFFFF), lv.PART.KNOB | lv.STATE.DEFAULT )
+ui_WindArc.set_style_bg_opa(0, lv.PART.KNOB| lv.STATE.DEFAULT )
+
+ui_WindArc.add_event_cb(WindArc_eventhandler, lv.EVENT.ALL, None)
+ui_Flag_Container = lv.obj(ui_RaceScreen)
+ui_Flag_Container.remove_style_all()
+ui_Flag_Container.set_width(127)
+ui_Flag_Container.set_height(4)
+ui_Flag_Container.set_x(55)
+ui_Flag_Container.set_y(53)
+SetFlag(ui_Flag_Container, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_Flag_Container, lv.obj.FLAG.SCROLLABLE, False)
+
+ui_RaceScreen_Container1 = lv.obj(ui_Flag_Container)
+ui_RaceScreen_Container1.remove_style_all()
+ui_RaceScreen_Container1.set_width(4)
+ui_RaceScreen_Container1.set_height(4)
+SetFlag(ui_RaceScreen_Container1, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_RaceScreen_Container1, lv.obj.FLAG.SCROLLABLE, False)
+ui_RaceScreen_Container1.set_style_bg_color(lv.color_hex(0xFF0101), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_RaceScreen_Container1.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+
+ui_Red_Flag = lv.obj(ui_Flag_Container)
+ui_Red_Flag.remove_style_all()
+ui_Red_Flag.set_width(34)
+ui_Red_Flag.set_height(4)
+ui_Red_Flag.set_x(6)
+ui_Red_Flag.set_y(0)
+SetFlag(ui_Red_Flag, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_Red_Flag, lv.obj.FLAG.SCROLLABLE, False)
+ui_Red_Flag.set_style_bg_color(lv.color_hex(0x3D3D3D), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Red_Flag.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+
+ui_RaceScreen_Container4 = lv.obj(ui_Flag_Container)
+ui_RaceScreen_Container4.remove_style_all()
+ui_RaceScreen_Container4.set_width(4)
+ui_RaceScreen_Container4.set_height(4)
+ui_RaceScreen_Container4.set_x(42)
+ui_RaceScreen_Container4.set_y(0)
+SetFlag(ui_RaceScreen_Container4, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_RaceScreen_Container4, lv.obj.FLAG.SCROLLABLE, False)
+ui_RaceScreen_Container4.set_style_bg_color(lv.color_hex(0x00FD3B), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_RaceScreen_Container4.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+
+ui_Green_Flag = lv.obj(ui_Flag_Container)
+ui_Green_Flag.remove_style_all()
+ui_Green_Flag.set_width(34)
+ui_Green_Flag.set_height(4)
+ui_Green_Flag.set_x(48)
+ui_Green_Flag.set_y(0)
+SetFlag(ui_Green_Flag, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_Green_Flag, lv.obj.FLAG.SCROLLABLE, False)
+ui_Green_Flag.set_style_bg_color(lv.color_hex(0x00FD3B), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Green_Flag.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+
+ui_RaceScreen_Container7 = lv.obj(ui_Flag_Container)
+ui_RaceScreen_Container7.remove_style_all()
+ui_RaceScreen_Container7.set_width(4)
+ui_RaceScreen_Container7.set_height(4)
+ui_RaceScreen_Container7.set_x(87)
+ui_RaceScreen_Container7.set_y(0)
+SetFlag(ui_RaceScreen_Container7, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_RaceScreen_Container7, lv.obj.FLAG.SCROLLABLE, False)
+ui_RaceScreen_Container7.set_style_bg_color(lv.color_hex(0xFFDD00), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_RaceScreen_Container7.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+
+ui_Yellow_FLag = lv.obj(ui_Flag_Container)
+ui_Yellow_FLag.remove_style_all()
+ui_Yellow_FLag.set_width(34)
+ui_Yellow_FLag.set_height(4)
+ui_Yellow_FLag.set_x(92)
+ui_Yellow_FLag.set_y(0)
+SetFlag(ui_Yellow_FLag, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_Yellow_FLag, lv.obj.FLAG.SCROLLABLE, False)
+ui_Yellow_FLag.set_style_bg_color(lv.color_hex(0xFFDD00), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Yellow_FLag.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+
+ui_Page_Container = lv.obj(ui_RaceScreen)
+ui_Page_Container.remove_style_all()
+ui_Page_Container.set_width(35)
+ui_Page_Container.set_height(10)
+ui_Page_Container.set_x(1)
+ui_Page_Container.set_y(56)
+ui_Page_Container.set_align( lv.ALIGN.CENTER)
+ui_Page_Container.set_flex_flow(lv.FLEX_FLOW.ROW)
+ui_Page_Container.set_flex_align(lv.FLEX_ALIGN.SPACE_BETWEEN, lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.SPACE_BETWEEN)
+SetFlag(ui_Page_Container, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_Page_Container, lv.obj.FLAG.SCROLLABLE, False)
+
+ui_Page1 = lv.btn(ui_Page_Container)
+ui_Page1.set_width(4)
+ui_Page1.set_height(4)
+ui_Page1.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_Page1, lv.obj.FLAG.SCROLLABLE, False)
+SetFlag(ui_Page1, lv.obj.FLAG.SCROLL_ON_FOCUS, True)
+ui_object_set_themeable_style_property( ui_Page1, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.BG_COLOR, UI_THEME_COLOR_COLORTEAM)
+ui_object_set_themeable_style_property( ui_Page1, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.BG_OPA, UI_THEME_COLOR_COLORTEAM)
+ui_object_set_themeable_style_property( ui_Page1, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.SHADOW_COLOR, UI_THEME_COLOR_COLORTEAM)
+ui_object_set_themeable_style_property( ui_Page1, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.SHADOW_OPA, UI_THEME_COLOR_COLORTEAM)
+ui_Page1.set_style_shadow_width( 5, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Page1.set_style_shadow_spread( 1, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_Page2 = lv.btn(ui_Page_Container)
+ui_Page2.set_width(4)
+ui_Page2.set_height(4)
+ui_Page2.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_Page2, lv.obj.FLAG.SCROLLABLE, False)
+SetFlag(ui_Page2, lv.obj.FLAG.SCROLL_ON_FOCUS, True)
+ui_Page2.set_style_bg_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Page2.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+
+ui_Page3 = lv.btn(ui_Page_Container)
+ui_Page3.set_width(4)
+ui_Page3.set_height(4)
+ui_Page3.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_Page3, lv.obj.FLAG.SCROLLABLE, False)
+SetFlag(ui_Page3, lv.obj.FLAG.SCROLL_ON_FOCUS, True)
+ui_Page3.set_style_bg_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Page3.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+
+ui_Page4 = lv.btn(ui_Page_Container)
+ui_Page4.set_width(4)
+ui_Page4.set_height(4)
+ui_Page4.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_Page4, lv.obj.FLAG.SCROLLABLE, False)
+SetFlag(ui_Page4, lv.obj.FLAG.SCROLL_ON_FOCUS, True)
+ui_Page4.set_style_bg_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Page4.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+
+ui_Driver_Container = lv.obj(ui_RaceScreen)
+ui_Driver_Container.remove_style_all()
+ui_Driver_Container.set_width(140)
+ui_Driver_Container.set_height(100)
+ui_Driver_Container.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_Driver_Container, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_Driver_Container, lv.obj.FLAG.SCROLLABLE, False)
+
+ui_d1 = ui_DriverContainer_create(ui_Driver_Container)
+ui_d1.set_x(0)
+ui_d1.set_y(-39)
+
+ui_d2 = ui_DriverContainer_create(ui_Driver_Container)
+ui_d2.set_x(0)
+ui_d2.set_y(-20)
+
+ui_d3 = ui_DriverContainer_create(ui_Driver_Container)
+ui_d3.set_x(0)
+ui_d3.set_y(0)
+
+ui_d4 = ui_DriverContainer_create(ui_Driver_Container)
+ui_d4.set_x(0)
+ui_d4.set_y(20)
+
+ui_d5 = ui_DriverContainer_create(ui_Driver_Container)
+ui_d5.set_x(0)
+ui_d5.set_y(39)
+
+ui_ControllCenter_Container = lv.obj(ui_RaceScreen)
+ui_ControllCenter_Container.remove_style_all()
+ui_ControllCenter_Container.set_width(225)
+ui_ControllCenter_Container.set_height(22)
+ui_ControllCenter_Container.set_x(-3)
+ui_ControllCenter_Container.set_y(74)
+ui_ControllCenter_Container.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_ControllCenter_Container, lv.obj.FLAG.HIDDEN, True)
+SetFlag(ui_ControllCenter_Container, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_ControllCenter_Container, lv.obj.FLAG.SCROLLABLE, False)
+ui_ControllCenter_Container.set_style_bg_color(lv.color_hex(0xFF0101), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_ControllCenter_Container.set_style_bg_opa(200, lv.PART.MAIN| lv.STATE.DEFAULT )
+
+ui_CenterMsg = lv.label(ui_ControllCenter_Container)
+ui_CenterMsg.set_text("BLACK AND WHITE FLAG FOR CAR 1 (VER) - TRACK LIMITS")
+ui_CenterMsg.set_width(lv.SIZE.CONTENT)	# 1
+ui_CenterMsg.set_height(lv.SIZE.CONTENT)   # 1
+ui_CenterMsg.set_align( lv.ALIGN.CENTER)
+ui_CenterMsg.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_CenterMsg.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_CenterMsg.set_style_text_font( font_F1R10, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_RaceScreen.add_event_cb(RaceScreen_eventhandler, lv.EVENT.ALL, None)
+
+def SetupScreen_eventhandler(event_struct):
+   event = event_struct.code
+   if event == lv.EVENT.SCREEN_LOADED and True:
+      right_Animation(ui_WifiMenuItem, 0)
+      right_Animation(ui_DriverMenuItem, 0)
+      left_Animation(ui_TeamMenuItem, 0)
+   return
+
+ui_SetupScreen = lv.obj()
+SetFlag(ui_SetupScreen, lv.obj.FLAG.SCROLLABLE, False)
+ui_SetupScreen.set_style_radius( 0, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_SetupScreen.set_style_bg_color(lv.color_hex(0x000000), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_SetupScreen.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_SetupScreen.set_style_bg_main_stop( 0, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_SetupScreen.set_style_bg_grad_stop( 255, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_SetupScreen.set_style_bg_grad_dir( lv.GRAD_DIR.VER, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_WifiMenuItem = lv.obj(ui_SetupScreen)
+ui_WifiMenuItem.remove_style_all()
+ui_WifiMenuItem.set_width(130)
+ui_WifiMenuItem.set_height(40)
+ui_WifiMenuItem.set_x(50)
+ui_WifiMenuItem.set_y(-60)
+ui_WifiMenuItem.set_align( lv.ALIGN.LEFT_MID)
+ui_WifiMenuItem.set_flex_flow(lv.FLEX_FLOW.ROW)
+ui_WifiMenuItem.set_flex_align(lv.FLEX_ALIGN.SPACE_AROUND, lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.CENTER)
+SetFlag(ui_WifiMenuItem, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_WifiMenuItem, lv.obj.FLAG.SCROLLABLE, False)
+
+ui_WifiMenuIcon = lv.obj(ui_WifiMenuItem)
+ui_WifiMenuIcon.set_width(40)
+ui_WifiMenuIcon.set_height(40)
+ui_WifiMenuIcon.set_x(-44)
+ui_WifiMenuIcon.set_y(-50)
+ui_WifiMenuIcon.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_WifiMenuIcon, lv.obj.FLAG.SCROLLABLE, False)
+ui_WifiMenuIcon.set_style_radius( 90, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_WifiMenuIcon.set_style_bg_color(lv.color_hex(0x01A3D8), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_WifiMenuIcon.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_WifiMenuIcon.set_style_bg_img_src( ui_images.ui_img_wifi_icon_png, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_WifiMenuIcon.set_style_border_color(lv.color_hex(0x000000), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_WifiMenuIcon.set_style_border_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_WifiMenuIcon.set_style_border_width( 0, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_WifiMenuIcon.set_style_shadow_color(lv.color_hex(0x01A3D8), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_WifiMenuIcon.set_style_shadow_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_WifiMenuIcon.set_style_shadow_width( 5, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_WifiMenuIcon.set_style_shadow_spread( 1, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_WifiMenuLabel = lv.label(ui_WifiMenuItem)
+ui_WifiMenuLabel.set_text("WiFi")
+ui_WifiMenuLabel.set_width(lv.SIZE.CONTENT)	# 1
+ui_WifiMenuLabel.set_height(lv.SIZE.CONTENT)   # 1
+ui_WifiMenuLabel.set_x(16)
+ui_WifiMenuLabel.set_y(-51)
+ui_WifiMenuLabel.set_align( lv.ALIGN.CENTER)
+ui_WifiMenuLabel.set_style_text_font( font_DISPLAYM24, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_TeamMenuItem = lv.obj(ui_SetupScreen)
+ui_TeamMenuItem.remove_style_all()
+ui_TeamMenuItem.set_width(130)
+ui_TeamMenuItem.set_height(40)
+ui_TeamMenuItem.set_x(20)
+ui_TeamMenuItem.set_y(0)
+ui_TeamMenuItem.set_align( lv.ALIGN.LEFT_MID)
+ui_TeamMenuItem.set_flex_flow(lv.FLEX_FLOW.ROW)
+ui_TeamMenuItem.set_flex_align(lv.FLEX_ALIGN.SPACE_AROUND, lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.CENTER)
+SetFlag(ui_TeamMenuItem, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_TeamMenuItem, lv.obj.FLAG.SCROLLABLE, False)
+
+ui_TeamMenuIcon = lv.obj(ui_TeamMenuItem)
+ui_TeamMenuIcon.set_width(40)
+ui_TeamMenuIcon.set_height(40)
+ui_TeamMenuIcon.set_x(-66)
+ui_TeamMenuIcon.set_y(5)
+ui_TeamMenuIcon.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_TeamMenuIcon, lv.obj.FLAG.SCROLLABLE, False)
+ui_TeamMenuIcon.set_style_radius( 90, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_TeamMenuIcon.set_style_bg_color(lv.color_hex(0x970FDB), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_TeamMenuIcon.set_style_bg_opa(970, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_TeamMenuIcon.set_style_bg_img_src( ui_images.ui_img_theme_png, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_TeamMenuIcon.set_style_border_color(lv.color_hex(0x000000), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_TeamMenuIcon.set_style_border_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_TeamMenuIcon.set_style_border_width( 0, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_TeamMenuIcon.set_style_shadow_color(lv.color_hex(0x970FDB), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_TeamMenuIcon.set_style_shadow_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_TeamMenuIcon.set_style_shadow_width( 5, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_TeamMenuIcon.set_style_shadow_spread( 1, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_TeamMenuLabel = lv.label(ui_TeamMenuItem)
+ui_TeamMenuLabel.set_text("Theme")
+ui_TeamMenuLabel.set_width(lv.SIZE.CONTENT)	# 1
+ui_TeamMenuLabel.set_height(lv.SIZE.CONTENT)   # 1
+ui_TeamMenuLabel.set_x(6)
+ui_TeamMenuLabel.set_y(-58)
+ui_TeamMenuLabel.set_align( lv.ALIGN.CENTER)
+ui_TeamMenuLabel.set_style_text_font( font_DISPLAYM24, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_DriverMenuItem = lv.obj(ui_SetupScreen)
+ui_DriverMenuItem.remove_style_all()
+ui_DriverMenuItem.set_width(130)
+ui_DriverMenuItem.set_height(40)
+ui_DriverMenuItem.set_x(50)
+ui_DriverMenuItem.set_y(60)
+ui_DriverMenuItem.set_align( lv.ALIGN.LEFT_MID)
+ui_DriverMenuItem.set_flex_flow(lv.FLEX_FLOW.ROW)
+ui_DriverMenuItem.set_flex_align(lv.FLEX_ALIGN.SPACE_AROUND, lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.CENTER)
+SetFlag(ui_DriverMenuItem, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_DriverMenuItem, lv.obj.FLAG.SCROLLABLE, False)
+
+ui_DriverMenuIcon = lv.obj(ui_DriverMenuItem)
+ui_DriverMenuIcon.set_width(40)
+ui_DriverMenuIcon.set_height(40)
+ui_DriverMenuIcon.set_x(-40)
+ui_DriverMenuIcon.set_y(69)
+ui_DriverMenuIcon.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_DriverMenuIcon, lv.obj.FLAG.SCROLLABLE, False)
+ui_DriverMenuIcon.set_style_radius( 90, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_DriverMenuIcon.set_style_bg_color(lv.color_hex(0xFF0101), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_DriverMenuIcon.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_DriverMenuIcon.set_style_bg_img_src( ui_images.ui_img_driver_icon_png, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_DriverMenuIcon.set_style_border_color(lv.color_hex(0x000000), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_DriverMenuIcon.set_style_border_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_DriverMenuIcon.set_style_border_width( 0, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_DriverMenuIcon.set_style_shadow_color(lv.color_hex(0xFF0101), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_DriverMenuIcon.set_style_shadow_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_DriverMenuIcon.set_style_shadow_width( 5, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_DriverMenuIcon.set_style_shadow_spread( 1, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_DriverMenuLabel = lv.label(ui_DriverMenuItem)
+ui_DriverMenuLabel.set_text("Driver")
+ui_DriverMenuLabel.set_width(lv.SIZE.CONTENT)	# 1
+ui_DriverMenuLabel.set_height(lv.SIZE.CONTENT)   # 1
+ui_DriverMenuLabel.set_x(23)
+ui_DriverMenuLabel.set_y(70)
+ui_DriverMenuLabel.set_align( lv.ALIGN.CENTER)
+ui_DriverMenuLabel.set_style_text_font( font_DISPLAYM24, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_SetupScreen.add_event_cb(SetupScreen_eventhandler, lv.EVENT.ALL, None)
+
+ui_WiFiScreen = lv.obj()
+SetFlag(ui_WiFiScreen, lv.obj.FLAG.SCROLLABLE, False)
+ui_WiFiScreen.set_style_bg_color(lv.color_hex(0x000000), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_WiFiScreen.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+
+ui_WiFiHeader = lv.obj(ui_WiFiScreen)
+ui_WiFiHeader.remove_style_all()
+ui_WiFiHeader.set_width(146)
+ui_WiFiHeader.set_height(40)
+ui_WiFiHeader.set_x(0)
+ui_WiFiHeader.set_y(26)
+ui_WiFiHeader.set_align( lv.ALIGN.TOP_MID)
+ui_WiFiHeader.set_flex_flow(lv.FLEX_FLOW.ROW)
+ui_WiFiHeader.set_flex_align(lv.FLEX_ALIGN.SPACE_BETWEEN, lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.CENTER)
+SetFlag(ui_WiFiHeader, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_WiFiHeader, lv.obj.FLAG.SCROLLABLE, False)
+
+ui_WiFiLabel = lv.label(ui_WiFiHeader)
+ui_WiFiLabel.set_text("WLAN")
+ui_WiFiLabel.set_width(lv.SIZE.CONTENT)	# 1
+ui_WiFiLabel.set_height(lv.SIZE.CONTENT)   # 1
+ui_WiFiLabel.set_x(-42)
+ui_WiFiLabel.set_y(-80)
+ui_WiFiLabel.set_align( lv.ALIGN.CENTER)
+ui_WiFiLabel.set_style_text_font( font_DISPLAYM18, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_WiFiScanner = lv.spinner(ui_WiFiHeader, 1000, 90)
+ui_WiFiScanner.set_width(20)
+ui_WiFiScanner.set_height(20)
+ui_WiFiScanner.set_x(0)
+ui_WiFiScanner.set_y(-80)
+ui_WiFiScanner.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_WiFiScanner, lv.obj.FLAG.GESTURE_BUBBLE, False)
+SetFlag(ui_WiFiScanner, lv.obj.FLAG.SNAPPABLE, False)
+SetFlag(ui_WiFiScanner, lv.obj.FLAG.SCROLL_CHAIN, False)
+ui_WiFiScanner.set_style_arc_width( 4, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_WiFiScanner.set_style_arc_color(lv.color_hex(0xFFFFFF), lv.PART.INDICATOR | lv.STATE.DEFAULT )
+ui_WiFiScanner.set_style_arc_opa(255, lv.PART.INDICATOR| lv.STATE.DEFAULT )
+ui_WiFiScanner.set_style_arc_width( 4, lv.PART.INDICATOR | lv.STATE.DEFAULT )
+
+ui_WiFISwither = lv.switch(ui_WiFiHeader)
+ui_WiFISwither.set_width(50)
+ui_WiFISwither.set_height(25)
+ui_WiFISwither.set_x(39)
+ui_WiFISwither.set_y(-80)
+ui_WiFISwither.set_align( lv.ALIGN.CENTER)
+
+ui_WiFIList = lv.obj(ui_WiFiScreen)
+ui_WiFIList.remove_style_all()
+ui_WiFIList.set_width(172)
+ui_WiFIList.set_height(127)
+ui_WiFIList.set_x(0)
+ui_WiFIList.set_y(5)
+ui_WiFIList.set_align( lv.ALIGN.CENTER)
+ui_WiFIList.set_flex_flow(lv.FLEX_FLOW.COLUMN)
+ui_WiFIList.set_flex_align(lv.FLEX_ALIGN.START, lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.CENTER)
+SetFlag(ui_WiFIList, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_WiFIList, lv.obj.FLAG.SCROLLABLE, False)
+
+ui_WiFiItem = ui_WiFiItem_create(ui_WiFIList)
+ui_WiFiItem.set_x(0)
+ui_WiFiItem.set_y(0)
+
+ui_ThemeScreen = lv.obj()
+SetFlag(ui_ThemeScreen, lv.obj.FLAG.SCROLLABLE, False)
+ui_ThemeScreen.set_style_bg_color(lv.color_hex(0x000000), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_ThemeScreen.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+
+ui_ThemeScreen_Roller = lv.roller(ui_ThemeScreen)
+ui_ThemeScreen_Roller.set_options("Default(RedBull)\nAMG Theme\nFerrari Theme", lv.roller.MODE.INFINITE)
+ui_ThemeScreen_Roller.set_selected(0,lv.ANIM.OFF) # need update when change: Default(RedBull)\nAMG Theme\nFerrari Theme
+ui_ThemeScreen_Roller.set_height(100)
+ui_ThemeScreen_Roller.set_width(lv.SIZE.CONTENT)	# 1
+ui_ThemeScreen_Roller.set_align( lv.ALIGN.CENTER)
+ui_ThemeScreen_Roller.set_style_text_align( lv.TEXT_ALIGN.CENTER, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_ThemeScreen_Roller.set_style_text_font( font_DISPLAYM18, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_ThemeScreen_Roller.set_style_bg_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_ThemeScreen_Roller.set_style_bg_opa(0, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_ThemeScreen_Roller.set_style_border_color(lv.color_hex(0x000000), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_ThemeScreen_Roller.set_style_border_opa(0, lv.PART.MAIN| lv.STATE.DEFAULT )
+
+ui_ThemeScreen_Roller.set_style_text_font( font_DISPLAYM24, lv.PART.SELECTED | lv.STATE.DEFAULT )
+ui_ThemeScreen_Roller.set_style_bg_color(lv.color_hex(0x3E3E3E), lv.PART.SELECTED | lv.STATE.DEFAULT )
+ui_ThemeScreen_Roller.set_style_bg_opa(255, lv.PART.SELECTED| lv.STATE.DEFAULT )
+
+def WiFiScan_eventhandler(event_struct):
+   event = event_struct.code
+   if event == lv.EVENT.SCREEN_LOADED and True:
+      top_Animation(ui_QCodeTitle, 0)
+   return
+
+ui_WiFiScan = lv.obj()
+SetFlag(ui_WiFiScan, lv.obj.FLAG.SCROLLABLE, False)
+ui_WiFiScan.set_style_bg_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_WiFiScan.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+
+ui_QcodeImg = lv.img(ui_WiFiScan)
+ui_QcodeImg.set_src(ui_images.ui_img_qcode_png)
+ui_QcodeImg.set_width(lv.SIZE.CONTENT)	# 1
+ui_QcodeImg.set_height(lv.SIZE.CONTENT)   # 1
+ui_QcodeImg.set_x(0)
+ui_QcodeImg.set_y(27)
+ui_QcodeImg.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_QcodeImg, lv.obj.FLAG.ADV_HITTEST, True)
+SetFlag(ui_QcodeImg, lv.obj.FLAG.SCROLLABLE, False)
+
+ui_QCodeTitle = lv.label(ui_WiFiScan)
+ui_QCodeTitle.set_text("1:使用手机连接WIFI热点:\n	F1LiveTime\n2:扫描下方二维码")
+ui_QCodeTitle.set_width(lv.SIZE.CONTENT)	# 1
+ui_QCodeTitle.set_height(lv.SIZE.CONTENT)   # 1
+ui_QCodeTitle.set_x(0)
+ui_QCodeTitle.set_y(-59)
+ui_QCodeTitle.set_align( lv.ALIGN.CENTER)
+ui_QCodeTitle.set_style_text_color(lv.color_hex(0x000000), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_QCodeTitle.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_QCodeTitle.set_style_text_align( lv.TEXT_ALIGN.LEFT, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_QCodeTitle.set_style_text_font( font_Chinese12, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_WiFiScan.add_event_cb(WiFiScan_eventhandler, lv.EVENT.ALL, None)
 
 lv.scr_load(ui_MsgScreen)
