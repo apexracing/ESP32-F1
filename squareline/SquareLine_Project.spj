@@ -2414,7 +2414,7 @@
           }
         ],
         "isPage": true,
-        "editor_posx": 615,
+        "editor_posx": 600,
         "editor_posy": -300,
         "locked": false,
         "properties": [
@@ -3441,7 +3441,7 @@
           }
         ],
         "isPage": true,
-        "editor_posx": 915,
+        "editor_posx": 900,
         "editor_posy": -300,
         "locked": false,
         "properties": [
@@ -4149,7 +4149,7 @@
           }
         ],
         "isPage": true,
-        "editor_posx": 1200,
+        "editor_posx": 1185,
         "editor_posy": -300,
         "locked": false,
         "properties": [
@@ -10658,7 +10658,7 @@
           }
         ],
         "isPage": true,
-        "editor_posx": 315,
+        "editor_posx": 300,
         "editor_posy": -300,
         "locked": false,
         "properties": [
@@ -15122,7 +15122,7 @@
           }
         ],
         "isPage": true,
-        "editor_posx": 615,
+        "editor_posx": 600,
         "editor_posy": -660,
         "locked": false,
         "properties": [
@@ -38163,7 +38163,7 @@
           }
         ],
         "isPage": true,
-        "editor_posx": 315,
+        "editor_posx": 300,
         "editor_posy": -660,
         "locked": false,
         "properties": [
@@ -41153,8 +41153,7 @@
                 "InheritedType": 11
               }
             ],
-            "saved_objtypeKey": "CONTAINER",
-            "tree_closed": true
+            "saved_objtypeKey": "CONTAINER"
           },
           {
             "guid": "GUID34937000-330756S20343167",
@@ -42072,7 +42071,7 @@
           }
         ],
         "isPage": true,
-        "editor_posx": 915,
+        "editor_posx": 900,
         "editor_posy": -660,
         "locked": false,
         "properties": [
@@ -45255,7 +45254,7 @@
           }
         ],
         "isPage": true,
-        "editor_posx": 1215,
+        "editor_posx": 1200,
         "editor_posy": -660,
         "locked": false,
         "properties": [
@@ -45810,7 +45809,7 @@
         ],
         "isPage": true,
         "editor_posx": 300,
-        "editor_posy": -1035,
+        "editor_posy": -990,
         "locked": false,
         "properties": [
           {
@@ -46661,8 +46660,8 @@
           }
         ],
         "isPage": true,
-        "editor_posx": 645,
-        "editor_posy": -1035,
+        "editor_posx": 615,
+        "editor_posy": -990,
         "locked": false,
         "properties": [
           {
@@ -48875,7 +48874,7 @@
     "theme_color2": 0,
     "uiExportFolderPath": "F:\\ESP32\\squareline\\generated",
     "projectExportFolderPath": "",
-    "backup_cnt": 842,
+    "backup_cnt": 844,
     "autosave_cnt": 0,
     "lvgl_version": "8.3.11",
     "callfuncsexport": "PY_FILE",
