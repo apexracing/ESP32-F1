@@ -1,5 +1,5 @@
 import lvgl as lv
-from common.resource_manager import ResourceManager
+from ui.resource_manager import ResourceManager
 
 
 class Emoil:

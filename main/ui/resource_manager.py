@@ -40,7 +40,7 @@ class ResourceManager:
             self.global_raw_cache[file]=raw_data
         return raw_data
 
-    def load_img(self, file):
+    def load_img(self, file,width=240,height=240):
         """
         只支持png格式图片
         :param file:
@@ -54,7 +54,9 @@ class ResourceManager:
         except:
             print(f'Could not open {file}')
             sys.exit()
+        print("loading png file:%s,w:%s,h:%s" % (file,width,height))
         img = lv.img_dsc_t({
+            'header': {'always_zero': 0,"w": width, "h": height, 'cf': lv.img.CF.TRUE_COLOR},
             'data_size': len(data),
             'data': data
         })

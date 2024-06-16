@@ -3,7 +3,8 @@
 #esp.osdebug(None)
 #import webrepl
 #webrepl.start()
-import ui.theme_manager
+
+
 from common.touch_driver import TouchDriver
 from common.display_driver import DisplayDriver
 import lvgl as lv
