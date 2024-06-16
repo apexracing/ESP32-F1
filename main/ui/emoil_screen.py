@@ -4,8 +4,7 @@ from ui.emoil import Emoil
 import random
 from ui.resource_manager import ResourceManager
 
-resourceManager=ResourceManager()
-img=resourceManager.load_img("/ui/assets/Helmet_RedBull.png")
+
 class EmoilScreen(Screen):
     def __init__(self):
         super().__init__()
@@ -22,18 +21,13 @@ class EmoilScreen(Screen):
         self.screen.set_style_bg_grad_stop(255, lv.PART.MAIN | lv.STATE.DEFAULT)
         self.screen.set_style_bg_grad_dir(lv.GRAD_DIR.VER, lv.PART.MAIN | lv.STATE.DEFAULT)
         #self.screen.set_style_bg_img_src(self.resourceManager.load_img("ui/assets/grid.png"), lv.PART.MAIN | lv.STATE.DEFAULT)
-
+        #global  ui_img_helmet_redbull_png
         self.ui_EmoilScreen_Image1 = lv.img(self.screen)
-        self.ui_EmoilScreen_Image1.set_src(img)
+        self.ui_EmoilScreen_Image1.set_src(self.resourceManager.load_img("/ui/assets/Helmet_RedBull.png"))
         self.ui_EmoilScreen_Image1.set_width(lv.SIZE.CONTENT)  # 1
         self.ui_EmoilScreen_Image1.set_height(lv.SIZE.CONTENT)  # 1
         self.ui_EmoilScreen_Image1.set_align(lv.ALIGN.CENTER)
-        self.SetFlag(self.ui_EmoilScreen_Image1, lv.obj.FLAG.PRESS_LOCK, False)
-        self.SetFlag(self.ui_EmoilScreen_Image1, lv.obj.FLAG.CLICK_FOCUSABLE, False)
-        self.SetFlag(self.ui_EmoilScreen_Image1, lv.obj.FLAG.SNAPPABLE, False)
-        self.SetFlag(self.ui_EmoilScreen_Image1, lv.obj.FLAG.SCROLL_ELASTIC, False)
-        self.SetFlag(self.ui_EmoilScreen_Image1, lv.obj.FLAG.SCROLL_MOMENTUM, False)
-        self.SetFlag(self.ui_EmoilScreen_Image1, lv.obj.FLAG.SCROLL_CHAIN, False)
+
         self.ui_EmoilScreen_Image1.set_scrollbar_mode(lv.SCROLLBAR_MODE.OFF)
 
         self.ui_EmoilScreen_Container1 = lv.obj(self.screen)
@@ -43,18 +37,8 @@ class EmoilScreen(Screen):
         self.ui_EmoilScreen_Container1.set_x(0)
         self.ui_EmoilScreen_Container1.set_y(15)
         self.ui_EmoilScreen_Container1.set_align(lv.ALIGN.CENTER)
-        self.SetFlag(self.ui_EmoilScreen_Container1, lv.obj.FLAG.CLICKABLE, False)
-        self.SetFlag(self.ui_EmoilScreen_Container1, lv.obj.FLAG.PRESS_LOCK, False)
-        self.SetFlag(self.ui_EmoilScreen_Container1, lv.obj.FLAG.CLICK_FOCUSABLE, False)
-        self.SetFlag(self.ui_EmoilScreen_Container1, lv.obj.FLAG.GESTURE_BUBBLE, False)
-        self.SetFlag(self.ui_EmoilScreen_Container1, lv.obj.FLAG.SNAPPABLE, False)
-        self.SetFlag(self.ui_EmoilScreen_Container1, lv.obj.FLAG.SCROLLABLE, False)
-        self.SetFlag(self.ui_EmoilScreen_Container1, lv.obj.FLAG.SCROLL_ELASTIC, False)
-        self.SetFlag(self.ui_EmoilScreen_Container1, lv.obj.FLAG.SCROLL_MOMENTUM, False)
-        self.SetFlag(self.ui_EmoilScreen_Container1, lv.obj.FLAG.SCROLL_CHAIN, False)
         self.ui_EmoilScreen_Container1.set_scrollbar_mode(lv.SCROLLBAR_MODE.OFF)
         self.ui_EmoilScreen_Container1.set_style_bg_color(lv.color_hex(0xFF), lv.PART.MAIN | lv.STATE.DEFAULT)
-
         print("init1")
         self.total_emoil=10
         self.current_emoil=1
@@ -68,9 +52,9 @@ class EmoilScreen(Screen):
         if event == lv.EVENT.GESTURE:
             direction=lv.indev_t.get_gesture_dir(lv.indev_get_act())
             if direction & lv.DIR.LEFT == lv.DIR.LEFT:
-                self.play_emoil_pre()
+                pass
             if direction & lv.DIR.RIGHT == lv.DIR.RIGHT:
-                self.play_emoil_next()
+                pass
         if event == lv.EVENT.SCREEN_LOADED and True:
             print("screen loaded")
             self.top_Animation(self.ui_EmoilScreen_Image1, 0)
@@ -81,18 +65,3 @@ class EmoilScreen(Screen):
         while self.current_emoil == last_num:
             self.current_emoil=random.randint(1,self.total_emoil)
         Emoil(self.ui_EmoilScreen_Container1,f'ui/assets/e{self.current_emoil:02}.json')
-        
-    def play_emoil_next(self):
-        if self.current_emoil== self.total_emoil:
-            self.current_emoil=1
-        else:
-            self.current_emoil+=1
-        Emoil(self.ui_EmoilScreen_Container1,f'ui/assets/e{self.current_emoil:02}.json')
-    
-    def play_emoil_pre(self):
-        if self.current_emoil== 1:
-            self.current_emoil=self.total_emoil
-        else:
-            self.current_emoil-=1
-        Emoil(self.ui_EmoilScreen_Container1,f'ui/assets/e{self.current_emoil:02}.json')
-

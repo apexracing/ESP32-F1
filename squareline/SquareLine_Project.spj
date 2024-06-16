@@ -3230,6 +3230,7 @@
               },
               {
                 "nid": 368629325,
+                "flags": 1048576,
                 "strtype": "OBJECT/Flags",
                 "InheritedType": 1
               },
@@ -3768,56 +3769,6 @@
                   },
                   {
                     "nid": 642600576,
-                    "strtype": "PLAY ANIMATION/CallC",
-                    "strval": "<{FunctionName}>(<{Target}>, <{Delay}>);",
-                    "InheritedType": 10
-                  }
-                ],
-                "InheritedType": 10
-              },
-              {
-                "nid": 1310778893,
-                "strtype": "_event/action",
-                "strval": "PLAY ANIMATION",
-                "childs": [
-                  {
-                    "nid": 2110694004,
-                    "strtype": "PLAY ANIMATION/Name",
-                    "strval": "PLAY ANIMATION",
-                    "InheritedType": 10
-                  },
-                  {
-                    "nid": 1574335010,
-                    "strtype": "PLAY ANIMATION/FunctionName",
-                    "strval": "opa_on_Animation",
-                    "InheritedType": 10
-                  },
-                  {
-                    "nid": 1426811345,
-                    "strtype": "PLAY ANIMATION/Animation",
-                    "strval": "opa_on",
-                    "InheritedType": 8
-                  },
-                  {
-                    "nid": 707631102,
-                    "strtype": "PLAY ANIMATION/Target",
-                    "strval": "GUID95614196-111816S432083155",
-                    "InheritedType": 9
-                  },
-                  {
-                    "nid": -1688581412,
-                    "strtype": "PLAY ANIMATION/Delay",
-                    "integer": 200,
-                    "InheritedType": 6
-                  },
-                  {
-                    "nid": -1076798,
-                    "strtype": "PLAY ANIMATION/Call",
-                    "strval": "<{FunctionName}>(<{Target}>, <{Delay}>)",
-                    "InheritedType": 10
-                  },
-                  {
-                    "nid": -1939245807,
                     "strtype": "PLAY ANIMATION/CallC",
                     "strval": "<{FunctionName}>(<{Target}>, <{Delay}>);",
                     "InheritedType": 10
@@ -48872,7 +48823,7 @@
     "theme_color2": 0,
     "uiExportFolderPath": "E:\\github\\esp32\\squareline\\generated",
     "projectExportFolderPath": "",
-    "backup_cnt": 853,
+    "backup_cnt": 911,
     "autosave_cnt": 0,
     "lvgl_version": "8.3.11",
     "callfuncsexport": "PY_FILE",
