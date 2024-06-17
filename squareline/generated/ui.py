@@ -321,21 +321,6 @@ def left_Animation(TargetObject, delay):
   PropertyAnimation_0.set_values(-100, 0)
   PropertyAnimation_0.set_get_value_cb(lambda a: TargetObject.get_x_aligned())
   lv.anim_t.start(PropertyAnimation_0)
-  PropertyAnimation_1 = lv.anim_t()
-  PropertyAnimation_1.init()
-  PropertyAnimation_1.set_path_cb(lv.anim_t.path_linear)
-  PropertyAnimation_1.set_time(300)
-  PropertyAnimation_1.set_var(TargetObject)
-  PropertyAnimation_1.set_custom_exec_cb(lambda a, v: TargetObject.set_style_opa(v,0))
-  PropertyAnimation_1.set_delay(delay + 0)
-  PropertyAnimation_1.set_repeat_count(0)
-  PropertyAnimation_1.set_repeat_delay(0) #+ 500
-  PropertyAnimation_1.set_playback_delay(0)
-  PropertyAnimation_1.set_playback_time(0)
-  PropertyAnimation_1.set_early_apply(False)
-  PropertyAnimation_1.set_values(0, 255)
-  PropertyAnimation_1.set_get_value_cb(lambda a: TargetObject.get_style_opa(0))
-  lv.anim_t.start(PropertyAnimation_1)
 
   print ("left_Animation called")
   return
@@ -356,21 +341,6 @@ def right_Animation(TargetObject, delay):
   PropertyAnimation_0.set_values(150, 0)
   PropertyAnimation_0.set_get_value_cb(lambda a: TargetObject.get_x_aligned())
   lv.anim_t.start(PropertyAnimation_0)
-  PropertyAnimation_1 = lv.anim_t()
-  PropertyAnimation_1.init()
-  PropertyAnimation_1.set_path_cb(lv.anim_t.path_linear)
-  PropertyAnimation_1.set_time(300)
-  PropertyAnimation_1.set_var(TargetObject)
-  PropertyAnimation_1.set_custom_exec_cb(lambda a, v: TargetObject.set_style_opa(v,0))
-  PropertyAnimation_1.set_delay(delay + 0)
-  PropertyAnimation_1.set_repeat_count(0)
-  PropertyAnimation_1.set_repeat_delay(0) #+ 500
-  PropertyAnimation_1.set_playback_delay(0)
-  PropertyAnimation_1.set_playback_time(0)
-  PropertyAnimation_1.set_early_apply(False)
-  PropertyAnimation_1.set_values(0, 255)
-  PropertyAnimation_1.set_get_value_cb(lambda a: TargetObject.get_style_opa(0))
-  lv.anim_t.start(PropertyAnimation_1)
 
   print ("right_Animation called")
   return
@@ -756,32 +726,8 @@ def ScheduleScreen_eventhandler(event_struct):
       opa_on_Animation(ui_Minutes, 0)
       opa_on_Animation(ui_Session_Label, 0)
       bottom_Animation(ui_Event_Label, 0)
-   return
-
-def Calendar_Month_eventhandler(event_struct):
-   event = event_struct.code
-   if event == lv.EVENT.SCREEN_LOADED and True:
-      opa_on_Animation(ui_Calendar_Month, 0)
-      opa_on_Animation(ui_Calendar_Day, 0)
-      right_Animation(ui_Time_Min_Label, 0)
-   return
-
-def Time_Dot_Label_eventhandler(event_struct):
-   event = event_struct.code
-   if event == lv.EVENT.SCREEN_LOADED and True:
-      Flash_Animation(ui_Upcoming_Label, 0)
-   return
-
-def Time_Min_Label_eventhandler(event_struct):
-   event = event_struct.code
-   if event == lv.EVENT.SCREEN_LOADED and True:
-      Flash_Animation(ui_Upcoming_Label, 0)
-   return
-
-def Time_Hour_Label_eventhandler(event_struct):
-   event = event_struct.code
-   if event == lv.EVENT.SCREEN_LOADED and True:
-      Flash_Animation(ui_Upcoming_Label, 0)
+      opa_on_Animation(ui_Time_Dot_Label, 0)
+      top_Animation(ui_Upcoming_Label, 0)
    return
 
 ui_ScheduleScreen = lv.obj()
@@ -794,6 +740,15 @@ ui_Second_Arc = lv.arc(ui_ScheduleScreen)
 ui_Second_Arc.set_width(230)
 ui_Second_Arc.set_height(230)
 ui_Second_Arc.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_Second_Arc, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_Second_Arc, lv.obj.FLAG.PRESS_LOCK, False)
+SetFlag(ui_Second_Arc, lv.obj.FLAG.CLICK_FOCUSABLE, False)
+SetFlag(ui_Second_Arc, lv.obj.FLAG.GESTURE_BUBBLE, False)
+SetFlag(ui_Second_Arc, lv.obj.FLAG.SNAPPABLE, False)
+SetFlag(ui_Second_Arc, lv.obj.FLAG.SCROLLABLE, False)
+SetFlag(ui_Second_Arc, lv.obj.FLAG.SCROLL_ELASTIC, False)
+SetFlag(ui_Second_Arc, lv.obj.FLAG.SCROLL_MOMENTUM, False)
+SetFlag(ui_Second_Arc, lv.obj.FLAG.SCROLL_CHAIN, False)
 ui_Second_Arc.set_range(0,60)
 ui_Second_Arc.set_value(45)
 ui_Second_Arc.set_bg_angles(0,360)
@@ -945,7 +900,6 @@ ui_Calendar_Month.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv
 ui_Calendar_Month.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
 ui_Calendar_Month.set_style_text_font( font_DISPLAYR30, lv.PART.MAIN | lv.STATE.DEFAULT )
 
-ui_Calendar_Month.add_event_cb(Calendar_Month_eventhandler, lv.EVENT.ALL, None)
 ui_ScheduleScreen_Container3 = lv.obj(ui_ScheduleScreen)
 ui_ScheduleScreen_Container3.remove_style_all()
 ui_ScheduleScreen_Container3.set_width(40)
@@ -979,7 +933,6 @@ ui_Time_Dot_Label.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv
 ui_Time_Dot_Label.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
 ui_Time_Dot_Label.set_style_text_font( font_DISPLAYR60, lv.PART.MAIN | lv.STATE.DEFAULT )
 
-ui_Time_Dot_Label.add_event_cb(Time_Dot_Label_eventhandler, lv.EVENT.ALL, None)
 ui_Time_Min_Label = lv.label(ui_ScheduleScreen)
 ui_Time_Min_Label.set_text("14")
 ui_Time_Min_Label.set_width(lv.SIZE.CONTENT)	# 1
@@ -991,7 +944,6 @@ ui_Time_Min_Label.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv
 ui_Time_Min_Label.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
 ui_Time_Min_Label.set_style_text_font( font_DISPLAYR60, lv.PART.MAIN | lv.STATE.DEFAULT )
 
-ui_Time_Min_Label.add_event_cb(Time_Min_Label_eventhandler, lv.EVENT.ALL, None)
 ui_Time_Hour_Label = lv.label(ui_ScheduleScreen)
 ui_Time_Hour_Label.set_text("10")
 ui_Time_Hour_Label.set_width(lv.SIZE.CONTENT)	# 1
@@ -1003,7 +955,6 @@ ui_Time_Hour_Label.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | l
 ui_Time_Hour_Label.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
 ui_Time_Hour_Label.set_style_text_font( font_DISPLAYR60, lv.PART.MAIN | lv.STATE.DEFAULT )
 
-ui_Time_Hour_Label.add_event_cb(Time_Hour_Label_eventhandler, lv.EVENT.ALL, None)
 ui_ScheduleScreen.add_event_cb(ScheduleScreen_eventhandler, lv.EVENT.ALL, None)
 
 def TelemetryScreen_eventhandler(event_struct):

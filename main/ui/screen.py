@@ -87,13 +87,13 @@ class Screen:
         obj.set_style_opa(v, lv.STATE.DEFAULT | lv.PART.MAIN)
         return
 
-    def Flash_Animation(self, TargetObject, delay):
+    def Flash_Animation(self,TargetObject, delay):
         PropertyAnimation_0 = lv.anim_t()
         PropertyAnimation_0.init()
-        PropertyAnimation_0.set_path_cb(lv.anim_t.path_ease_out)
+        PropertyAnimation_0.set_path_cb(lv.anim_t.path_ease_in_out)
         PropertyAnimation_0.set_time(1000)
         PropertyAnimation_0.set_var(TargetObject)
-        PropertyAnimation_0.set_custom_exec_cb(lambda a, v: TargetObject.set_style_opa(v, 0))
+        PropertyAnimation_0.set_custom_exec_cb(lambda a, v: TargetObject.set_style_text_opa(v,lv.PART.MAIN | lv.STATE.DEFAULT))
         PropertyAnimation_0.set_delay(delay + 0)
         PropertyAnimation_0.set_repeat_count(lv.ANIM_REPEAT.INFINITE)
         PropertyAnimation_0.set_repeat_delay(0)  # + 1000
@@ -102,11 +102,11 @@ class Screen:
         PropertyAnimation_0.set_early_apply(False)
         PropertyAnimation_0.set_values(255, 100)
         lv.anim_t.start(PropertyAnimation_0)
-
         print("Flash_Animation called")
-        return
+        return True
 
-    def left_Animation(self, TargetObject, delay):
+
+    def left_Animation(self,TargetObject, delay):
         PropertyAnimation_0 = lv.anim_t()
         PropertyAnimation_0.init()
         PropertyAnimation_0.set_path_cb(lv.anim_t.path_overshoot)
@@ -122,26 +122,11 @@ class Screen:
         PropertyAnimation_0.set_values(-100, 0)
         PropertyAnimation_0.set_get_value_cb(lambda a: TargetObject.get_x_aligned())
         lv.anim_t.start(PropertyAnimation_0)
-        PropertyAnimation_1 = lv.anim_t()
-        PropertyAnimation_1.init()
-        PropertyAnimation_1.set_path_cb(lv.anim_t.path_linear)
-        PropertyAnimation_1.set_time(300)
-        PropertyAnimation_1.set_var(TargetObject)
-        PropertyAnimation_1.set_custom_exec_cb(lambda a, v: TargetObject.set_style_opa(v, 0))
-        PropertyAnimation_1.set_delay(delay + 0)
-        PropertyAnimation_1.set_repeat_count(0)
-        PropertyAnimation_1.set_repeat_delay(0)  # + 500
-        PropertyAnimation_1.set_playback_delay(0)
-        PropertyAnimation_1.set_playback_time(0)
-        PropertyAnimation_1.set_early_apply(False)
-        PropertyAnimation_1.set_values(0, 255)
-        PropertyAnimation_1.set_get_value_cb(lambda a: TargetObject.get_style_opa(0))
-        lv.anim_t.start(PropertyAnimation_1)
 
         print("left_Animation called")
         return
 
-    def right_Animation(self, TargetObject, delay):
+    def right_Animation(self,TargetObject, delay):
         PropertyAnimation_0 = lv.anim_t()
         PropertyAnimation_0.init()
         PropertyAnimation_0.set_path_cb(lv.anim_t.path_overshoot)
@@ -157,21 +142,6 @@ class Screen:
         PropertyAnimation_0.set_values(150, 0)
         PropertyAnimation_0.set_get_value_cb(lambda a: TargetObject.get_x_aligned())
         lv.anim_t.start(PropertyAnimation_0)
-        PropertyAnimation_1 = lv.anim_t()
-        PropertyAnimation_1.init()
-        PropertyAnimation_1.set_path_cb(lv.anim_t.path_linear)
-        PropertyAnimation_1.set_time(300)
-        PropertyAnimation_1.set_var(TargetObject)
-        PropertyAnimation_1.set_custom_exec_cb(lambda a, v: TargetObject.set_style_opa(v, 0))
-        PropertyAnimation_1.set_delay(delay + 0)
-        PropertyAnimation_1.set_repeat_count(0)
-        PropertyAnimation_1.set_repeat_delay(0)  # + 500
-        PropertyAnimation_1.set_playback_delay(0)
-        PropertyAnimation_1.set_playback_time(0)
-        PropertyAnimation_1.set_early_apply(False)
-        PropertyAnimation_1.set_values(0, 255)
-        PropertyAnimation_1.set_get_value_cb(lambda a: TargetObject.get_style_opa(0))
-        lv.anim_t.start(PropertyAnimation_1)
 
         print("right_Animation called")
         return
@@ -182,7 +152,7 @@ class Screen:
         PropertyAnimation_0.set_path_cb(lv.anim_t.path_linear)
         PropertyAnimation_0.set_time(500)
         PropertyAnimation_0.set_var(TargetObject)
-        PropertyAnimation_0.set_custom_exec_cb(lambda a, v: TargetObject.set_style_opa(v, 0))
+        PropertyAnimation_0.set_custom_exec_cb(lambda a, v: TargetObject.set_style_text_opa(v,lv.PART.MAIN | lv.STATE.DEFAULT))
         PropertyAnimation_0.set_delay(delay + 0)
         PropertyAnimation_0.set_repeat_count(0)
         PropertyAnimation_0.set_repeat_delay(0)  # + 500
@@ -190,7 +160,6 @@ class Screen:
         PropertyAnimation_0.set_playback_time(0)
         PropertyAnimation_0.set_early_apply(False)
         PropertyAnimation_0.set_values(0, 255)
-        PropertyAnimation_0.set_get_value_cb(lambda a: TargetObject.get_style_opa(0))
         lv.anim_t.start(PropertyAnimation_0)
 
         print("opa_on_Animation called")
