@@ -523,9 +523,92 @@ def ui_WiFiItem_create(comp_parent):
     _ui_comp_table[id(cui_WiFiItem)]= {"WiFiItem" : cui_WiFiItem,"WifiName" : cui_WifiName,"WiFiImg" : cui_WiFiImg, "_CompName" : "WiFiItem"}
     return cui_WiFiItem
 
+# COMPONENTS
+
+ # COMPONENT DriverContainer
+def ui_DriverContainer_create(comp_parent):
+    cui_DriverContainer = lv.obj(comp_parent)
+    cui_DriverContainer.remove_style_all()
+    cui_DriverContainer.set_width(131)
+    cui_DriverContainer.set_height(16)
+    cui_DriverContainer.set_x(0)
+    cui_DriverContainer.set_y(-39)
+    cui_DriverContainer.set_align( lv.ALIGN.CENTER)
+    SetFlag(cui_DriverContainer, lv.obj.FLAG.CLICKABLE, False)
+    SetFlag(cui_DriverContainer, lv.obj.FLAG.SCROLLABLE, False)
+    cui_RaceScreen_Label1 = lv.label(cui_DriverContainer)
+    cui_RaceScreen_Label1.set_text("22")
+    cui_RaceScreen_Label1.set_width(16)
+    cui_RaceScreen_Label1.set_height(16)
+    cui_RaceScreen_Label1.set_x(5)
+    cui_RaceScreen_Label1.set_y(0)
+    cui_RaceScreen_Label1.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_RaceScreen_Label1.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+    cui_RaceScreen_Label1.set_style_text_align( lv.TEXT_ALIGN.RIGHT, lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_RaceScreen_Label1.set_style_text_font( font_DISPLAYM14, lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_RaceScreen_Container3 = lv.obj(cui_DriverContainer)
+    cui_RaceScreen_Container3.remove_style_all()
+    cui_RaceScreen_Container3.set_width(3)
+    cui_RaceScreen_Container3.set_height(14)
+    cui_RaceScreen_Container3.set_x(25)
+    cui_RaceScreen_Container3.set_y(0)
+    SetFlag(cui_RaceScreen_Container3, lv.obj.FLAG.CLICKABLE, False)
+    SetFlag(cui_RaceScreen_Container3, lv.obj.FLAG.SCROLLABLE, False)
+    cui_RaceScreen_Container3.set_style_bg_color(lv.color_hex(0x3671C6), lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_RaceScreen_Container3.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+    cui_RaceScreen_Label3 = lv.label(cui_DriverContainer)
+    cui_RaceScreen_Label3.set_text("VER")
+    cui_RaceScreen_Label3.set_width(lv.SIZE.CONTENT)	# 1
+    cui_RaceScreen_Label3.set_height(lv.SIZE.CONTENT)   # 1
+    cui_RaceScreen_Label3.set_x(33)
+    cui_RaceScreen_Label3.set_y(0)
+    cui_RaceScreen_Label3.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_RaceScreen_Label3.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+    cui_RaceScreen_Label3.set_style_text_font( font_DISPLAYM14, lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_RaceScreen_Label4 = lv.label(cui_DriverContainer)
+    cui_RaceScreen_Label4.set_text("Interval")
+    cui_RaceScreen_Label4.set_width(60)
+    cui_RaceScreen_Label4.set_height(16)
+    cui_RaceScreen_Label4.set_x(70)
+    cui_RaceScreen_Label4.set_y(0)
+    cui_RaceScreen_Label4.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_RaceScreen_Label4.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+    cui_RaceScreen_Label4.set_style_text_align( lv.TEXT_ALIGN.RIGHT, lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_RaceScreen_Label4.set_style_text_font( font_DISPLAYM14, lv.PART.MAIN | lv.STATE.DEFAULT )
+    _ui_comp_table[id(cui_DriverContainer)]= {"DriverContainer" : cui_DriverContainer,"RaceScreen_Label1" : cui_RaceScreen_Label1,"RaceScreen_Container3" : cui_RaceScreen_Container3,"RaceScreen_Label3" : cui_RaceScreen_Label3,"RaceScreen_Label4" : cui_RaceScreen_Label4, "_CompName" : "DriverContainer"}
+    return cui_DriverContainer
+
+ # COMPONENT WiFiItem
+def ui_WiFiItem_create(comp_parent):
+    cui_WiFiItem = lv.obj(comp_parent)
+    cui_WiFiItem.remove_style_all()
+    cui_WiFiItem.set_width(170)
+    cui_WiFiItem.set_height(25)
+    cui_WiFiItem.set_align( lv.ALIGN.CENTER)
+    SetFlag(cui_WiFiItem, lv.obj.FLAG.CLICKABLE, False)
+    SetFlag(cui_WiFiItem, lv.obj.FLAG.SCROLLABLE, False)
+    cui_WifiName = lv.label(cui_WiFiItem)
+    cui_WifiName.set_text("XiaoMiao")
+    cui_WifiName.set_width(lv.SIZE.CONTENT)	# 1
+    cui_WifiName.set_height(lv.SIZE.CONTENT)   # 1
+    cui_WifiName.set_align( lv.ALIGN.LEFT_MID)
+    cui_WifiName.set_style_text_color(lv.color_hex(0x01A3D8), lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_WifiName.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+    cui_WifiName.set_style_text_font( font_DISPLAYM18, lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_WiFiImg = lv.img(cui_WiFiItem)
+    cui_WiFiImg.set_src(ui_images.ui_img_wifi_strong_png)
+    cui_WiFiImg.set_width(lv.SIZE.CONTENT)	# 1
+    cui_WiFiImg.set_height(lv.SIZE.CONTENT)   # 1
+    cui_WiFiImg.set_align( lv.ALIGN.RIGHT_MID)
+    SetFlag(cui_WiFiImg, lv.obj.FLAG.ADV_HITTEST, True)
+    SetFlag(cui_WiFiImg, lv.obj.FLAG.SCROLLABLE, False)
+    cui_WiFiImg.set_style_blend_mode( lv.BLEND_MODE.NORMAL, lv.PART.MAIN | lv.STATE.DEFAULT )
+    _ui_comp_table[id(cui_WiFiItem)]= {"WiFiItem" : cui_WiFiItem,"WifiName" : cui_WifiName,"WiFiImg" : cui_WiFiImg, "_CompName" : "WiFiItem"}
+    return cui_WiFiItem
+
 ui____initial_actions0 = lv.obj()
 
-def MsgScreen_eventhandler(event_struct):
+def TeamRadioScreen_eventhandler(event_struct):
    event = event_struct.code
    if event == lv.EVENT.SCREEN_LOADED and True:
       left_Animation(ui_Team_Color_Container, 0)
@@ -534,12 +617,12 @@ def MsgScreen_eventhandler(event_struct):
       opa_on_Animation(ui_Driver_Label, 0)
    return
 
-ui_MsgScreen = lv.obj()
-SetFlag(ui_MsgScreen, lv.obj.FLAG.SCROLLABLE, False)
-ui_MsgScreen.set_style_bg_color(lv.color_hex(0x000000), lv.PART.MAIN | lv.STATE.DEFAULT )
-ui_MsgScreen.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_TeamRadioScreen = lv.obj()
+SetFlag(ui_TeamRadioScreen, lv.obj.FLAG.SCROLLABLE, False)
+ui_TeamRadioScreen.set_style_bg_color(lv.color_hex(0x000000), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_TeamRadioScreen.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
 
-ui_Team_Label = lv.label(ui_MsgScreen)
+ui_Team_Label = lv.label(ui_TeamRadioScreen)
 ui_Team_Label.set_text("RedBull Racing")
 ui_Team_Label.set_width(lv.SIZE.CONTENT)	# 1
 ui_Team_Label.set_height(lv.SIZE.CONTENT)   # 1
@@ -550,7 +633,7 @@ ui_Team_Label.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STA
 ui_Team_Label.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
 ui_Team_Label.set_style_text_font( font_F1R14, lv.PART.MAIN | lv.STATE.DEFAULT )
 
-ui_Team_Color_Container = lv.obj(ui_MsgScreen)
+ui_Team_Color_Container = lv.obj(ui_TeamRadioScreen)
 ui_Team_Color_Container.remove_style_all()
 ui_Team_Color_Container.set_width(105)
 ui_Team_Color_Container.set_height(3)
@@ -561,7 +644,7 @@ SetFlag(ui_Team_Color_Container, lv.obj.FLAG.SCROLLABLE, False)
 ui_object_set_themeable_style_property( ui_Team_Color_Container, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.BG_COLOR, UI_THEME_COLOR_COLORTEAMSECOND)
 ui_object_set_themeable_style_property( ui_Team_Color_Container, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.BG_OPA, UI_THEME_COLOR_COLORTEAMSECOND)
 
-ui_wave_Container = lv.obj(ui_MsgScreen)
+ui_wave_Container = lv.obj(ui_TeamRadioScreen)
 ui_wave_Container.remove_style_all()
 ui_wave_Container.set_width(178)
 ui_wave_Container.set_height(44)
@@ -571,7 +654,7 @@ ui_wave_Container.set_align( lv.ALIGN.CENTER)
 SetFlag(ui_wave_Container, lv.obj.FLAG.CLICKABLE, False)
 SetFlag(ui_wave_Container, lv.obj.FLAG.SCROLLABLE, False)
 
-ui_Msg_Container = lv.obj(ui_MsgScreen)
+ui_Msg_Container = lv.obj(ui_TeamRadioScreen)
 ui_Msg_Container.remove_style_all()
 ui_Msg_Container.set_width(193)
 ui_Msg_Container.set_height(163)
@@ -631,7 +714,7 @@ ui_Driver_Label.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.S
 ui_Driver_Label.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
 ui_Driver_Label.set_style_text_font( font_F1B18, lv.PART.MAIN | lv.STATE.DEFAULT )
 
-ui_MsgScreen.add_event_cb(MsgScreen_eventhandler, lv.EVENT.ALL, None)
+ui_TeamRadioScreen.add_event_cb(TeamRadioScreen_eventhandler, lv.EVENT.ALL, None)
 
 def EmoilScreen_eventhandler(event_struct):
    event = event_struct.code
@@ -1842,4 +1925,4 @@ ui_QCodeTitle.set_style_text_font( font_Chinese12, lv.PART.MAIN | lv.STATE.DEFAU
 
 ui_WiFiScan.add_event_cb(WiFiScan_eventhandler, lv.EVENT.ALL, None)
 
-lv.scr_load(ui_MsgScreen)
+lv.scr_load(ui_TeamRadioScreen)

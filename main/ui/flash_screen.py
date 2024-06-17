@@ -29,6 +29,8 @@ class FlashScreen(Screen):
         self.resourceManager.load_font("DISPLAYR", 30)
         self.resourceManager.load_font("DISPLAYR", 60)
         self.resourceManager.load_font("F1R", 14)
+        self.resourceManager.load_font("F1R", 10)
+        self.resourceManager.load_font("F1B", 18)
         # for i in range(1,10):
         #     self.resourceManager.load_raw(f'ui/assets/e{i:02}.json')
         # for i in range(8, 30, 2):

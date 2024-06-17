@@ -51,6 +51,7 @@ class ThemeManager:
 
         self.ui_theme_current_alphas = []
         self.ui_local_style_list = {}
+        self.current_theme_index=Themes.UI_THEME_DEFAULT
 
     def ui_object_set_themeable_style_property(self, target, selector, property, coloridx):
 
@@ -110,7 +111,10 @@ class ThemeManager:
                     self.ui_update_theme_value(target, lvprop, lvselect)
 
     def ui_theme_set(self, index):
-
+        self.current_theme_index=index
         self.ui_theme_current_colors = self._ui_theme_list_colors[index]
         self.ui_theme_current_alphas = self._ui_theme_list_alphas[index]
         self.ui_theme_update_all()
+
+    def getCurrentThemeIndex(self):
+        return self.current_theme_index
