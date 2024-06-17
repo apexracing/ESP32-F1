@@ -221,21 +221,5 @@ class Screen:
         PropertyAnimation_0.set_values(100, 0)
         PropertyAnimation_0.set_get_value_cb(lambda a: TargetObject.get_x_aligned())
         lv.anim_t.start(PropertyAnimation_0)
-        PropertyAnimation_1 = lv.anim_t()
-        PropertyAnimation_1.init()
-        PropertyAnimation_1.set_path_cb(lv.anim_t.path_linear)
-        PropertyAnimation_1.set_time(300)
-        PropertyAnimation_1.set_var(TargetObject)
-        PropertyAnimation_1.set_custom_exec_cb(lambda a, v: TargetObject.set_style_opa(v, 0))
-        PropertyAnimation_1.set_delay(delay + 0)
-        PropertyAnimation_1.set_repeat_count(0)
-        PropertyAnimation_1.set_repeat_delay(0)  # + 300
-        PropertyAnimation_1.set_playback_delay(0)
-        PropertyAnimation_1.set_playback_time(0)
-        PropertyAnimation_1.set_early_apply(False)
-        PropertyAnimation_1.set_values(0, 255)
-        PropertyAnimation_1.set_get_value_cb(lambda a: TargetObject.get_style_opa(0))
-        lv.anim_t.start(PropertyAnimation_1)
-
         print("driver_left_Animation called")
         return

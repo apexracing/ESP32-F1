@@ -14,6 +14,7 @@ from ui.emoil_screen import EmoilScreen
 from ui.wifiscan_screen import WiFiScanScreen
 from ui.schedule_screen import ScheduleScreen
 from ui.team_radio_screen import TeamRadioScreen
+from ui.race_screen import RaceScreen
 import lv_utils
 import uasyncio
 from ui.theme_manager import ThemeManager, Themes
@@ -33,7 +34,8 @@ display.backlight_on()
 uasyncio.run(scr1.loadResouces())
 # scr2=WiFiScanScreen()
 #scr2 = ScheduleScreen()
-scr2 = TeamRadioScreen()
+#scr2 = TeamRadioScreen()
+scr2 = RaceScreen()
 scr2.src_load_anim(fademode=lv.SCR_LOAD_ANIM.MOVE_LEFT, speed=150)
 print("协程任务框架循环开始")
 while True:

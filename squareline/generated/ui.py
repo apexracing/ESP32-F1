@@ -25,6 +25,8 @@ font_DISPLAYM24 = lv.font_load("A:ui_font_DISPLAYM24.bin")
 font_DISPLAYM18 = lv.font_load("A:ui_font_DISPLAYM18.bin")
 font_DISPLAYM12 = lv.font_load("A:ui_font_DISPLAYM12.bin")
 font_Chinese12 = lv.font_load("A:ui_font_Chinese12.bin")
+font_RaceIcons = lv.font_load("A:ui_font_RaceIcons.bin")
+font_ceilusunit = lv.font_load("A:ui_font_ceilusunit.bin")
 
 _ui_theme_color_Default = [0xFFDD00, 0x3671C6, 0xFF0101]
 _ui_theme_alpha_Default = [255, 255, 255]
@@ -439,89 +441,6 @@ def driver_left_Animation(TargetObject, delay):
 
   print ("driver_left_Animation called")
   return
-
-# COMPONENTS
-
- # COMPONENT DriverContainer
-def ui_DriverContainer_create(comp_parent):
-    cui_DriverContainer = lv.obj(comp_parent)
-    cui_DriverContainer.remove_style_all()
-    cui_DriverContainer.set_width(131)
-    cui_DriverContainer.set_height(16)
-    cui_DriverContainer.set_x(0)
-    cui_DriverContainer.set_y(-39)
-    cui_DriverContainer.set_align( lv.ALIGN.CENTER)
-    SetFlag(cui_DriverContainer, lv.obj.FLAG.CLICKABLE, False)
-    SetFlag(cui_DriverContainer, lv.obj.FLAG.SCROLLABLE, False)
-    cui_RaceScreen_Label1 = lv.label(cui_DriverContainer)
-    cui_RaceScreen_Label1.set_text("22")
-    cui_RaceScreen_Label1.set_width(16)
-    cui_RaceScreen_Label1.set_height(16)
-    cui_RaceScreen_Label1.set_x(5)
-    cui_RaceScreen_Label1.set_y(0)
-    cui_RaceScreen_Label1.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
-    cui_RaceScreen_Label1.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
-    cui_RaceScreen_Label1.set_style_text_align( lv.TEXT_ALIGN.RIGHT, lv.PART.MAIN | lv.STATE.DEFAULT )
-    cui_RaceScreen_Label1.set_style_text_font( font_DISPLAYM14, lv.PART.MAIN | lv.STATE.DEFAULT )
-    cui_RaceScreen_Container3 = lv.obj(cui_DriverContainer)
-    cui_RaceScreen_Container3.remove_style_all()
-    cui_RaceScreen_Container3.set_width(3)
-    cui_RaceScreen_Container3.set_height(14)
-    cui_RaceScreen_Container3.set_x(25)
-    cui_RaceScreen_Container3.set_y(0)
-    SetFlag(cui_RaceScreen_Container3, lv.obj.FLAG.CLICKABLE, False)
-    SetFlag(cui_RaceScreen_Container3, lv.obj.FLAG.SCROLLABLE, False)
-    cui_RaceScreen_Container3.set_style_bg_color(lv.color_hex(0x3671C6), lv.PART.MAIN | lv.STATE.DEFAULT )
-    cui_RaceScreen_Container3.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
-    cui_RaceScreen_Label3 = lv.label(cui_DriverContainer)
-    cui_RaceScreen_Label3.set_text("VER")
-    cui_RaceScreen_Label3.set_width(lv.SIZE.CONTENT)	# 1
-    cui_RaceScreen_Label3.set_height(lv.SIZE.CONTENT)   # 1
-    cui_RaceScreen_Label3.set_x(33)
-    cui_RaceScreen_Label3.set_y(0)
-    cui_RaceScreen_Label3.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
-    cui_RaceScreen_Label3.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
-    cui_RaceScreen_Label3.set_style_text_font( font_DISPLAYM14, lv.PART.MAIN | lv.STATE.DEFAULT )
-    cui_RaceScreen_Label4 = lv.label(cui_DriverContainer)
-    cui_RaceScreen_Label4.set_text("Interval")
-    cui_RaceScreen_Label4.set_width(60)
-    cui_RaceScreen_Label4.set_height(16)
-    cui_RaceScreen_Label4.set_x(70)
-    cui_RaceScreen_Label4.set_y(0)
-    cui_RaceScreen_Label4.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
-    cui_RaceScreen_Label4.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
-    cui_RaceScreen_Label4.set_style_text_align( lv.TEXT_ALIGN.RIGHT, lv.PART.MAIN | lv.STATE.DEFAULT )
-    cui_RaceScreen_Label4.set_style_text_font( font_DISPLAYM14, lv.PART.MAIN | lv.STATE.DEFAULT )
-    _ui_comp_table[id(cui_DriverContainer)]= {"DriverContainer" : cui_DriverContainer,"RaceScreen_Label1" : cui_RaceScreen_Label1,"RaceScreen_Container3" : cui_RaceScreen_Container3,"RaceScreen_Label3" : cui_RaceScreen_Label3,"RaceScreen_Label4" : cui_RaceScreen_Label4, "_CompName" : "DriverContainer"}
-    return cui_DriverContainer
-
- # COMPONENT WiFiItem
-def ui_WiFiItem_create(comp_parent):
-    cui_WiFiItem = lv.obj(comp_parent)
-    cui_WiFiItem.remove_style_all()
-    cui_WiFiItem.set_width(170)
-    cui_WiFiItem.set_height(25)
-    cui_WiFiItem.set_align( lv.ALIGN.CENTER)
-    SetFlag(cui_WiFiItem, lv.obj.FLAG.CLICKABLE, False)
-    SetFlag(cui_WiFiItem, lv.obj.FLAG.SCROLLABLE, False)
-    cui_WifiName = lv.label(cui_WiFiItem)
-    cui_WifiName.set_text("XiaoMiao")
-    cui_WifiName.set_width(lv.SIZE.CONTENT)	# 1
-    cui_WifiName.set_height(lv.SIZE.CONTENT)   # 1
-    cui_WifiName.set_align( lv.ALIGN.LEFT_MID)
-    cui_WifiName.set_style_text_color(lv.color_hex(0x01A3D8), lv.PART.MAIN | lv.STATE.DEFAULT )
-    cui_WifiName.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
-    cui_WifiName.set_style_text_font( font_DISPLAYM18, lv.PART.MAIN | lv.STATE.DEFAULT )
-    cui_WiFiImg = lv.img(cui_WiFiItem)
-    cui_WiFiImg.set_src(ui_images.ui_img_wifi_strong_png)
-    cui_WiFiImg.set_width(lv.SIZE.CONTENT)	# 1
-    cui_WiFiImg.set_height(lv.SIZE.CONTENT)   # 1
-    cui_WiFiImg.set_align( lv.ALIGN.RIGHT_MID)
-    SetFlag(cui_WiFiImg, lv.obj.FLAG.ADV_HITTEST, True)
-    SetFlag(cui_WiFiImg, lv.obj.FLAG.SCROLLABLE, False)
-    cui_WiFiImg.set_style_blend_mode( lv.BLEND_MODE.NORMAL, lv.PART.MAIN | lv.STATE.DEFAULT )
-    _ui_comp_table[id(cui_WiFiItem)]= {"WiFiItem" : cui_WiFiItem,"WifiName" : cui_WifiName,"WiFiImg" : cui_WiFiImg, "_CompName" : "WiFiItem"}
-    return cui_WiFiItem
 
 # COMPONENTS
 
@@ -1417,6 +1336,15 @@ ui_AirTempArc = lv.arc(ui_RaceScreen)
 ui_AirTempArc.set_width(230)
 ui_AirTempArc.set_height(230)
 ui_AirTempArc.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_AirTempArc, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_AirTempArc, lv.obj.FLAG.PRESS_LOCK, False)
+SetFlag(ui_AirTempArc, lv.obj.FLAG.CLICK_FOCUSABLE, False)
+SetFlag(ui_AirTempArc, lv.obj.FLAG.EVENT_BUBBLE, True)
+SetFlag(ui_AirTempArc, lv.obj.FLAG.SNAPPABLE, False)
+SetFlag(ui_AirTempArc, lv.obj.FLAG.SCROLLABLE, False)
+SetFlag(ui_AirTempArc, lv.obj.FLAG.SCROLL_ELASTIC, False)
+SetFlag(ui_AirTempArc, lv.obj.FLAG.SCROLL_MOMENTUM, False)
+SetFlag(ui_AirTempArc, lv.obj.FLAG.SCROLL_CHAIN, False)
 ui_AirTempArc.set_range(0,42)
 ui_AirTempArc.set_value(32)
 ui_AirTempArc.set_bg_angles(155,205)
@@ -1434,6 +1362,11 @@ ui_TrackTempArc = lv.arc(ui_RaceScreen)
 ui_TrackTempArc.set_width(230)
 ui_TrackTempArc.set_height(230)
 ui_TrackTempArc.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_TrackTempArc, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_TrackTempArc, lv.obj.FLAG.PRESS_LOCK, False)
+SetFlag(ui_TrackTempArc, lv.obj.FLAG.CLICK_FOCUSABLE, False)
+SetFlag(ui_TrackTempArc, lv.obj.FLAG.EVENT_BUBBLE, True)
+SetFlag(ui_TrackTempArc, lv.obj.FLAG.SNAPPABLE, False)
 ui_TrackTempArc.set_range(0,60)
 ui_TrackTempArc.set_value(55)
 ui_TrackTempArc.set_bg_angles(155,205)
@@ -1453,6 +1386,14 @@ ui_HumidnessArc = lv.arc(ui_RaceScreen)
 ui_HumidnessArc.set_width(230)
 ui_HumidnessArc.set_height(230)
 ui_HumidnessArc.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_HumidnessArc, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_HumidnessArc, lv.obj.FLAG.PRESS_LOCK, False)
+SetFlag(ui_HumidnessArc, lv.obj.FLAG.CLICK_FOCUSABLE, False)
+SetFlag(ui_HumidnessArc, lv.obj.FLAG.EVENT_BUBBLE, True)
+SetFlag(ui_HumidnessArc, lv.obj.FLAG.SCROLLABLE, False)
+SetFlag(ui_HumidnessArc, lv.obj.FLAG.SCROLL_ELASTIC, False)
+SetFlag(ui_HumidnessArc, lv.obj.FLAG.SCROLL_MOMENTUM, False)
+SetFlag(ui_HumidnessArc, lv.obj.FLAG.SCROLL_CHAIN, False)
 ui_HumidnessArc.set_value(50)
 ui_HumidnessArc.set_bg_angles(140,220)
 ui_HumidnessArc.set_rotation(90)
@@ -1471,6 +1412,15 @@ ui_WindArc = lv.arc(ui_RaceScreen)
 ui_WindArc.set_width(230)
 ui_WindArc.set_height(230)
 ui_WindArc.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_WindArc, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_WindArc, lv.obj.FLAG.PRESS_LOCK, False)
+SetFlag(ui_WindArc, lv.obj.FLAG.CLICK_FOCUSABLE, False)
+SetFlag(ui_WindArc, lv.obj.FLAG.EVENT_BUBBLE, True)
+SetFlag(ui_WindArc, lv.obj.FLAG.SNAPPABLE, False)
+SetFlag(ui_WindArc, lv.obj.FLAG.SCROLLABLE, False)
+SetFlag(ui_WindArc, lv.obj.FLAG.SCROLL_ELASTIC, False)
+SetFlag(ui_WindArc, lv.obj.FLAG.SCROLL_MOMENTUM, False)
+SetFlag(ui_WindArc, lv.obj.FLAG.SCROLL_CHAIN, False)
 ui_WindArc.set_range(0,50)
 ui_WindArc.set_value(30)
 ui_WindArc.set_bg_angles(140,220)
@@ -1924,5 +1874,61 @@ ui_QCodeTitle.set_style_text_align( lv.TEXT_ALIGN.LEFT, lv.PART.MAIN | lv.STATE.
 ui_QCodeTitle.set_style_text_font( font_Chinese12, lv.PART.MAIN | lv.STATE.DEFAULT )
 
 ui_WiFiScan.add_event_cb(WiFiScan_eventhandler, lv.EVENT.ALL, None)
+
+ui_Icons = lv.obj()
+SetFlag(ui_Icons, lv.obj.FLAG.SCROLLABLE, False)
+
+ui_Icons_Label3 = lv.label(ui_Icons)
+ui_Icons_Label3.set_text("")
+ui_Icons_Label3.set_width(lv.SIZE.CONTENT)	# 1
+ui_Icons_Label3.set_height(lv.SIZE.CONTENT)   # 1
+ui_Icons_Label3.set_x(-54)
+ui_Icons_Label3.set_y(-64)
+ui_Icons_Label3.set_align( lv.ALIGN.CENTER)
+ui_Icons_Label3.set_style_text_font( font_RaceIcons, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_Icons_Label4 = lv.label(ui_Icons)
+ui_Icons_Label4.set_text("")
+ui_Icons_Label4.set_width(lv.SIZE.CONTENT)	# 1
+ui_Icons_Label4.set_height(lv.SIZE.CONTENT)   # 1
+ui_Icons_Label4.set_x(-6)
+ui_Icons_Label4.set_y(-67)
+ui_Icons_Label4.set_align( lv.ALIGN.CENTER)
+ui_Icons_Label4.set_style_text_color(lv.color_hex(0x23ABD7), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Icons_Label4.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Icons_Label4.set_style_text_font( font_RaceIcons, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_Icons_Label5 = lv.label(ui_Icons)
+ui_Icons_Label5.set_text("")
+ui_Icons_Label5.set_width(lv.SIZE.CONTENT)	# 1
+ui_Icons_Label5.set_height(lv.SIZE.CONTENT)   # 1
+ui_Icons_Label5.set_x(-59)
+ui_Icons_Label5.set_y(-26)
+ui_Icons_Label5.set_align( lv.ALIGN.CENTER)
+ui_Icons_Label5.set_style_text_color(lv.color_hex(0xFF0101), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Icons_Label5.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Icons_Label5.set_style_text_font( font_RaceIcons, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_Icons_Label6 = lv.label(ui_Icons)
+ui_Icons_Label6.set_text("")
+ui_Icons_Label6.set_width(lv.SIZE.CONTENT)	# 1
+ui_Icons_Label6.set_height(lv.SIZE.CONTENT)   # 1
+ui_Icons_Label6.set_x(-8)
+ui_Icons_Label6.set_y(-27)
+ui_Icons_Label6.set_align( lv.ALIGN.CENTER)
+ui_Icons_Label6.set_style_text_color(lv.color_hex(0x808080), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Icons_Label6.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Icons_Label6.set_style_text_font( font_ceilusunit, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_Icons_Label7 = lv.label(ui_Icons)
+ui_Icons_Label7.set_text("")
+ui_Icons_Label7.set_width(lv.SIZE.CONTENT)	# 1
+ui_Icons_Label7.set_height(lv.SIZE.CONTENT)   # 1
+ui_Icons_Label7.set_x(-6)
+ui_Icons_Label7.set_y(-25)
+ui_Icons_Label7.set_align( lv.ALIGN.CENTER)
+ui_Icons_Label7.set_style_text_color(lv.color_hex(0x9E9E9E), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Icons_Label7.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Icons_Label7.set_style_text_font( font_ceilusunit, lv.PART.MAIN | lv.STATE.DEFAULT )
 
 lv.scr_load(ui_TeamRadioScreen)

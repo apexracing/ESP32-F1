@@ -13,3 +13,9 @@
 >- SquareLine Studio打开[squareline项目](./squareline)
 ### 动画制作
 >adobe Illustrator 2024 绘制矢量图后，用 https://app.lottiefiles.com/ 制作关键帧，导出json格式动画
+### 天气图标制作
+>素材来源:https://github.com/manifestinteractive/weather-underground-icons/tree/master
+>参考文档:https://blog.csdn.net/weixin_45677295/article/details/137988044
+
+![这是图片](./design/icons.png)
+[TTF文件下载](./design/iconfont.ttf)
