@@ -1,11 +1,4 @@
 import lvgl as lv
-UI_THEME_DEFAULT = 0
-UI_THEME_AMG = 1
-UI_THEME_FERRARI = 2
-
-UI_THEME_COLOR_COLORTEAMTHREE = 0
-UI_THEME_COLOR_COLORTEAM = 1
-UI_THEME_COLOR_COLORTEAMSECOND = 2
 
 class _ui_theme_variable:
     def __init__(self):
@@ -24,9 +17,17 @@ def singleton(cls):
 
     return getinstance
 
+class Themes:
+    UI_THEME_DEFAULT = 0
+    UI_THEME_AMG = 1
+    UI_THEME_FERRARI = 2
 
+    UI_THEME_COLOR_COLORTEAMTHREE = 0
+    UI_THEME_COLOR_COLORTEAM = 1
+    UI_THEME_COLOR_COLORTEAMSECOND = 2
 @singleton
 class ThemeManager:
+
 
     def __init__(self):
         dispp = lv.disp_get_default()

@@ -2,8 +2,6 @@ from ui.screen import Screen
 import lvgl as lv
 from ui.emoil import Emoil
 import random
-from ui.resource_manager import ResourceManager
-
 
 class EmoilScreen(Screen):
     def __init__(self):
