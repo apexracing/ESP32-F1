@@ -8,66 +8,72 @@ class RaceScreen(Screen):
         self.SetFlag(self.screen, lv.obj.FLAG.SCROLLABLE, False)
         self.screen.set_style_bg_color(lv.color_hex(0x000000), lv.PART.MAIN | lv.STATE.DEFAULT)
         self.screen.set_style_bg_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
-    
-        self.ui_Weather_Image = lv.img(self.screen)
-        #self.ui_Weather_Image.set_src(self.resourceManager.load_img("/ui/assets/air_clear.png"))
+
+        self.ui_Weather_Image = lv.label(self.screen)
+        self.ui_Weather_Image.set_text("")
         self.ui_Weather_Image.set_width(lv.SIZE.CONTENT)  # 1
         self.ui_Weather_Image.set_height(lv.SIZE.CONTENT)  # 1
         self.ui_Weather_Image.set_x(-85)
         self.ui_Weather_Image.set_y(-29)
         self.ui_Weather_Image.set_align(lv.ALIGN.CENTER)
-        self.SetFlag(self.ui_Weather_Image, lv.obj.FLAG.ADV_HITTEST, True)
-        self.SetFlag(self.ui_Weather_Image, lv.obj.FLAG.SCROLLABLE, False)
-    
-        self.ui_WindImg = lv.img(self.screen)
-        #self.ui_WindImg.set_src(self.resourceManager.load_img("/ui/assets/wind.png"))
-        self.ui_WindImg.set_width(lv.SIZE.CONTENT)  # 1
-        self.ui_WindImg.set_height(lv.SIZE.CONTENT)  # 1
-        self.ui_WindImg.set_x(-17)
-        self.ui_WindImg.set_y(77)
-        self.ui_WindImg.set_align(lv.ALIGN.CENTER)
-        self.SetFlag(self.ui_WindImg, lv.obj.FLAG.ADV_HITTEST, True)
-        self.SetFlag(self.ui_WindImg, lv.obj.FLAG.SCROLLABLE, False)
-    
-        self.ui_TrackTempImg = lv.img(self.screen)
-        #self.ui_TrackTempImg.set_src(self.resourceManager.load_img("/ui/assets/track_temps.png"))
+        self.ui_Weather_Image.set_style_text_color(lv.color_hex(0xFFF100), lv.PART.MAIN | lv.STATE.DEFAULT)
+        self.ui_Weather_Image.set_style_text_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
+        self.ui_Weather_Image.set_style_text_font(self.resourceManager.load_font("IconE608", 30), lv.PART.MAIN | lv.STATE.DEFAULT)
+
+        self.ui_TrackTempImg = lv.label(self.screen)
+        self.ui_TrackTempImg.set_text("")
         self.ui_TrackTempImg.set_width(lv.SIZE.CONTENT)  # 1
         self.ui_TrackTempImg.set_height(lv.SIZE.CONTENT)  # 1
         self.ui_TrackTempImg.set_x(90)
         self.ui_TrackTempImg.set_y(-29)
         self.ui_TrackTempImg.set_align(lv.ALIGN.CENTER)
-        self.SetFlag(self.ui_TrackTempImg, lv.obj.FLAG.ADV_HITTEST, True)
-        self.SetFlag(self.ui_TrackTempImg, lv.obj.FLAG.SCROLLABLE, False)
-    
-        self.ui_HumidnessImg = lv.img(self.screen)
-        #self.ui_HumidnessImg.set_src(self.resourceManager.load_img("/ui/assets/humidness.png"))
+        self.ui_TrackTempImg.set_style_text_color(lv.color_hex(0xFF0101), lv.PART.MAIN | lv.STATE.DEFAULT)
+        self.ui_TrackTempImg.set_style_text_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
+        self.ui_TrackTempImg.set_style_text_font(self.resourceManager.load_font("IconE604", 30), lv.PART.MAIN | lv.STATE.DEFAULT)
+
+        self.ui_WindImg = lv.label(self.screen)
+        self.ui_WindImg.set_text("")
+        self.ui_WindImg.set_width(lv.SIZE.CONTENT)  # 1
+        self.ui_WindImg.set_height(lv.SIZE.CONTENT)  # 1
+        self.ui_WindImg.set_x(-17)
+        self.ui_WindImg.set_y(77)
+        self.ui_WindImg.set_align(lv.ALIGN.CENTER)
+        self.ui_WindImg.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT)
+        self.ui_WindImg.set_style_text_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
+        self.ui_WindImg.set_style_text_font(self.resourceManager.load_font("IconE603", 30), lv.PART.MAIN | lv.STATE.DEFAULT)
+
+        self.ui_HumidnessImg = lv.label(self.screen)
+        self.ui_HumidnessImg.set_text("")
         self.ui_HumidnessImg.set_width(lv.SIZE.CONTENT)  # 1
         self.ui_HumidnessImg.set_height(lv.SIZE.CONTENT)  # 1
         self.ui_HumidnessImg.set_x(-23)
         self.ui_HumidnessImg.set_y(-88)
         self.ui_HumidnessImg.set_align(lv.ALIGN.CENTER)
-        self.SetFlag(self.ui_HumidnessImg, lv.obj.FLAG.ADV_HITTEST, True)
-        self.SetFlag(self.ui_HumidnessImg, lv.obj.FLAG.SCROLLABLE, False)
-    
-        self.ui_PercetImg = lv.img(self.screen)
-        #self.ui_PercetImg.set_src(self.resourceManager.load_img("/ui/assets/Celsius.png"))
-        self.ui_PercetImg.set_width(lv.SIZE.CONTENT)  # 1
-        self.ui_PercetImg.set_height(lv.SIZE.CONTENT)  # 1
-        self.ui_PercetImg.set_x(90)
-        self.ui_PercetImg.set_y(30)
-        self.ui_PercetImg.set_align(lv.ALIGN.CENTER)
-        self.SetFlag(self.ui_PercetImg, lv.obj.FLAG.ADV_HITTEST, True)
-        self.SetFlag(self.ui_PercetImg, lv.obj.FLAG.SCROLLABLE, False)
-    
-        self.ui_PercetImg2 = lv.img(self.screen)
-        #self.ui_PercetImg2.set_src(self.resourceManager.load_img("/ui/assets/Celsius.png"))
-        self.ui_PercetImg2.set_width(lv.SIZE.CONTENT)  # 1
-        self.ui_PercetImg2.set_height(lv.SIZE.CONTENT)  # 1
-        self.ui_PercetImg2.set_x(-85)
-        self.ui_PercetImg2.set_y(30)
-        self.ui_PercetImg2.set_align(lv.ALIGN.CENTER)
-        self.SetFlag(self.ui_PercetImg2, lv.obj.FLAG.ADV_HITTEST, True)
-        self.SetFlag(self.ui_PercetImg2, lv.obj.FLAG.SCROLLABLE, False)
+        self.ui_HumidnessImg.set_style_text_color(lv.color_hex(0x23ABD7), lv.PART.MAIN | lv.STATE.DEFAULT)
+        self.ui_HumidnessImg.set_style_text_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
+        self.ui_HumidnessImg.set_style_text_font(self.resourceManager.load_font("IconE602", 30), lv.PART.MAIN | lv.STATE.DEFAULT)
+
+        ui_PercetImg = lv.label(self.screen)
+        ui_PercetImg.set_text("")
+        ui_PercetImg.set_width(lv.SIZE.CONTENT)  # 1
+        ui_PercetImg.set_height(lv.SIZE.CONTENT)  # 1
+        ui_PercetImg.set_x(90)
+        ui_PercetImg.set_y(30)
+        ui_PercetImg.set_align(lv.ALIGN.CENTER)
+        ui_PercetImg.set_style_text_color(lv.color_hex(0x9E9E9E), lv.PART.MAIN | lv.STATE.DEFAULT)
+        ui_PercetImg.set_style_text_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
+        ui_PercetImg.set_style_text_font(self.resourceManager.load_font("IconE606", 18), lv.PART.MAIN | lv.STATE.DEFAULT)
+
+        ui_PercetImg2 = lv.label(self.screen)
+        ui_PercetImg2.set_text("")
+        ui_PercetImg2.set_width(lv.SIZE.CONTENT)  # 1
+        ui_PercetImg2.set_height(lv.SIZE.CONTENT)  # 1
+        ui_PercetImg2.set_x(-85)
+        ui_PercetImg2.set_y(30)
+        ui_PercetImg2.set_align(lv.ALIGN.CENTER)
+        ui_PercetImg2.set_style_text_color(lv.color_hex(0x9E9E9E), lv.PART.MAIN | lv.STATE.DEFAULT)
+        ui_PercetImg2.set_style_text_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
+        ui_PercetImg2.set_style_text_font(self.resourceManager.load_font("IconE606", 18), lv.PART.MAIN | lv.STATE.DEFAULT)
     
         self.ui_Air_Temp = lv.label(self.screen)
         self.ui_Air_Temp.set_text("32")

@@ -24,9 +24,12 @@ font_DISPLAYB80 = lv.font_load("A:ui_font_DISPLAYB80.bin")
 font_DISPLAYM24 = lv.font_load("A:ui_font_DISPLAYM24.bin")
 font_DISPLAYM18 = lv.font_load("A:ui_font_DISPLAYM18.bin")
 font_DISPLAYM12 = lv.font_load("A:ui_font_DISPLAYM12.bin")
+font_IconE60830 = lv.font_load("A:ui_font_IconE60830.bin")
+font_IconE60430 = lv.font_load("A:ui_font_IconE60430.bin")
+font_IconE60330 = lv.font_load("A:ui_font_IconE60330.bin")
+font_IconE60230 = lv.font_load("A:ui_font_IconE60230.bin")
+font_IconE60618 = lv.font_load("A:ui_font_IconE60618.bin")
 font_Chinese12 = lv.font_load("A:ui_font_Chinese12.bin")
-font_RaceIcons = lv.font_load("A:ui_font_RaceIcons.bin")
-font_ceilusunit = lv.font_load("A:ui_font_ceilusunit.bin")
 
 _ui_theme_color_Default = [0xFFDD00, 0x3671C6, 0xFF0101]
 _ui_theme_alpha_Default = [255, 255, 255]
@@ -654,7 +657,7 @@ ui_EmoilScreen.set_style_bg_grad_color(lv.color_hex(0x000000), lv.PART.MAIN | lv
 ui_EmoilScreen.set_style_bg_main_stop( 0, lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_EmoilScreen.set_style_bg_grad_stop( 255, lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_EmoilScreen.set_style_bg_grad_dir( lv.GRAD_DIR.VER, lv.PART.MAIN | lv.STATE.DEFAULT )
-ui_EmoilScreen.set_style_bg_img_src( ui_images.ui_img_grid_png, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_EmoilScreen.set_style_bg_img_src( ui_images.TemporaryImage, lv.PART.MAIN | lv.STATE.DEFAULT )
 
 ui_EmoilScreen_Image1 = lv.img(ui_EmoilScreen)
 ui_EmoilScreen_Image1.set_src(ui_images.ui_img_helmet_redbull_png)
@@ -1142,10 +1145,6 @@ ui_TelemetryScreen.add_event_cb(TelemetryScreen_eventhandler, lv.EVENT.ALL, None
 def RaceScreen_eventhandler(event_struct):
    event = event_struct.code
    if event == lv.EVENT.SCREEN_LOADED and True:
-      opa_on_Animation(ui_WindImg, 0)
-      opa_on_Animation(ui_TrackTempImg, 0)
-      opa_on_Animation(ui_Weather_Image, 0)
-      opa_on_Animation(ui_HumidnessImg, 0)
       left_Animation(ui_Air_Temp, 0)
       right_Animation(ui_Track_Temp, 0)
       top_Animation(ui_Humidness, 0)
@@ -1162,76 +1161,10 @@ def RaceScreen_eventhandler(event_struct):
       opa_on_Animation(ui_WindArc, 0)
    return
 
-def WindArc_eventhandler(event_struct):
-   event = event_struct.code
-   if event == lv.EVENT.SCREEN_LOADED and True:
-      opa_on_Animation(ui_Weather_Image, 0)
-   return
-
 ui_RaceScreen = lv.obj()
 SetFlag(ui_RaceScreen, lv.obj.FLAG.SCROLLABLE, False)
 ui_RaceScreen.set_style_bg_color(lv.color_hex(0x000000), lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_RaceScreen.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
-
-ui_Weather_Image = lv.img(ui_RaceScreen)
-ui_Weather_Image.set_src(ui_images.ui_img_air_clear_png)
-ui_Weather_Image.set_width(lv.SIZE.CONTENT)	# 1
-ui_Weather_Image.set_height(lv.SIZE.CONTENT)   # 1
-ui_Weather_Image.set_x(-85)
-ui_Weather_Image.set_y(-29)
-ui_Weather_Image.set_align( lv.ALIGN.CENTER)
-SetFlag(ui_Weather_Image, lv.obj.FLAG.ADV_HITTEST, True)
-SetFlag(ui_Weather_Image, lv.obj.FLAG.SCROLLABLE, False)
-
-ui_WindImg = lv.img(ui_RaceScreen)
-ui_WindImg.set_src(ui_images.ui_img_wind_png)
-ui_WindImg.set_width(lv.SIZE.CONTENT)	# 1
-ui_WindImg.set_height(lv.SIZE.CONTENT)   # 1
-ui_WindImg.set_x(-17)
-ui_WindImg.set_y(77)
-ui_WindImg.set_align( lv.ALIGN.CENTER)
-SetFlag(ui_WindImg, lv.obj.FLAG.ADV_HITTEST, True)
-SetFlag(ui_WindImg, lv.obj.FLAG.SCROLLABLE, False)
-
-ui_TrackTempImg = lv.img(ui_RaceScreen)
-ui_TrackTempImg.set_src(ui_images.ui_img_track_temps_png)
-ui_TrackTempImg.set_width(lv.SIZE.CONTENT)	# 1
-ui_TrackTempImg.set_height(lv.SIZE.CONTENT)   # 1
-ui_TrackTempImg.set_x(90)
-ui_TrackTempImg.set_y(-29)
-ui_TrackTempImg.set_align( lv.ALIGN.CENTER)
-SetFlag(ui_TrackTempImg, lv.obj.FLAG.ADV_HITTEST, True)
-SetFlag(ui_TrackTempImg, lv.obj.FLAG.SCROLLABLE, False)
-
-ui_HumidnessImg = lv.img(ui_RaceScreen)
-ui_HumidnessImg.set_src(ui_images.ui_img_humidness_png)
-ui_HumidnessImg.set_width(lv.SIZE.CONTENT)	# 1
-ui_HumidnessImg.set_height(lv.SIZE.CONTENT)   # 1
-ui_HumidnessImg.set_x(-23)
-ui_HumidnessImg.set_y(-88)
-ui_HumidnessImg.set_align( lv.ALIGN.CENTER)
-SetFlag(ui_HumidnessImg, lv.obj.FLAG.ADV_HITTEST, True)
-SetFlag(ui_HumidnessImg, lv.obj.FLAG.SCROLLABLE, False)
-
-ui_PercetImg = lv.img(ui_RaceScreen)
-ui_PercetImg.set_src(ui_images.ui_img_celsius_png)
-ui_PercetImg.set_width(lv.SIZE.CONTENT)	# 1
-ui_PercetImg.set_height(lv.SIZE.CONTENT)   # 1
-ui_PercetImg.set_x(90)
-ui_PercetImg.set_y(30)
-ui_PercetImg.set_align( lv.ALIGN.CENTER)
-SetFlag(ui_PercetImg, lv.obj.FLAG.ADV_HITTEST, True)
-SetFlag(ui_PercetImg, lv.obj.FLAG.SCROLLABLE, False)
-
-ui_PercetImg2 = lv.img(ui_RaceScreen)
-ui_PercetImg2.set_src(ui_images.ui_img_celsius_png)
-ui_PercetImg2.set_width(lv.SIZE.CONTENT)	# 1
-ui_PercetImg2.set_height(lv.SIZE.CONTENT)   # 1
-ui_PercetImg2.set_x(-85)
-ui_PercetImg2.set_y(30)
-ui_PercetImg2.set_align( lv.ALIGN.CENTER)
-SetFlag(ui_PercetImg2, lv.obj.FLAG.ADV_HITTEST, True)
-SetFlag(ui_PercetImg2, lv.obj.FLAG.SCROLLABLE, False)
 
 ui_Air_Temp = lv.label(ui_RaceScreen)
 ui_Air_Temp.set_text("32")
@@ -1437,7 +1370,6 @@ ui_WindArc.set_style_arc_rounded( False, lv.PART.INDICATOR | lv.STATE.DEFAULT )
 ui_WindArc.set_style_bg_color(lv.color_hex(0xFFFFFF), lv.PART.KNOB | lv.STATE.DEFAULT )
 ui_WindArc.set_style_bg_opa(0, lv.PART.KNOB| lv.STATE.DEFAULT )
 
-ui_WindArc.add_event_cb(WindArc_eventhandler, lv.EVENT.ALL, None)
 ui_Flag_Container = lv.obj(ui_RaceScreen)
 ui_Flag_Container.remove_style_all()
 ui_Flag_Container.set_width(127)
@@ -1612,6 +1544,72 @@ ui_CenterMsg.set_align( lv.ALIGN.CENTER)
 ui_CenterMsg.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_CenterMsg.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
 ui_CenterMsg.set_style_text_font( font_F1R10, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_Weather_Image = lv.label(ui_RaceScreen)
+ui_Weather_Image.set_text("")
+ui_Weather_Image.set_width(lv.SIZE.CONTENT)	# 1
+ui_Weather_Image.set_height(lv.SIZE.CONTENT)   # 1
+ui_Weather_Image.set_x(-85)
+ui_Weather_Image.set_y(-29)
+ui_Weather_Image.set_align( lv.ALIGN.CENTER)
+ui_Weather_Image.set_style_text_color(lv.color_hex(0xFFF100), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Weather_Image.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Weather_Image.set_style_text_font( font_IconE60830, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_TrackTempImg = lv.label(ui_RaceScreen)
+ui_TrackTempImg.set_text("")
+ui_TrackTempImg.set_width(lv.SIZE.CONTENT)	# 1
+ui_TrackTempImg.set_height(lv.SIZE.CONTENT)   # 1
+ui_TrackTempImg.set_x(90)
+ui_TrackTempImg.set_y(-29)
+ui_TrackTempImg.set_align( lv.ALIGN.CENTER)
+ui_TrackTempImg.set_style_text_color(lv.color_hex(0xFF0101), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_TrackTempImg.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_TrackTempImg.set_style_text_font( font_IconE60430, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_WindImg = lv.label(ui_RaceScreen)
+ui_WindImg.set_text("")
+ui_WindImg.set_width(lv.SIZE.CONTENT)	# 1
+ui_WindImg.set_height(lv.SIZE.CONTENT)   # 1
+ui_WindImg.set_x(-17)
+ui_WindImg.set_y(77)
+ui_WindImg.set_align( lv.ALIGN.CENTER)
+ui_WindImg.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_WindImg.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_WindImg.set_style_text_font( font_IconE60330, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_HumidnessImg = lv.label(ui_RaceScreen)
+ui_HumidnessImg.set_text("")
+ui_HumidnessImg.set_width(lv.SIZE.CONTENT)	# 1
+ui_HumidnessImg.set_height(lv.SIZE.CONTENT)   # 1
+ui_HumidnessImg.set_x(-23)
+ui_HumidnessImg.set_y(-88)
+ui_HumidnessImg.set_align( lv.ALIGN.CENTER)
+ui_HumidnessImg.set_style_text_color(lv.color_hex(0x23ABD7), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_HumidnessImg.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_HumidnessImg.set_style_text_font( font_IconE60230, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_PercetImg = lv.label(ui_RaceScreen)
+ui_PercetImg.set_text("")
+ui_PercetImg.set_width(lv.SIZE.CONTENT)	# 1
+ui_PercetImg.set_height(lv.SIZE.CONTENT)   # 1
+ui_PercetImg.set_x(90)
+ui_PercetImg.set_y(30)
+ui_PercetImg.set_align( lv.ALIGN.CENTER)
+ui_PercetImg.set_style_text_color(lv.color_hex(0x9E9E9E), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_PercetImg.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_PercetImg.set_style_text_font( font_IconE60618, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_PercetImg2 = lv.label(ui_RaceScreen)
+ui_PercetImg2.set_text("")
+ui_PercetImg2.set_width(lv.SIZE.CONTENT)	# 1
+ui_PercetImg2.set_height(lv.SIZE.CONTENT)   # 1
+ui_PercetImg2.set_x(-85)
+ui_PercetImg2.set_y(30)
+ui_PercetImg2.set_align( lv.ALIGN.CENTER)
+ui_PercetImg2.set_style_text_color(lv.color_hex(0x9E9E9E), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_PercetImg2.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_PercetImg2.set_style_text_font( font_IconE60618, lv.PART.MAIN | lv.STATE.DEFAULT )
 
 ui_RaceScreen.add_event_cb(RaceScreen_eventhandler, lv.EVENT.ALL, None)
 
@@ -1874,61 +1872,5 @@ ui_QCodeTitle.set_style_text_align( lv.TEXT_ALIGN.LEFT, lv.PART.MAIN | lv.STATE.
 ui_QCodeTitle.set_style_text_font( font_Chinese12, lv.PART.MAIN | lv.STATE.DEFAULT )
 
 ui_WiFiScan.add_event_cb(WiFiScan_eventhandler, lv.EVENT.ALL, None)
-
-ui_Icons = lv.obj()
-SetFlag(ui_Icons, lv.obj.FLAG.SCROLLABLE, False)
-
-ui_Icons_Label3 = lv.label(ui_Icons)
-ui_Icons_Label3.set_text("")
-ui_Icons_Label3.set_width(lv.SIZE.CONTENT)	# 1
-ui_Icons_Label3.set_height(lv.SIZE.CONTENT)   # 1
-ui_Icons_Label3.set_x(-54)
-ui_Icons_Label3.set_y(-64)
-ui_Icons_Label3.set_align( lv.ALIGN.CENTER)
-ui_Icons_Label3.set_style_text_font( font_RaceIcons, lv.PART.MAIN | lv.STATE.DEFAULT )
-
-ui_Icons_Label4 = lv.label(ui_Icons)
-ui_Icons_Label4.set_text("")
-ui_Icons_Label4.set_width(lv.SIZE.CONTENT)	# 1
-ui_Icons_Label4.set_height(lv.SIZE.CONTENT)   # 1
-ui_Icons_Label4.set_x(-6)
-ui_Icons_Label4.set_y(-67)
-ui_Icons_Label4.set_align( lv.ALIGN.CENTER)
-ui_Icons_Label4.set_style_text_color(lv.color_hex(0x23ABD7), lv.PART.MAIN | lv.STATE.DEFAULT )
-ui_Icons_Label4.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
-ui_Icons_Label4.set_style_text_font( font_RaceIcons, lv.PART.MAIN | lv.STATE.DEFAULT )
-
-ui_Icons_Label5 = lv.label(ui_Icons)
-ui_Icons_Label5.set_text("")
-ui_Icons_Label5.set_width(lv.SIZE.CONTENT)	# 1
-ui_Icons_Label5.set_height(lv.SIZE.CONTENT)   # 1
-ui_Icons_Label5.set_x(-59)
-ui_Icons_Label5.set_y(-26)
-ui_Icons_Label5.set_align( lv.ALIGN.CENTER)
-ui_Icons_Label5.set_style_text_color(lv.color_hex(0xFF0101), lv.PART.MAIN | lv.STATE.DEFAULT )
-ui_Icons_Label5.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
-ui_Icons_Label5.set_style_text_font( font_RaceIcons, lv.PART.MAIN | lv.STATE.DEFAULT )
-
-ui_Icons_Label6 = lv.label(ui_Icons)
-ui_Icons_Label6.set_text("")
-ui_Icons_Label6.set_width(lv.SIZE.CONTENT)	# 1
-ui_Icons_Label6.set_height(lv.SIZE.CONTENT)   # 1
-ui_Icons_Label6.set_x(-8)
-ui_Icons_Label6.set_y(-27)
-ui_Icons_Label6.set_align( lv.ALIGN.CENTER)
-ui_Icons_Label6.set_style_text_color(lv.color_hex(0x808080), lv.PART.MAIN | lv.STATE.DEFAULT )
-ui_Icons_Label6.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
-ui_Icons_Label6.set_style_text_font( font_ceilusunit, lv.PART.MAIN | lv.STATE.DEFAULT )
-
-ui_Icons_Label7 = lv.label(ui_Icons)
-ui_Icons_Label7.set_text("")
-ui_Icons_Label7.set_width(lv.SIZE.CONTENT)	# 1
-ui_Icons_Label7.set_height(lv.SIZE.CONTENT)   # 1
-ui_Icons_Label7.set_x(-6)
-ui_Icons_Label7.set_y(-25)
-ui_Icons_Label7.set_align( lv.ALIGN.CENTER)
-ui_Icons_Label7.set_style_text_color(lv.color_hex(0x9E9E9E), lv.PART.MAIN | lv.STATE.DEFAULT )
-ui_Icons_Label7.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
-ui_Icons_Label7.set_style_text_font( font_ceilusunit, lv.PART.MAIN | lv.STATE.DEFAULT )
 
 lv.scr_load(ui_TeamRadioScreen)
