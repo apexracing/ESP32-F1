@@ -10,7 +10,7 @@ class RaceScreen(Screen):
         self.screen.set_style_bg_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
 
         self.ui_Weather_Image = lv.label(self.screen)
-        self.ui_Weather_Image.set_text("")
+        self.ui_Weather_Image.set_text("")
         self.ui_Weather_Image.set_width(lv.SIZE.CONTENT)  # 1
         self.ui_Weather_Image.set_height(lv.SIZE.CONTENT)  # 1
         self.ui_Weather_Image.set_x(-85)
@@ -18,7 +18,7 @@ class RaceScreen(Screen):
         self.ui_Weather_Image.set_align(lv.ALIGN.CENTER)
         self.ui_Weather_Image.set_style_text_color(lv.color_hex(0xFFF100), lv.PART.MAIN | lv.STATE.DEFAULT)
         self.ui_Weather_Image.set_style_text_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
-        self.ui_Weather_Image.set_style_text_font(self.resourceManager.load_font("IconE608", 30), lv.PART.MAIN | lv.STATE.DEFAULT)
+        self.ui_Weather_Image.set_style_text_font(self.resourceManager.load_font("IconE60F", 30), lv.PART.MAIN | lv.STATE.DEFAULT)
 
         self.ui_TrackTempImg = lv.label(self.screen)
         self.ui_TrackTempImg.set_text("")
@@ -195,7 +195,7 @@ class RaceScreen(Screen):
     
         self.ui_AirTempArc.set_style_arc_width(3, lv.PART.INDICATOR | lv.STATE.DEFAULT)
         self.ui_AirTempArc.set_style_arc_rounded(False, lv.PART.INDICATOR | lv.STATE.DEFAULT)
-        #self.ui_AirTempArc.set_style_arc_img_src(self.resourceManager.load_img("/ui/assets/d.png"), lv.PART.INDICATOR | lv.STATE.DEFAULT)
+        self.ui_AirTempArc.set_style_arc_img_src(self.resourceManager.load_img("/ui/assets/d.png"), lv.PART.INDICATOR | lv.STATE.DEFAULT)
     
         self.ui_AirTempArc.set_style_bg_color(lv.color_hex(0xFFFFFF), lv.PART.KNOB | lv.STATE.DEFAULT)
         self.ui_AirTempArc.set_style_bg_opa(0, lv.PART.KNOB | lv.STATE.DEFAULT)
@@ -219,7 +219,7 @@ class RaceScreen(Screen):
     
         self.ui_TrackTempArc.set_style_arc_width(3, lv.PART.INDICATOR | lv.STATE.DEFAULT)
         self.ui_TrackTempArc.set_style_arc_rounded(False, lv.PART.INDICATOR | lv.STATE.DEFAULT)
-        #self.ui_TrackTempArc.set_style_arc_img_src(self.resourceManager.load_img("/ui/assets/d.png"), lv.PART.INDICATOR | lv.STATE.DEFAULT)
+        self.ui_TrackTempArc.set_style_arc_img_src(self.resourceManager.load_img("/ui/assets/d.png"), lv.PART.INDICATOR | lv.STATE.DEFAULT)
     
         self.ui_TrackTempArc.set_style_bg_color(lv.color_hex(0xFFFFFF), lv.PART.KNOB | lv.STATE.DEFAULT)
         self.ui_TrackTempArc.set_style_bg_opa(0, lv.PART.KNOB | lv.STATE.DEFAULT)
@@ -463,10 +463,10 @@ class RaceScreen(Screen):
     def RaceScreen_eventhandler(self,event_struct):
         event = event_struct.code
         if event == lv.EVENT.SCREEN_LOADED and True:
-            # self.opa_on_Animation(self.ui_WindImg, 0)
-            # self.opa_on_Animation(self.ui_TrackTempImg, 0)
-            # self.opa_on_Animation(self.ui_Weather_Image, 0)
-            # self.opa_on_Animation(self.ui_HumidnessImg, 0)
+            self.opa_on_Animation(self.ui_WindImg, 0)
+            self.opa_on_Animation(self.ui_TrackTempImg, 0)
+            self.opa_on_Animation(self.ui_Weather_Image, 0)
+            self.opa_on_Animation(self.ui_HumidnessImg, 0)
             self.left_Animation(self.ui_Air_Temp, 0)
             self.right_Animation(self.ui_Track_Temp, 0)
             self.top_Animation(self.ui_Humidness, 0)

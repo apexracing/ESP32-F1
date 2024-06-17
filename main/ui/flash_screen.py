@@ -5,6 +5,7 @@ import uasyncio
 class FlashScreen(Screen):
     def __init__(self):
         super().__init__()
+        self.screen.set_style_bg_color(lv.color_hex(0x000000), lv.PART.MAIN | lv.STATE.DEFAULT)
         self.ui_Flash_Label5 = lv.label(self.screen)
         self.ui_Flash_Label5.set_text("SPEED IMPRINT")
         self.ui_Flash_Label5.set_width(lv.SIZE.CONTENT)  # 1
