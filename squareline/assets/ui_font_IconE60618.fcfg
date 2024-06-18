@@ -1,0 +1,14 @@
+{
+  "codename": "IconE60618",
+  "ttf_path": "/assets/iconfont.ttf",
+  "bin_path": "/assets\\ui_font_IconE60618.bin",
+  "c_path": "/assets\\ui_font_IconE60618.c",
+  "cfg_path": "/assets\\ui_font_IconE60618.fcfg",
+  "size": 18,
+  "bpp": 2,
+  "letters": 0,
+  "ranges": [],
+  "symbols": "",
+  "customparams": "--no-compress --no-prefilter",
+  "uploaded": false
+}
