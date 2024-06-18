@@ -14935,6 +14935,7 @@
               },
               {
                 "nid": 595293510,
+                "flags": 1048576,
                 "strtype": "LABEL/Label",
                 "InheritedType": 1
               },
@@ -48546,7 +48547,7 @@
     "theme_color2": 0,
     "uiExportFolderPath": "E:\\github\\esp32\\squareline\\generated",
     "projectExportFolderPath": "",
-    "backup_cnt": 970,
+    "backup_cnt": 978,
     "autosave_cnt": 0,
     "lvgl_version": "8.3.11",
     "callfuncsexport": "PY_FILE",
