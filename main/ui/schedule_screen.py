@@ -245,7 +245,7 @@ class ScheduleScreen(Screen):
 
     def ScheduleScreen_eventhandler(self,event_struct):
         event = event_struct.code
-        if event == lv.EVENT.SCREEN_LOADED and True:
+        if event == lv.EVENT.SCREEN_LOAD_START and True:
             self.top_Animation(self.ui_Calendar_Month, 0)
             self.top_Animation(self.ui_Calendar_Day, 0)
             self.left_Animation(self.ui_Time_Hour_Label, 0)

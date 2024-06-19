@@ -52,7 +52,7 @@ class EmoilScreen(Screen):
                 pass
             if direction & lv.DIR.RIGHT == lv.DIR.RIGHT:
                 pass
-        if event == lv.EVENT.SCREEN_LOADED and True:
+        if event == lv.EVENT.SCREEN_LOAD_START and True:
             print("screen loaded")
             self.top_Animation(self.ui_EmoilScreen_Image1, 0)
         return
