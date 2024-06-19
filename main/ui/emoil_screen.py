@@ -18,7 +18,6 @@ class EmoilScreen(Screen):
         self.screen.set_style_bg_main_stop(0, lv.PART.MAIN | lv.STATE.DEFAULT)
         self.screen.set_style_bg_grad_stop(255, lv.PART.MAIN | lv.STATE.DEFAULT)
         self.screen.set_style_bg_grad_dir(lv.GRAD_DIR.VER, lv.PART.MAIN | lv.STATE.DEFAULT)
-        #self.screen.set_style_bg_img_src(self.resourceManager.load_img("ui/assets/grid.png"), lv.PART.MAIN | lv.STATE.DEFAULT)
         #global  ui_img_helmet_redbull_png
         self.ui_EmoilScreen_Image1 = lv.img(self.screen)
         self.ui_EmoilScreen_Image1.set_src(self.resourceManager.load_img("/ui/assets/Helmet_RedBull.png"))

@@ -15,7 +15,6 @@ def singleton(cls):
 @singleton
 class ResourceManager:
     def __init__(self):
-        global_font_cache = {}
         self.global_raw_cache={}
         lv.init()
         fs_drv = lv.fs_drv_t()
