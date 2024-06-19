@@ -48,7 +48,8 @@ class TeamRadioScreen(Screen):
         self.ui_wave_Container.set_align(lv.ALIGN.CENTER)
         self.SetFlag(self.ui_wave_Container, lv.obj.FLAG.CLICKABLE, False)
         self.SetFlag(self.ui_wave_Container, lv.obj.FLAG.SCROLLABLE, False)
-        self._lottie = lv.rlottie_create_from_raw(self.ui_wave_Container, 178,44,self.resourceManager.load_raw(f'ui/assets/team_{self.themeManager.getCurrentThemeIndex():02}.json'))
+        self._lottie = lv.rlottie_create_from_raw(self.ui_wave_Container, 178, 44, self.resourceManager.load_raw(
+            f'ui/assets/team_{self.themeManager.getCurrentThemeIndex():02}.json'))
         lv.rlottie_set_play_mode(self._lottie, lv.RLOTTIE_CTRL.LOOP)
         self._lottie.set_width(lv.SIZE.CONTENT)  # 1
         self._lottie.set_height(lv.SIZE.CONTENT)  # 1
@@ -94,9 +95,11 @@ class TeamRadioScreen(Screen):
         self.SetFlag(ui_Customer_Person, lv.obj.FLAG.ADV_HITTEST, True)
         self.SetFlag(ui_Customer_Person, lv.obj.FLAG.SCROLLABLE, False)
         ui_Customer_Person.set_zoom(235)
-
+        self.msg_txt = ''''''
+        self.msg_length = len(self.msg_txt)
+        self.msg_index = 0
         self.ui_Msg_Label = lv.label(ui_Msg_Container)
-        self.ui_Msg_Label.set_text("\"I CAN'T BELIEVE YOU GUYS *** *** ME. CAN'T TELL YOU HOW **** *I AM\"")
+        self.ui_Msg_Label.set_text(self.msg_txt)
         self.ui_Msg_Label.set_width(134)
         self.ui_Msg_Label.set_height(54)
         self.ui_Msg_Label.set_x(7)
@@ -110,7 +113,8 @@ class TeamRadioScreen(Screen):
         self.ui_Msg_Label.set_style_text_letter_space(0, lv.PART.MAIN | lv.STATE.DEFAULT)
         self.ui_Msg_Label.set_style_text_line_space(3, lv.PART.MAIN | lv.STATE.DEFAULT)
         self.ui_Msg_Label.set_style_text_align(lv.TEXT_ALIGN.LEFT, lv.PART.MAIN | lv.STATE.DEFAULT)
-        self.ui_Msg_Label.set_style_text_font(self.resourceManager.load_font("F1R", 10), lv.PART.MAIN | lv.STATE.DEFAULT)
+        self.ui_Msg_Label.set_style_text_font(self.resourceManager.load_font("F1R", 10),
+                                              lv.PART.MAIN | lv.STATE.DEFAULT)
 
         self.ui_Driver_Label = lv.label(ui_Msg_Container)
         self.ui_Driver_Label.set_text("VER")
@@ -122,14 +126,31 @@ class TeamRadioScreen(Screen):
         self.ui_Driver_Label.set_style_text_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
         self.ui_Driver_Label.set_style_text_font(self.resourceManager.load_font("F1B", 18),
                                                  lv.PART.MAIN | lv.STATE.DEFAULT)
-
+        self.timer = lv.timer_create(self.update_msg, 30, None)
+        self.timer.pause()
         self.screen.add_event_cb(self.TeamRadioScreen_eventhandler, lv.EVENT.ALL, None)
 
     def TeamRadioScreen_eventhandler(self, event_struct):
         event = event_struct.code
-        if event == lv.EVENT.SCREEN_LOADED and True:
+        if event == lv.EVENT.SCREEN_LOAD_START and True:
             self.left_Animation(self.ui_Team_Color_Container, 0)
             self.right_Animation(self.ui_Team_Label, 0)
             self.opa_on_Animation(self.ui_wave_Container, 0)
             self.opa_on_Animation(self.ui_Driver_Label, 0)
+        if event == lv.EVENT.SCREEN_LOADED:
+            self.play_msg('''"I CAN'T BELIEVE YOU GUYS *** *** ME. CAN'T TELL YOU HOW **** *I AM"''')
         return
+
+    def play_msg(self, msg):
+        self.timer.pause()
+        #self.ui_Msg_Label("")
+        self.msg_txt = msg
+        self.msg_length = len(self.msg_txt)
+        self.msg_index = 0
+        self.timer.resume()
+
+    def update_msg(self,timer):
+        self.msg_index += 1
+        if self.msg_index > self.msg_length:
+            self.timer.pause()
+        self.ui_Msg_Label.set_text(self.msg_txt[:self.msg_index])

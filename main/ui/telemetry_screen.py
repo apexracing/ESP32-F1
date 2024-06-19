@@ -45,6 +45,7 @@ class TelemetryScreen(Screen):
         self.ui_Throttle_Arc = lv.arc(self.screen)
         self.ui_Throttle_Arc.set_width(190)
         self.ui_Throttle_Arc.set_height(190)
+
         self.ui_Throttle_Arc.set_align(lv.ALIGN.CENTER)
         self.SetFlag(self.ui_Throttle_Arc, lv.obj.FLAG.CLICKABLE, False)
         self.SetFlag(self.ui_Throttle_Arc, lv.obj.FLAG.PRESS_LOCK, False)
@@ -67,13 +68,23 @@ class TelemetryScreen(Screen):
         self.ui_Throttle_Arc.set_style_arc_opa(255, lv.PART.INDICATOR | lv.STATE.DEFAULT)
         self.ui_Throttle_Arc.set_style_arc_width(20, lv.PART.INDICATOR | lv.STATE.DEFAULT)
         self.ui_Throttle_Arc.set_style_arc_rounded(False, lv.PART.INDICATOR | lv.STATE.DEFAULT)
-
+        #self.ui_Throttle_Arc.set_style_arc_img_src(ui_images.ui_img_throttle_png, lv.PART.INDICATOR | lv.STATE.DEFAULT)
+    
         self.ui_Throttle_Arc.set_style_bg_color(lv.color_hex(0xFFFFFF), lv.PART.KNOB | lv.STATE.DEFAULT)
         self.ui_Throttle_Arc.set_style_bg_opa(0, lv.PART.KNOB | lv.STATE.DEFAULT)
         self.ui_Brake_Arc = lv.arc(self.screen)
         self.ui_Brake_Arc.set_width(190)
         self.ui_Brake_Arc.set_height(190)
         self.ui_Brake_Arc.set_align(lv.ALIGN.CENTER)
+        self.SetFlag(self.ui_Brake_Arc, lv.obj.FLAG.CLICKABLE, False)
+        self.SetFlag(self.ui_Brake_Arc, lv.obj.FLAG.PRESS_LOCK, False)
+        self.SetFlag(self.ui_Brake_Arc, lv.obj.FLAG.CLICK_FOCUSABLE, False)
+        self.SetFlag(self.ui_Brake_Arc, lv.obj.FLAG.EVENT_BUBBLE, True)
+        self.SetFlag(self.ui_Brake_Arc, lv.obj.FLAG.SNAPPABLE, False)
+        self.SetFlag(self.ui_Brake_Arc, lv.obj.FLAG.SCROLLABLE, False)
+        self.SetFlag(self.ui_Brake_Arc, lv.obj.FLAG.SCROLL_ELASTIC, False)
+        self.SetFlag(self.ui_Brake_Arc, lv.obj.FLAG.SCROLL_MOMENTUM, False)
+        self.SetFlag(self.ui_Brake_Arc, lv.obj.FLAG.SCROLL_CHAIN, False)
         self.ui_Brake_Arc.set_value(40)
         self.ui_Brake_Arc.set_bg_angles(0, 100)
         self.ui_Brake_Arc.set_mode(self.ui_Brake_Arc.MODE.REVERSE)
@@ -87,18 +98,11 @@ class TelemetryScreen(Screen):
         self.ui_Brake_Arc.set_style_arc_opa(255, lv.PART.INDICATOR | lv.STATE.DEFAULT)
         self.ui_Brake_Arc.set_style_arc_width(20, lv.PART.INDICATOR | lv.STATE.DEFAULT)
         self.ui_Brake_Arc.set_style_arc_rounded(False, lv.PART.INDICATOR | lv.STATE.DEFAULT)
-
+        #self.ui_Brake_Arc.set_style_arc_img_src(ui_images.ui_img_brake_png, lv.PART.INDICATOR | lv.STATE.DEFAULT)
+    
         self.ui_Brake_Arc.set_style_bg_color(lv.color_hex(0xFFFFFF), lv.PART.KNOB | lv.STATE.DEFAULT)
         self.ui_Brake_Arc.set_style_bg_opa(0, lv.PART.KNOB | lv.STATE.DEFAULT)
-        self.SetFlag(self.ui_Brake_Arc, lv.obj.FLAG.CLICKABLE, False)
-        self.SetFlag(self.ui_Brake_Arc, lv.obj.FLAG.PRESS_LOCK, False)
-        self.SetFlag(self.ui_Brake_Arc, lv.obj.FLAG.CLICK_FOCUSABLE, False)
-        self.SetFlag(self.ui_Brake_Arc, lv.obj.FLAG.EVENT_BUBBLE, True)
-        self.SetFlag(self.ui_Brake_Arc, lv.obj.FLAG.SNAPPABLE, False)
-        self.SetFlag(self.ui_Brake_Arc, lv.obj.FLAG.SCROLLABLE, False)
-        self.SetFlag(self.ui_Brake_Arc, lv.obj.FLAG.SCROLL_ELASTIC, False)
-        self.SetFlag(self.ui_Brake_Arc, lv.obj.FLAG.SCROLL_MOMENTUM, False)
-        self.SetFlag(self.ui_Brake_Arc, lv.obj.FLAG.SCROLL_CHAIN, False)
+    
         self.ui_Gear = lv.label(self.screen)
         self.ui_Gear.set_text("N")
         self.ui_Gear.set_width(lv.SIZE.CONTENT)  # 1
@@ -208,7 +212,7 @@ class TelemetryScreen(Screen):
 
     def TelemetryScreen_eventhandler(self,event_struct):
        event = event_struct.code
-       if event == lv.EVENT.SCREEN_LOADED and True:
+       if event == lv.EVENT.SCREEN_LOAD_START and True:
           self.bottom_Animation(self.ui_SPEED, 0)
           self.right_Animation(self.ui_RPM, 0)
           self.opa_on_Animation(self.ui_Gear, 0)

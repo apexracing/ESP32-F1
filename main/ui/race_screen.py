@@ -462,7 +462,7 @@ class RaceScreen(Screen):
         self.screen.add_event_cb(self.RaceScreen_eventhandler, lv.EVENT.ALL, None)
     def RaceScreen_eventhandler(self,event_struct):
         event = event_struct.code
-        if event == lv.EVENT.SCREEN_LOADED and True:
+        if event == lv.EVENT.SCREEN_LOAD_START and True:
             self.opa_on_Animation(self.ui_WindImg, 0)
             self.opa_on_Animation(self.ui_TrackTempImg, 0)
             self.opa_on_Animation(self.ui_Weather_Image, 0)
