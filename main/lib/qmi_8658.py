@@ -1,12 +1,15 @@
 from machine import Pin, I2C, SPI, PWM, Timer, ADC
+
 I2C_SDA = 6
 I2C_SDL = 7
 I2C_INT = 17
 I2C_RST = 16
+
+
 class QMI8658(object):
-    def __init__(self, address=0x6B):
+    def __init__(self, address=0x6b):
         self._address = address
-        self._bus = I2C(id=1, scl=Pin(I2C_SDL), sda=Pin(I2C_SDA), freq=400000,timeout=50000)
+        self._bus = I2C(1, scl=Pin(I2C_SDL), sda=Pin(I2C_SDA), freq=400000, timeout=50000)
         bRet = self.WhoAmI()
         if bRet:
             self.Read_Revision()
@@ -55,30 +58,6 @@ class QMI8658(object):
         # REG CTRL7 : Enable Gyroscope And Accelerometer/AttitudeEngine
         self._write_byte(0x08, 0x4B)
 
-    def Read_Raw_Quat(self):
-        print(" ")
-        wxyz = [1, 0, 0, 0]
-        self._write_byte(0x0A, 0x0C)
-        raw_timestamp = self._read_block(0x30, 3)
-        quat = self._read_block(0x45, 8)
-        print("quat: ")
-        print(quat)
-        status = self._read_block(0x2F, 1)
-        print("status: ")
-        print(status)
-        timestamp = (
-            (raw_timestamp[2] << 16) | (raw_timestamp[1] << 8) | (raw_timestamp[0])
-        )
-        print("Timestamp: ")
-        print(timestamp)
-        #temp = self._read_byte(0x33)
-        #print("temp")
-        #print(temp)
-        for i in range(3):
-            wxyz[i] = (wxyz[(i) + 1]) | (wxyz[i])
-        print(wxyz)
-        return wxyz
-
     def Read_Raw_XYZ(self):
         xyz = [0, 0, 0, 0, 0, 0]
         raw_timestamp = self._read_block(0x30, 3)
@@ -86,7 +65,7 @@ class QMI8658(object):
         raw_gyro_xyz = self._read_block(0x3B, 6)
         raw_xyz = self._read_block(0x35, 12)
         timestamp = (
-            (raw_timestamp[2] << 16) | (raw_timestamp[1] << 8) | (raw_timestamp[0])
+                (raw_timestamp[2] << 16) | (raw_timestamp[1] << 8) | (raw_timestamp[0])
         )
         for i in range(6):
             # xyz[i]=(raw_acc_xyz[(i*2)+1]<<8)|(raw_acc_xyz[i*2])
@@ -108,3 +87,9 @@ class QMI8658(object):
             xyz[i + 3] = raw_xyz[i + 3] * 1.0 / gyro_lsb_div
         return xyz
 
+    def Close(self):
+        self._bus.deinit()
+
+    def __del__(self):
+        print('__del__')
+        self.Close()
