@@ -3,6 +3,7 @@ from ui.screen import Screen
 from ui.theme_manager import Themes, ThemeManager
 class SetupScreen(Screen):
     def __init__(self):
+        super().__init__()
         self.SetFlag(self.screen, lv.obj.FLAG.SCROLLABLE, False)
         self.screen.set_style_radius(0, lv.PART.MAIN | lv.STATE.DEFAULT)
         self.screen.set_style_bg_color(lv.color_hex(0x000000), lv.PART.MAIN | lv.STATE.DEFAULT)
@@ -160,7 +161,7 @@ class SetupScreen(Screen):
 
     def SetupScreen_eventhandler(self,event_struct):
         event = event_struct.code
-        if event == lv.EVENT.SCREEN_LOADED and True:
+        if event == lv.EVENT.SCREEN_LOAD_START and True:
             self.right_Animation(self.ui_WifiMenuItem, 0)
             self.right_Animation(self.ui_TeamMenuItem, 0)
             self.left_Animation(self.ui_DriverMenuItem, 0)
