@@ -30,6 +30,7 @@ font_IconE60430 = lv.font_load("A:ui_font_IconE60430.bin")
 font_IconE60330 = lv.font_load("A:ui_font_IconE60330.bin")
 font_IconE60230 = lv.font_load("A:ui_font_IconE60230.bin")
 font_IconE60618 = lv.font_load("A:ui_font_IconE60618.bin")
+font_SetupIcons = lv.font_load("A:ui_font_SetupIcons.bin")
 font_Chinese12 = lv.font_load("A:ui_font_Chinese12.bin")
 
 _ui_theme_color_Default = [0xFFDD00, 0x3671C6, 0xFF0101]
@@ -445,6 +446,89 @@ def driver_left_Animation(TargetObject, delay):
 
   print ("driver_left_Animation called")
   return
+
+# COMPONENTS
+
+ # COMPONENT DriverContainer
+def ui_DriverContainer_create(comp_parent):
+    cui_DriverContainer = lv.obj(comp_parent)
+    cui_DriverContainer.remove_style_all()
+    cui_DriverContainer.set_width(131)
+    cui_DriverContainer.set_height(16)
+    cui_DriverContainer.set_x(0)
+    cui_DriverContainer.set_y(-39)
+    cui_DriverContainer.set_align( lv.ALIGN.CENTER)
+    SetFlag(cui_DriverContainer, lv.obj.FLAG.CLICKABLE, False)
+    SetFlag(cui_DriverContainer, lv.obj.FLAG.SCROLLABLE, False)
+    cui_RaceScreen_Label1 = lv.label(cui_DriverContainer)
+    cui_RaceScreen_Label1.set_text("22")
+    cui_RaceScreen_Label1.set_width(16)
+    cui_RaceScreen_Label1.set_height(16)
+    cui_RaceScreen_Label1.set_x(5)
+    cui_RaceScreen_Label1.set_y(0)
+    cui_RaceScreen_Label1.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_RaceScreen_Label1.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+    cui_RaceScreen_Label1.set_style_text_align( lv.TEXT_ALIGN.RIGHT, lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_RaceScreen_Label1.set_style_text_font( font_DISPLAYM14, lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_RaceScreen_Container3 = lv.obj(cui_DriverContainer)
+    cui_RaceScreen_Container3.remove_style_all()
+    cui_RaceScreen_Container3.set_width(3)
+    cui_RaceScreen_Container3.set_height(14)
+    cui_RaceScreen_Container3.set_x(25)
+    cui_RaceScreen_Container3.set_y(0)
+    SetFlag(cui_RaceScreen_Container3, lv.obj.FLAG.CLICKABLE, False)
+    SetFlag(cui_RaceScreen_Container3, lv.obj.FLAG.SCROLLABLE, False)
+    cui_RaceScreen_Container3.set_style_bg_color(lv.color_hex(0x3671C6), lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_RaceScreen_Container3.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+    cui_RaceScreen_Label3 = lv.label(cui_DriverContainer)
+    cui_RaceScreen_Label3.set_text("VER")
+    cui_RaceScreen_Label3.set_width(lv.SIZE.CONTENT)	# 1
+    cui_RaceScreen_Label3.set_height(lv.SIZE.CONTENT)   # 1
+    cui_RaceScreen_Label3.set_x(33)
+    cui_RaceScreen_Label3.set_y(0)
+    cui_RaceScreen_Label3.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_RaceScreen_Label3.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+    cui_RaceScreen_Label3.set_style_text_font( font_DISPLAYM14, lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_RaceScreen_Label4 = lv.label(cui_DriverContainer)
+    cui_RaceScreen_Label4.set_text("Interval")
+    cui_RaceScreen_Label4.set_width(60)
+    cui_RaceScreen_Label4.set_height(16)
+    cui_RaceScreen_Label4.set_x(70)
+    cui_RaceScreen_Label4.set_y(0)
+    cui_RaceScreen_Label4.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_RaceScreen_Label4.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+    cui_RaceScreen_Label4.set_style_text_align( lv.TEXT_ALIGN.RIGHT, lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_RaceScreen_Label4.set_style_text_font( font_DISPLAYM14, lv.PART.MAIN | lv.STATE.DEFAULT )
+    _ui_comp_table[id(cui_DriverContainer)]= {"DriverContainer" : cui_DriverContainer,"RaceScreen_Label1" : cui_RaceScreen_Label1,"RaceScreen_Container3" : cui_RaceScreen_Container3,"RaceScreen_Label3" : cui_RaceScreen_Label3,"RaceScreen_Label4" : cui_RaceScreen_Label4, "_CompName" : "DriverContainer"}
+    return cui_DriverContainer
+
+ # COMPONENT WiFiItem
+def ui_WiFiItem_create(comp_parent):
+    cui_WiFiItem = lv.obj(comp_parent)
+    cui_WiFiItem.remove_style_all()
+    cui_WiFiItem.set_width(170)
+    cui_WiFiItem.set_height(25)
+    cui_WiFiItem.set_align( lv.ALIGN.CENTER)
+    SetFlag(cui_WiFiItem, lv.obj.FLAG.CLICKABLE, False)
+    SetFlag(cui_WiFiItem, lv.obj.FLAG.SCROLLABLE, False)
+    cui_WifiName = lv.label(cui_WiFiItem)
+    cui_WifiName.set_text("XiaoMiao")
+    cui_WifiName.set_width(lv.SIZE.CONTENT)	# 1
+    cui_WifiName.set_height(lv.SIZE.CONTENT)   # 1
+    cui_WifiName.set_align( lv.ALIGN.LEFT_MID)
+    cui_WifiName.set_style_text_color(lv.color_hex(0x01A3D8), lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_WifiName.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+    cui_WifiName.set_style_text_font( font_DISPLAYM18, lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_WiFiImg = lv.img(cui_WiFiItem)
+    cui_WiFiImg.set_src(ui_images.ui_img_wifi_strong_png)
+    cui_WiFiImg.set_width(lv.SIZE.CONTENT)	# 1
+    cui_WiFiImg.set_height(lv.SIZE.CONTENT)   # 1
+    cui_WiFiImg.set_align( lv.ALIGN.RIGHT_MID)
+    SetFlag(cui_WiFiImg, lv.obj.FLAG.ADV_HITTEST, True)
+    SetFlag(cui_WiFiImg, lv.obj.FLAG.SCROLLABLE, False)
+    cui_WiFiImg.set_style_blend_mode( lv.BLEND_MODE.NORMAL, lv.PART.MAIN | lv.STATE.DEFAULT )
+    _ui_comp_table[id(cui_WiFiItem)]= {"WiFiItem" : cui_WiFiItem,"WifiName" : cui_WifiName,"WiFiImg" : cui_WiFiImg, "_CompName" : "WiFiItem"}
+    return cui_WiFiItem
 
 # COMPONENTS
 
@@ -1676,7 +1760,6 @@ SetFlag(ui_WifiMenuIcon, lv.obj.FLAG.SCROLLABLE, False)
 ui_WifiMenuIcon.set_style_radius( 90, lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_WifiMenuIcon.set_style_bg_color(lv.color_hex(0x01A3D8), lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_WifiMenuIcon.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
-ui_WifiMenuIcon.set_style_bg_img_src( ui_images.ui_img_wifi_icon_png, lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_WifiMenuIcon.set_style_border_color(lv.color_hex(0x000000), lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_WifiMenuIcon.set_style_border_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
 ui_WifiMenuIcon.set_style_border_width( 0, lv.PART.MAIN | lv.STATE.DEFAULT )
@@ -1684,6 +1767,15 @@ ui_WifiMenuIcon.set_style_shadow_color(lv.color_hex(0x01A3D8), lv.PART.MAIN | lv
 ui_WifiMenuIcon.set_style_shadow_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
 ui_WifiMenuIcon.set_style_shadow_width( 5, lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_WifiMenuIcon.set_style_shadow_spread( 1, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_SetupScreen_Label1 = lv.label(ui_WifiMenuIcon)
+ui_SetupScreen_Label1.set_text("")
+ui_SetupScreen_Label1.set_width(lv.SIZE.CONTENT)	# 1
+ui_SetupScreen_Label1.set_height(lv.SIZE.CONTENT)   # 1
+ui_SetupScreen_Label1.set_align( lv.ALIGN.CENTER)
+ui_SetupScreen_Label1.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_SetupScreen_Label1.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_SetupScreen_Label1.set_style_text_font( font_SetupIcons, lv.PART.MAIN | lv.STATE.DEFAULT )
 
 ui_WifiMenuLabel = lv.label(ui_WifiMenuItem)
 ui_WifiMenuLabel.set_text("WiFi")
@@ -1716,7 +1808,6 @@ SetFlag(ui_TeamMenuIcon, lv.obj.FLAG.SCROLLABLE, False)
 ui_TeamMenuIcon.set_style_radius( 90, lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_TeamMenuIcon.set_style_bg_color(lv.color_hex(0x970FDB), lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_TeamMenuIcon.set_style_bg_opa(970, lv.PART.MAIN| lv.STATE.DEFAULT )
-ui_TeamMenuIcon.set_style_bg_img_src( ui_images.ui_img_theme_png, lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_TeamMenuIcon.set_style_border_color(lv.color_hex(0x000000), lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_TeamMenuIcon.set_style_border_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
 ui_TeamMenuIcon.set_style_border_width( 0, lv.PART.MAIN | lv.STATE.DEFAULT )
@@ -1724,6 +1815,15 @@ ui_TeamMenuIcon.set_style_shadow_color(lv.color_hex(0x970FDB), lv.PART.MAIN | lv
 ui_TeamMenuIcon.set_style_shadow_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
 ui_TeamMenuIcon.set_style_shadow_width( 5, lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_TeamMenuIcon.set_style_shadow_spread( 1, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_SetupScreen_Label3 = lv.label(ui_TeamMenuIcon)
+ui_SetupScreen_Label3.set_text("")
+ui_SetupScreen_Label3.set_width(lv.SIZE.CONTENT)	# 1
+ui_SetupScreen_Label3.set_height(lv.SIZE.CONTENT)   # 1
+ui_SetupScreen_Label3.set_align( lv.ALIGN.CENTER)
+ui_SetupScreen_Label3.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_SetupScreen_Label3.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_SetupScreen_Label3.set_style_text_font( font_SetupIcons, lv.PART.MAIN | lv.STATE.DEFAULT )
 
 ui_TeamMenuLabel = lv.label(ui_TeamMenuItem)
 ui_TeamMenuLabel.set_text("Theme")
@@ -1756,7 +1856,6 @@ SetFlag(ui_DriverMenuIcon, lv.obj.FLAG.SCROLLABLE, False)
 ui_DriverMenuIcon.set_style_radius( 90, lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_DriverMenuIcon.set_style_bg_color(lv.color_hex(0xFF0101), lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_DriverMenuIcon.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
-ui_DriverMenuIcon.set_style_bg_img_src( ui_images.ui_img_driver_icon_png, lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_DriverMenuIcon.set_style_border_color(lv.color_hex(0x000000), lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_DriverMenuIcon.set_style_border_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
 ui_DriverMenuIcon.set_style_border_width( 0, lv.PART.MAIN | lv.STATE.DEFAULT )
@@ -1764,6 +1863,15 @@ ui_DriverMenuIcon.set_style_shadow_color(lv.color_hex(0xFF0101), lv.PART.MAIN | 
 ui_DriverMenuIcon.set_style_shadow_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
 ui_DriverMenuIcon.set_style_shadow_width( 5, lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_DriverMenuIcon.set_style_shadow_spread( 1, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_SetupScreen_Label4 = lv.label(ui_DriverMenuIcon)
+ui_SetupScreen_Label4.set_text("")
+ui_SetupScreen_Label4.set_width(lv.SIZE.CONTENT)	# 1
+ui_SetupScreen_Label4.set_height(lv.SIZE.CONTENT)   # 1
+ui_SetupScreen_Label4.set_align( lv.ALIGN.CENTER)
+ui_SetupScreen_Label4.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_SetupScreen_Label4.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_SetupScreen_Label4.set_style_text_font( font_SetupIcons, lv.PART.MAIN | lv.STATE.DEFAULT )
 
 ui_DriverMenuLabel = lv.label(ui_DriverMenuItem)
 ui_DriverMenuLabel.set_text("Driver")
