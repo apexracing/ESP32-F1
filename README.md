@@ -13,12 +13,12 @@
 >- SquareLine Studio打开[squareline项目](./squareline)
 ### 动画制作
 >adobe Illustrator 2024 绘制矢量图后，用 https://app.lottiefiles.com/ 制作关键帧，导出json格式动画
-### 天气图标制作
->素材来源:https://github.com/manifestinteractive/weather-underground-icons/tree/master
->参考文档:https://blog.csdn.net/weixin_45677295/article/details/137988044
+### 单色小图片加载优化
+>- 需要将用svg矢量图标制作ttf符号字体可参考文档:https://blog.csdn.net/weixin_45677295/article/details/137988044
+>- 下边是已经制作好的几个图标
 ![这是图片](./design/icons.png)
 [TTF文件下载](./design/iconfont.ttf)
 
-### 图片加载优化
+### 大彩色图片加载优化
 >- https://lvgl.io/tools/imageconverter 先将图片转为RGB565Swap格式的.bin文件
 >- 从文件中按二进制读取.bin文件,要seek(1)一位数据，将读取的图片数据存储到全局变量缓存里,具体可里查看文件[资源管理器](./main/ui/resource_manager.py)

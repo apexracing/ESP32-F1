@@ -195,8 +195,7 @@ class RaceScreen(Screen):
     
         self.ui_AirTempArc.set_style_arc_width(3, lv.PART.INDICATOR | lv.STATE.DEFAULT)
         self.ui_AirTempArc.set_style_arc_rounded(False, lv.PART.INDICATOR | lv.STATE.DEFAULT)
-        self.ui_AirTempArc.set_style_arc_img_src(self.resourceManager.load_img("/ui/assets/d.png"), lv.PART.INDICATOR | lv.STATE.DEFAULT)
-    
+        self.ui_AirTempArc.set_style_arc_img_src(self.resourceManager.load_img("ui/assets/d.bin"), lv.PART.INDICATOR | lv.STATE.DEFAULT)
         self.ui_AirTempArc.set_style_bg_color(lv.color_hex(0xFFFFFF), lv.PART.KNOB | lv.STATE.DEFAULT)
         self.ui_AirTempArc.set_style_bg_opa(0, lv.PART.KNOB | lv.STATE.DEFAULT)
     
@@ -219,7 +218,7 @@ class RaceScreen(Screen):
     
         self.ui_TrackTempArc.set_style_arc_width(3, lv.PART.INDICATOR | lv.STATE.DEFAULT)
         self.ui_TrackTempArc.set_style_arc_rounded(False, lv.PART.INDICATOR | lv.STATE.DEFAULT)
-        self.ui_TrackTempArc.set_style_arc_img_src(self.resourceManager.load_img("/ui/assets/d.png"), lv.PART.INDICATOR | lv.STATE.DEFAULT)
+        self.ui_TrackTempArc.set_style_arc_img_src(self.resourceManager.load_img("ui/assets/d.bin"), lv.PART.INDICATOR | lv.STATE.DEFAULT)
     
         self.ui_TrackTempArc.set_style_bg_color(lv.color_hex(0xFFFFFF), lv.PART.KNOB | lv.STATE.DEFAULT)
         self.ui_TrackTempArc.set_style_bg_opa(0, lv.PART.KNOB | lv.STATE.DEFAULT)
