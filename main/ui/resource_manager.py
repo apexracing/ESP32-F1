@@ -20,9 +20,9 @@ class ResourceManager:
         fs_drv = lv.fs_drv_t()
         fs_driver.fs_register(fs_drv, 'Z')
         print("初始化文件系统Z:盘")
-        decoder = lv.img.decoder_create()
-        decoder.info_cb = get_png_info
-        decoder.open_cb = open_png
+        # decoder = lv.img.decoder_create()
+        # decoder.info_cb = get_png_info
+        # decoder.open_cb = open_png
 
     def load_raw(self,file):
         """
@@ -51,6 +51,7 @@ class ResourceManager:
             return global_image_cache[file]
         try:
             with open(file, 'rb') as f:
+                f.seek(1)
                 data = f.read()
         except:
             print(f'Could not open {file}')

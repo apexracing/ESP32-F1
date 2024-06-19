@@ -16,6 +16,9 @@
 ### 天气图标制作
 >素材来源:https://github.com/manifestinteractive/weather-underground-icons/tree/master
 >参考文档:https://blog.csdn.net/weixin_45677295/article/details/137988044
-
 ![这是图片](./design/icons.png)
 [TTF文件下载](./design/iconfont.ttf)
+
+### 图片加载优化
+>- https://lvgl.io/tools/imageconverter 先将图片转为RGB565Swap格式的.bin文件
+>- 从文件中按二进制读取.bin文件,要seek(1)一位数据，将读取的图片数据存储到全局变量缓存里,具体可里查看文件[资源管理器](./main/ui/resource_manager.py)
