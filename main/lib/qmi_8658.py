@@ -90,6 +90,3 @@ class QMI8658(object):
     def Close(self):
         self._bus.deinit()
 
-    def __del__(self):
-        print('__del__')
-        self.Close()

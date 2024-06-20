@@ -2,10 +2,13 @@ from ui.screen import Screen
 import lvgl as lv
 from ui.emoil import Emoil
 import random
+from lib.qmi_8658 import QMI8658
 
 class EmoilScreen(Screen):
     def __init__(self):
         super().__init__()
+        self.qmi8658 = None;
+        self.checkmiuTimer = None;
         self.SetFlag(self.screen, lv.obj.FLAG.CLICKABLE, False)
         self.SetFlag(self.screen, lv.obj.FLAG.PRESS_LOCK, False)
         self.SetFlag(self.screen, lv.obj.FLAG.SCROLLABLE, False)
@@ -54,10 +57,32 @@ class EmoilScreen(Screen):
         if event == lv.EVENT.SCREEN_LOAD_START and True:
             print("screen loaded")
             self.top_Animation(self.ui_EmoilScreen_Image1, 0)
+        if event == lv.EVENT.SCREEN_LOADED:
+            self.qmi8658 = QMI8658()
+            self.checkmiuTimer = lv.timer_create(self.timer_callback, 500, None);
+        if event == lv.EVENT.SCREEN_UNLOADED:
+            lv.timer_del(self.checkmiuTimer)
+            self.qmi8658.Close()
         return
 
     def timer_callback(self,timer):
-        last_num=self.current_emoil
-        while self.current_emoil == last_num:
-            self.current_emoil=random.randint(1,self.total_emoil)
-        Emoil(self.ui_EmoilScreen_Container1,f'ui/assets/e{self.current_emoil:02}.json')
+        _, _, _, gyro_x, gyro_y, gyro_z = self.qmi8658.Read_Raw_XYZ()
+        if abs(gyro_z) > 25000:
+            if gyro_z > 0:
+                print("右转")
+            else:
+                print("左转")
+            last_num = self.current_emoil
+            while self.current_emoil == last_num:
+                self.current_emoil = random.randint(1, self.total_emoil)
+            Emoil(self.ui_EmoilScreen_Container1, f'ui/assets/e{self.current_emoil:02}.json')
+        if abs(gyro_y) > 25000:
+            if gyro_y > 0:
+                print("前滚")
+            else:
+                print("后滚")
+        if abs(gyro_x) > 25000:
+            if gyro_x > 0:
+                print("左倾斜")
+            else:
+                print("右倾斜")
