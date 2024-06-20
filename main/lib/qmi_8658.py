@@ -1,4 +1,4 @@
-from machine import Pin, I2C
+from machine import Pin, SoftI2C
 
 I2C_SDA = 6
 I2C_SDL = 7
@@ -9,7 +9,7 @@ I2C_RST = 16
 class QMI8658(object):
     def __init__(self, address=0x6b):
         self._address = address
-        self._bus = I2C(1, scl=Pin(I2C_SDL), sda=Pin(I2C_SDA), freq=400000, timeout=50000)
+        self._bus = SoftI2C(scl=Pin(I2C_SDL), sda=Pin(I2C_SDA), freq=400000, timeout=50000)
         bRet = self.WhoAmI()
         if bRet:
             self.Read_Revision()

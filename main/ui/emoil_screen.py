@@ -51,9 +51,9 @@ class EmoilScreen(Screen):
         if event == lv.EVENT.GESTURE:
             direction=lv.indev_t.get_gesture_dir(lv.indev_get_act())
             if direction & lv.DIR.LEFT == lv.DIR.LEFT:
-                pass
+                print("左滑")
             if direction & lv.DIR.RIGHT == lv.DIR.RIGHT:
-                pass
+                print("右滑")
         if event == lv.EVENT.SCREEN_LOAD_START and True:
             print("screen loaded")
             self.top_Animation(self.ui_EmoilScreen_Image1, 0)

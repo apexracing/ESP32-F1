@@ -28,7 +28,7 @@ Implementation Notes
 
 import time
 from micropython import const
-from machine import Pin, I2C
+from machine import Pin, I2C,SoftI2C
 
 __version__ = "0.0.0+auto.0"
 __repo__ = "https://github.com/NeoStormer/CircuitPython_CST816.git"
@@ -93,7 +93,7 @@ class CST816:
     """Driver for the CST816 Touchscreen connected over I2C."""
 
     def __init__(self):
-        self.i2c_device = I2C(0, scl=Pin(7), sda=Pin(6), freq=400000)
+        self.i2c_device = SoftI2C( scl=Pin(7), sda=Pin(6), freq=400000)
         self.prev_x = 0
         self.prev_y = 0
         self.prev_touch = False
