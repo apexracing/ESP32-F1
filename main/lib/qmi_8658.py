@@ -1,4 +1,4 @@
-from machine import Pin, I2C, SPI, PWM, Timer, ADC
+from machine import Pin, I2C
 
 I2C_SDA = 6
 I2C_SDL = 7
