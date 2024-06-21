@@ -86,7 +86,7 @@ class TeamRadioScreen(Screen):
         self.ui_Team_Color_Container2.set_style_shadow_ofs_y(0, lv.PART.MAIN | lv.STATE.DEFAULT)
 
         ui_Customer_Person = lv.img(ui_Msg_Container)
-        ui_Customer_Person.set_src(self.resourceManager.load_img("/ui/assets/loading_person.png"))
+        ui_Customer_Person.set_src(self.resourceManager.load_img("/ui/assets/loading_person.bin"))
         ui_Customer_Person.set_width(lv.SIZE.CONTENT)  # 1
         ui_Customer_Person.set_height(lv.SIZE.CONTENT)  # 1
         ui_Customer_Person.set_x(63)
