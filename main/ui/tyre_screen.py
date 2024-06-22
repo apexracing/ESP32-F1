@@ -8,12 +8,12 @@ from lib.qmi_8658 import QMI8658
 import gc
 
 # 时间步长（秒）
-dt = 0.008
+dt = 0.016
 
 
 class Tyre():
     # 定义物理属性
-    gravity = 9.8 * 300  # 重力加速度（m/s^2）
+    gravity = 9.8 * 50  # 重力加速度（m/s^2）
     friction_coefficient = 0.01  # 摩擦系数
     bounce_coefficient = 0.95  # 碰撞后的弹性系数
     colors = [lv.color_hex(0xFFFFFF), lv.color_hex(0xCE0000), lv.color_hex(0xFFF807)]
@@ -194,8 +194,9 @@ class TyreScreen(Screen):
     def __init__(self):
         super().__init__()
         self.SetFlag(self.screen, lv.obj.FLAG.SCROLLABLE, False)
-        self.screen.set_style_bg_color(lv.color_hex(0xFF9200), lv.PART.MAIN | lv.STATE.DEFAULT)
-        self.screen.set_style_bg_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
+        self.screen.set_style_bg_color(lv.color_hex(0x550161), lv.PART.MAIN | lv.STATE.DEFAULT)
+
+
         self.tyre = Tyre(self.screen, 0, 0)
         self.qmi8658 = None
         self.checkmiuTimer = None

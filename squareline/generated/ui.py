@@ -1924,10 +1924,8 @@ ui_WiFiScan.add_event_cb(WiFiScan_eventhandler, lv.EVENT.ALL, None)
 
 ui_TyreScreen = lv.obj()
 SetFlag(ui_TyreScreen, lv.obj.FLAG.SCROLLABLE, False)
-ui_TyreScreen.set_style_bg_color(lv.color_hex(0x0A00A9), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_TyreScreen.set_style_bg_color(lv.color_hex(0x550161), lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_TyreScreen.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
-ui_TyreScreen.set_style_bg_grad_color(lv.color_hex(0x000000), lv.PART.MAIN | lv.STATE.DEFAULT )
-ui_TyreScreen.set_style_bg_grad_dir( lv.GRAD_DIR.VER, lv.PART.MAIN | lv.STATE.DEFAULT )
 
 ui_Tyre = lv.obj(ui_TyreScreen)
 ui_Tyre.remove_style_all()
