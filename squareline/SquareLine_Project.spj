@@ -49787,28 +49787,12 @@
                     "nid": 1498527439,
                     "strtype": "_style/Bg_Color",
                     "intarray": [
-                      10,
-                      0,
-                      169,
+                      85,
+                      1,
+                      97,
                       255
                     ],
                     "InheritedType": 7
-                  },
-                  {
-                    "nid": -807484853,
-                    "strtype": "_style/Bg_gradiens_Color",
-                    "intarray": [
-                      0,
-                      0,
-                      0
-                    ],
-                    "InheritedType": 7
-                  },
-                  {
-                    "nid": -401353375,
-                    "strtype": "_style/Gradient direction",
-                    "strval": "VER",
-                    "InheritedType": 3
                   }
                 ],
                 "InheritedType": 1
@@ -51402,7 +51386,7 @@
     "theme_color2": 0,
     "uiExportFolderPath": "E:\\github\\esp32\\squareline\\generated",
     "projectExportFolderPath": "",
-    "backup_cnt": 1043,
+    "backup_cnt": 1046,
     "autosave_cnt": 0,
     "lvgl_version": "8.3.11",
     "callfuncsexport": "PY_FILE",
