@@ -116,7 +116,7 @@ vim lv_conf.h
 #else
     #define LV_USE_RLOTTIE 0
 #endif
-
+#define e LV_COLOR_SCREEN_TRANSP 1 //开启rolate功能
 ```
 ### 7.修改lvgl组件引用
 ```text

@@ -25,23 +25,17 @@ class TelemetryScreen(Screen):
         self.ui_SPEED_Arc.set_value(280)
         self.ui_SPEED_Arc.set_bg_angles(0, 280)
         self.ui_SPEED_Arc.set_rotation(130)
-        #self.ui_SPEED_Arc.set_style_bg_img_src(ui_images.ui_img_telemety_txt_png, lv.PART.MAIN | lv.STATE.DEFAULT)
         self.ui_SPEED_Arc.set_style_arc_color(lv.color_hex(0x3D3D3D), lv.PART.MAIN | lv.STATE.DEFAULT)
-        self.ui_SPEED_Arc.set_style_arc_opa(200, lv.PART.MAIN | lv.STATE.DEFAULT)
+        self.ui_SPEED_Arc.set_style_arc_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
         self.ui_SPEED_Arc.set_style_arc_width(17, lv.PART.MAIN | lv.STATE.DEFAULT)
         self.ui_SPEED_Arc.set_style_arc_rounded(False, lv.PART.MAIN | lv.STATE.DEFAULT)
-    
-        self.themeManager.ui_object_set_themeable_style_property(self.ui_SPEED_Arc, lv.PART.INDICATOR | lv.STATE.DEFAULT, lv.STYLE.ARC_COLOR,
-                                               Themes.UI_THEME_COLOR_COLORTEAM)
-        self.themeManager.ui_object_set_themeable_style_property(self.ui_SPEED_Arc, lv.PART.INDICATOR | lv.STATE.DEFAULT, lv.STYLE.ARC_OPA,
-                                               Themes.UI_THEME_COLOR_COLORTEAM)
+        self.ui_Speed_Arc.set_style_arc_color(lv.color_hex(0x0093CC), lv.PART.INDICATOR | lv.STATE.DEFAULT)
+        self.ui_Speed_Arc.set_style_arc_opa(255, lv.PART.INDICATOR | lv.STATE.DEFAULT)
         self.ui_SPEED_Arc.set_style_arc_width(17, lv.PART.INDICATOR | lv.STATE.DEFAULT)
         self.ui_SPEED_Arc.set_style_arc_rounded(False, lv.PART.INDICATOR | lv.STATE.DEFAULT)
         #self.ui_SPEED_Arc.set_style_arc_img_src(ui_images.ui_img_speed_png, lv.PART.INDICATOR | lv.STATE.DEFAULT)
     
-        self.ui_SPEED_Arc.set_style_bg_color(lv.color_hex(0xFFFFFF), lv.PART.KNOB | lv.STATE.DEFAULT)
-        self.ui_SPEED_Arc.set_style_bg_opa(0, lv.PART.KNOB | lv.STATE.DEFAULT)
-    
+
         self.ui_Throttle_Arc = lv.arc(self.screen)
         self.ui_Throttle_Arc.set_width(190)
         self.ui_Throttle_Arc.set_height(190)

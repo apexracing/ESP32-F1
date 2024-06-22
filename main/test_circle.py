@@ -25,12 +25,20 @@ screen_center_x = scr_width // 2
 screen_center_y = scr_height // 2
 screen_radius = min(scr_width, scr_height) // 2
 # 定义物理属性
-gravity = 9.8*100  # 重力加速度（像素/s^2）
-friction = 1 # 摩擦系数
-elasticity = 0.8  # 弹性系数
-air_resistance = 1  # 空气阻力系数
-dt = 0.02  # 时间步长（秒）
-acc_threshold = 0.02  # 加速度变化阈值
+gravity = 9.8*300  # 重力加速度（m/s^2）
+friction_coefficient = 0.01  # 摩擦系数
+bounce_coefficient = 0.95  # 碰撞后的弹性系数
+angle_friction = 0.98  # 角速度摩擦系数
+# 时间步长（秒）
+dt = 0.02
+class LowPassFilter:
+    def __init__(self, alpha):
+        self.alpha = alpha
+        self.filtered_value = 0
+
+    def apply(self, value):
+        self.filtered_value = self.alpha * value + (1 - self.alpha) * self.filtered_value
+        return self.filtered_value
 class Circle:
     def __init__(self, screen, x, y, radius, mass):
         self.obj = lv.obj(screen)
@@ -53,10 +61,11 @@ class Circle:
         self.ay = 0  # y方向加速度，由重力决定
         self.angle = 0  # 初始角度
         self.angular_velocity = 0  # 初始角速度
-        self.angular_acceleration = 0  # 初始角加速度
         self.set_pos(x, y)
     def set_rotation(self, angle):
         self.angle = angle
+        self.obj.set_style_transform_pivot_x(self.radius,0)
+        self.obj.set_style_transform_pivot_y(self.radius,0)
         self.obj.set_style_transform_angle(int(angle * 10), 0)
     def set_pos(self, x, y):
         self.x = x
@@ -71,51 +80,48 @@ class Circle:
         self.ay=ay*gravity
         self.vx += self.ax * dt
         self.vy += self.ay * dt
-        self.vx *= air_resistance * friction
-        self.vy *= air_resistance * friction
 
-        new_x = self.x + self.vx * dt
-        new_y = self.y + self.vy * dt
+        self.x += self.vx * dt
+        self.y += self.vy * dt
 
-        distance_from_center = math.sqrt(new_x ** 2 + new_y ** 2)
+        distance_from_center = math.sqrt(self.x ** 2 + self.y ** 2)
 
         if distance_from_center + self.radius > scr_width / 2:
-            # 如果超出边界，调整位置和速度
-            overlap = distance_from_center + self.radius - screen_radius
-            angle = math.atan2(new_y, new_x)
-            new_x -= overlap * math.cos(angle)
-            new_y -= overlap * math.sin(angle)
-            self.vx = -self.vx * elasticity
-            self.vy = -self.vy * elasticity
-            # 额外的加速度分量，模拟滚动到最低点
-            self.ax += math.cos(distance_from_center) * gravity * dt
-            self.ay += math.sin(distance_from_center) * gravity * dt
-            # 计算力矩和角加速度
-            torque = self.radius * (self.ax * math.sin(distance_from_center) - self.ay * math.cos(distance_from_center))
-            moment_of_inertia = 0.5 * self.mass * self.radius ** 2  # 圆形的转动惯量
-            self.angular_acceleration = torque / moment_of_inertia
+            # 碰撞点的法向量
+            normal_x = self.x / distance_from_center
+            normal_y = self.y / distance_from_center
 
-        # 更新角速度和角度
-        self.angular_velocity += self.angular_acceleration * dt
-        self.angular_velocity *= air_resistance  # 模拟空气阻力对角速度的影响
-        self.angle += self.angular_velocity * dt
-        self.set_pos(new_x, new_y)
-        #self.set_rotation(self.angle)
+            # 反射速度
+            dot_product = self.vx * normal_x + self.vy * normal_y
+            self.vx -= 2 * dot_product * normal_x
+            self.vy -= 2 * dot_product * normal_y
 
-   
+            # 应用弹性系数
+            self.vx *= bounce_coefficient
+            self.vy *= bounce_coefficient
 
+            # 确保球体在边界内
+            self.x = (screen_radius - self.radius) * normal_x
+            self.y = (screen_radius - self.radius) * normal_y
+            
+            # 碰撞时产生角速度
+            #self.angular_velocity = (self.vx + self.vy) * 5  # 调整角速度系数
+            # 更新角度和旋转
+            #self.angle += self.angular_velocity * dt
+            #self.set_rotation(self.angle)
+
+        # 摩擦力减速
+        self.vx *= (1 - friction_coefficient)
+        self.vy *= (1 - friction_coefficient)
+        self.set_pos(self.x, self.y)
+
+        
 # 创建多个圆形对象
-circle = Circle(scr, 0, 0, 50, 1)
+circle = Circle(scr, 0, 0, 75, 1)
 
 # 更新位置并检测碰撞
 def update(timer):
     ay, ax,az, gyro_x, gyro_y, gyro_z = qmi8658.Read_XYZ()
-    if abs(ax)>1:
-        print(f'ax={ax}')
-    if abs(ay)>1:
-        print(f'ay={ay}')
-    if abs(az)>1:
-        print(f'az={az}')
     circle.update(ax, -ay)
 
 
