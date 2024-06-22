@@ -8,12 +8,12 @@ from lib.qmi_8658 import QMI8658
 import gc
 
 # 时间步长（秒）
-dt = 0.016
+dt = 0.02
 
 
 class Tyre():
     # 定义物理属性
-    gravity = 9.8 * 50  # 重力加速度（m/s^2）
+    gravity = 9.8 * 200  # 重力加速度（m/s^2）
     friction_coefficient = 0.01  # 摩擦系数
     bounce_coefficient = 0.95  # 碰撞后的弹性系数
     colors = [lv.color_hex(0xFFFFFF), lv.color_hex(0xCE0000), lv.color_hex(0xFFF807)]

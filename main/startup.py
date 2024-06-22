@@ -47,4 +47,4 @@ scr2.src_load_anim(fademode=lv.SCR_LOAD_ANIM.MOVE_LEFT, speed=150)
 print("协程任务框架循环开始")
 while True:
     lv.task_handler()
-    time.sleep(0.01)
+    time.sleep(0.1)
