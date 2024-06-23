@@ -8,7 +8,7 @@ from lib.qmi_8658 import QMI8658
 import gc
 
 # 时间步长（秒）
-dt = 0.02
+dt = 0.015
 
 
 class Tyre():
@@ -191,17 +191,73 @@ class Tyre():
 
 
 class TyreScreen(Screen):
+
+    # 定义七种颜色
+    bg_colors =  [
+    0xF800,  # 红色
+    0xFA00,  # 橙色
+    0xFFE0,  # 黄色
+    0x07E0,  # 绿色
+    0x001F,  # 蓝色
+    0x4810,  # 靛蓝色
+    0x9010   # 紫色
+]
     def __init__(self):
         super().__init__()
         self.SetFlag(self.screen, lv.obj.FLAG.SCROLLABLE, False)
-        self.screen.set_style_bg_color(lv.color_hex(0x550161), lv.PART.MAIN | lv.STATE.DEFAULT)
-
+        # 定义颜色渐变的步长和初始索引
+        self.color_step = 0.02
+        self.current_color_index = 0
+        self.current_step = 0.0
+        self.screen.set_style_bg_color(lv.color_hex(TyreScreen.bg_colors[self.current_color_index]), lv.PART.MAIN | lv.STATE.DEFAULT)
 
         self.tyre = Tyre(self.screen, 0, 0)
         self.qmi8658 = None
         self.checkmiuTimer = None
         self.screen.add_event_cb(self.TyreScreen_eventhandler, lv.EVENT.ALL, None)
 
+    def interpolate_color(self,color1, color2, t):
+        """在两个 RGB565 颜色之间进行插值"""
+        r1 = (color1 >> 11) & 0x1F
+        g1 = (color1 >> 5) & 0x3F
+        b1 = color1 & 0x1F
+
+        r2 = (color2 >> 11) & 0x1F
+        g2 = (color2 >> 5) & 0x3F
+        b2 = color2 & 0x1F
+
+        r = int(r1 + t * (r2 - r1))
+        g = int(g1 + t * (g2 - g1))
+        b = int(b1 + t * (b2 - b1))
+
+        return (r << 11) | (g << 5) | b
+
+    def rgb565_to_lv_color(self,color):
+        """将 RGB565 颜色转换为 LVGL 的颜色对象"""
+        r = (color >> 11) & 0x1F
+        g = (color >> 5) & 0x3F
+        b = color & 0x1F
+
+        r = (r << 3) | (r >> 2)
+        g = (g << 2) | (g >> 4)
+        b = (b << 3) | (b >> 2)
+
+        return lv.color_make(r, g, b)
+    def update_color(self):
+
+        self.next_color_index = (self.current_color_index + 1) % len(TyreScreen.bg_colors)
+        color1 = TyreScreen.bg_colors[self.current_color_index]
+        color2 = TyreScreen.bg_colors[self.next_color_index]
+        # 计算新的插值颜色
+        new_color = self.interpolate_color(color1, color2, self.current_step)
+        lv_color = self.rgb565_to_lv_color(new_color)
+        self.screen.set_style_bg_color(lv_color, lv.PART.MAIN | lv.STATE.DEFAULT)
+
+        # 更新步长
+        self.current_step += self.color_step
+        if self.current_step >= 1.0:
+            self.current_step = 0.0
+            self.current_color_index = self.next_color_index
     def TyreScreen_eventhandler(self, event_struct):
         event = event_struct.code
         if event == lv.EVENT.SCREEN_LOADED:
@@ -215,5 +271,5 @@ class TyreScreen(Screen):
 
     def timer_callback(self, timer):
         ay, ax, az, gyro_x, gyro_y, gyro_z = self.qmi8658.Read_XYZ()
+        self.update_color()
         self.tyre.update(ax, -ay)
-        lv.refr_now(None)
