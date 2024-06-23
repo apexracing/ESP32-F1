@@ -8,7 +8,7 @@ from lib.qmi_8658 import QMI8658
 import gc
 
 # 时间步长（秒）
-dt = 0.015
+dt = 0.01
 
 
 class Tyre():
@@ -206,7 +206,7 @@ class TyreScreen(Screen):
         super().__init__()
         self.SetFlag(self.screen, lv.obj.FLAG.SCROLLABLE, False)
         # 定义颜色渐变的步长和初始索引
-        self.color_step = 0.02
+        self.color_step = 0.002
         self.current_color_index = 0
         self.current_step = 0.0
         self.screen.set_style_bg_color(lv.color_hex(TyreScreen.bg_colors[self.current_color_index]), lv.PART.MAIN | lv.STATE.DEFAULT)
