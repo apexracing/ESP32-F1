@@ -29,12 +29,12 @@ class TelemetryScreen(Screen):
         self.ui_SPEED_Arc.set_style_arc_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
         self.ui_SPEED_Arc.set_style_arc_width(17, lv.PART.MAIN | lv.STATE.DEFAULT)
         self.ui_SPEED_Arc.set_style_arc_rounded(False, lv.PART.MAIN | lv.STATE.DEFAULT)
-        self.ui_Speed_Arc.set_style_arc_color(lv.color_hex(0x0093CC), lv.PART.INDICATOR | lv.STATE.DEFAULT)
-        self.ui_Speed_Arc.set_style_arc_opa(255, lv.PART.INDICATOR | lv.STATE.DEFAULT)
+        self.ui_SPEED_Arc.set_style_arc_color(lv.color_hex(0x0093CC), lv.PART.INDICATOR | lv.STATE.DEFAULT)
+        self.ui_SPEED_Arc.set_style_arc_opa(255, lv.PART.INDICATOR | lv.STATE.DEFAULT)
         self.ui_SPEED_Arc.set_style_arc_width(17, lv.PART.INDICATOR | lv.STATE.DEFAULT)
         self.ui_SPEED_Arc.set_style_arc_rounded(False, lv.PART.INDICATOR | lv.STATE.DEFAULT)
-        #self.ui_SPEED_Arc.set_style_arc_img_src(ui_images.ui_img_speed_png, lv.PART.INDICATOR | lv.STATE.DEFAULT)
-    
+        self.ui_SPEED_Arc.set_style_bg_color(lv.color_hex(0xFFFFFF), lv.PART.KNOB | lv.STATE.DEFAULT)
+        self.ui_SPEED_Arc.set_style_bg_opa(0, lv.PART.KNOB | lv.STATE.DEFAULT)
 
         self.ui_Throttle_Arc = lv.arc(self.screen)
         self.ui_Throttle_Arc.set_width(190)
