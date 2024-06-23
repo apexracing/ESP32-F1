@@ -92,7 +92,7 @@ endfunction()
 
 function(export)
 endfunction()
-
+add_compile_options("-fno-if-conversion") #在-O2编译选项下没这句编译不过
 add_subdirectory(rlottie)
 target_link_libraries(${COMPONENT_LIB} INTERFACE rlottie)
 ````
