@@ -92,7 +92,7 @@ endfunction()
 
 function(export)
 endfunction()
-
+add_compile_options("-fno-if-conversion") #在-O2编译选项下没这句编译不过
 add_subdirectory(rlottie)
 target_link_libraries(${COMPONENT_LIB} INTERFACE rlottie)
 ````
@@ -116,7 +116,7 @@ vim lv_conf.h
 #else
     #define LV_USE_RLOTTIE 0
 #endif
-
+#define e LV_COLOR_SCREEN_TRANSP 1 //开启rolate功能
 ```
 ### 7.修改lvgl组件引用
 ```text

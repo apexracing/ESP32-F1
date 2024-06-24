@@ -3,12 +3,16 @@ import random
 from common.display_driver import DisplayDriver
 import lvgl as lv
 import time
+from lib.qmi_8658 import QMI8658
+
 # 初始化 LVGL
 lv.init()
 
 # 初始化显示驱动
 display = DisplayDriver()
 display.backlight_on()
+qmi8658=QMI8658()
+
 # 创建一个屏幕对象
 scr = lv.obj()
 scr.set_style_bg_color(lv.color_hex(0x000000), 0)  # 设置屏幕背景为黑色
@@ -16,33 +20,53 @@ scr.set_style_bg_color(lv.color_hex(0x000000), 0)  # 设置屏幕背景为黑色
 # 屏幕尺寸
 scr_width = scr.get_width()
 scr_height = scr.get_height()
-
+# 圆形屏幕中心点和半径
+screen_center_x = scr_width // 2
+screen_center_y = scr_height // 2
+screen_radius = min(scr_width, scr_height) // 2
 # 定义物理属性
-gravity = 9.8*100  # 重力加速度（像素/s^2）
-friction = 0.98  # 摩擦系数
-elasticity = 0.7  # 弹性系数
-air_resistance = 0.99  # 空气阻力系数
-dt = 0.02  # 时间步长（秒）
-velocity_threshold = 0.1  # 速度阈值
-collision_threshold = 0.5  # 碰撞后速度阈值
+gravity = 9.8*300  # 重力加速度（m/s^2）
+friction_coefficient = 0.01  # 摩擦系数
+bounce_coefficient = 0.95  # 碰撞后的弹性系数
+angle_friction = 0.98  # 角速度摩擦系数
+# 时间步长（秒）
+dt = 0.02
+class LowPassFilter:
+    def __init__(self, alpha):
+        self.alpha = alpha
+        self.filtered_value = 0
 
+    def apply(self, value):
+        self.filtered_value = self.alpha * value + (1 - self.alpha) * self.filtered_value
+        return self.filtered_value
 class Circle:
     def __init__(self, screen, x, y, radius, mass):
         self.obj = lv.obj(screen)
         self.obj.set_size(radius * 2, radius * 2)
         self.obj.set_style_radius(lv.RADIUS.CIRCLE, 0)
         self.obj.set_style_bg_color(lv.color_hex(0xFF0000), 0)
+        ui_CenterMsg = lv.label(self.obj)
+        ui_CenterMsg.set_text("5")
+        ui_CenterMsg.set_width(lv.SIZE.CONTENT)  # 1
+        ui_CenterMsg.set_height(lv.SIZE.CONTENT)  # 1
+        ui_CenterMsg.set_align(lv.ALIGN.CENTER)
         # 将相对中心的坐标转换为屏幕坐标
         self.center_x = scr_width // 2
         self.center_y = scr_height // 2
         self.radius = radius
         self.mass = mass
-        self.vx = 0  # 初始x方向速度
-        self.vy = 0  # 初始y方向速度
+        self.vx =  random.uniform(-5, 5)  # 初始x方向速度  # 初始x方向速度
+        self.vy =  random.uniform(-5, 5)  # 初始x方向速度  # 初始y方向速度
         self.ax = 0  # x方向加速度
-        self.ay = gravity  # y方向加速度，由重力决定
+        self.ay = 0  # y方向加速度，由重力决定
+        self.angle = 0  # 初始角度
+        self.angular_velocity = 0  # 初始角速度
         self.set_pos(x, y)
-
+    def set_rotation(self, angle):
+        self.angle = angle
+        self.obj.set_style_transform_pivot_x(self.radius,0)
+        self.obj.set_style_transform_pivot_y(self.radius,0)
+        self.obj.set_style_transform_angle(int(angle * 10), 0)
     def set_pos(self, x, y):
         self.x = x
         self.y = y
@@ -51,89 +75,55 @@ class Circle:
         screen_y = self.center_y + y - self.radius
         self.obj.set_pos(int(screen_x), int(screen_y))
 
-    def update(self):
+    def update(self,ax,ay):
+        self.ax=ax*gravity
+        self.ay=ay*gravity
         self.vx += self.ax * dt
         self.vy += self.ay * dt
-        self.vx *= air_resistance * friction
-        self.vy *= air_resistance * friction
 
-        # 如果速度低于阈值，则将速度设为0
-        if abs(self.vx) < velocity_threshold:
-            self.vx = 0
-        if abs(self.vy) < velocity_threshold:
-            self.vy = 0
+        self.x += self.vx * dt
+        self.y += self.vy * dt
 
-        new_x = self.x + self.vx * dt
-        new_y = self.y + self.vy * dt
-
-        distance_from_center = math.sqrt(new_x ** 2 + new_y ** 2)
+        distance_from_center = math.sqrt(self.x ** 2 + self.y ** 2)
 
         if distance_from_center + self.radius > scr_width / 2:
-            angle = math.atan2(new_y, new_x)
-            self.vx = -self.vx * elasticity
-            self.vy = -self.vy * elasticity
-            new_x = (scr_width / 2 - self.radius) * math.cos(angle)
-            new_y = (scr_width / 2 - self.radius) * math.sin(angle)
+            # 碰撞点的法向量
+            normal_x = self.x / distance_from_center
+            normal_y = self.y / distance_from_center
 
-        self.set_pos(new_x, new_y)
+            # 反射速度
+            dot_product = self.vx * normal_x + self.vy * normal_y
+            self.vx -= 2 * dot_product * normal_x
+            self.vy -= 2 * dot_product * normal_y
 
-    def collide_with(self, other):
-        dx = self.x - other.x
-        dy = self.y - other.y
-        distance = math.sqrt(dx ** 2 + dy ** 2)
-        if distance < self.radius + other.radius:
-            angle = math.atan2(dy, dx)
-            total_mass = self.mass + other.mass
+            # 应用弹性系数
+            self.vx *= bounce_coefficient
+            self.vy *= bounce_coefficient
 
-            overlap = 0.5 * (self.radius + other.radius - distance)
-            self.set_pos(self.x + overlap * math.cos(angle), self.y + overlap * math.sin(angle))
-            other.set_pos(other.x - overlap * math.cos(angle), other.y - overlap * math.sin(angle))
+            # 确保球体在边界内
+            self.x = (screen_radius - self.radius) * normal_x
+            self.y = (screen_radius - self.radius) * normal_y
+            
+            # 碰撞时产生角速度
+            #self.angular_velocity = (self.vx + self.vy) * 5  # 调整角速度系数
+            # 更新角度和旋转
+            #self.angle += self.angular_velocity * dt
+            #self.set_rotation(self.angle)
 
-            normal_x = dx / distance
-            normal_y = dy / distance
+        # 摩擦力减速
+        self.vx *= (1 - friction_coefficient)
+        self.vy *= (1 - friction_coefficient)
+        self.set_pos(self.x, self.y)
 
-            relative_velocity_x = self.vx - other.vx
-            relative_velocity_y = self.vy - other.vy
-
-            dot_product = (relative_velocity_x * normal_x + relative_velocity_y * normal_y)
-
-            self.vx -= (2 * other.mass / total_mass) * dot_product * normal_x * elasticity
-            self.vy -= (2 * other.mass / total_mass) * dot_product * normal_y * elasticity
-
-            other.vx += (2 * self.mass / total_mass) * dot_product * normal_x * elasticity
-            other.vy += (2 * self.mass / total_mass) * dot_product * normal_y * elasticity
-
-            # 引入随机角度调整
-            angle_variation = math.radians(random.uniform(-5, 5))  # 随机角度在 -5 到 5 度之间
-            cos_variation = math.cos(angle_variation)
-            sin_variation = math.sin(angle_variation)
-
-            self.vx = self.vx * cos_variation - self.vy * sin_variation
-            self.vy = self.vx * sin_variation + self.vy * cos_variation
-
-            other.vx = other.vx * cos_variation - other.vy * sin_variation
-            other.vy = other.vx * sin_variation + other.vy * cos_variation
-
-            # 如果碰撞后的速度低于阈值，则将速度设为0，避免抖动
-            if abs(self.vx) < collision_threshold:
-                self.vx = 0
-            if abs(self.vy) < collision_threshold:
-                self.vy = 0
-            if abs(other.vx) < collision_threshold:
-                other.vx = 0
-            if abs(other.vy) < collision_threshold:
-                other.vy = 0
-
+        
 # 创建多个圆形对象
-circles = [Circle(scr, 0, 0, 30, 1.0),Circle(scr, 0, -70, 30, 1.0),Circle(scr, 70, 70, 30, 1.0)]
-print("aaa")
+circle = Circle(scr, 0, 0, 75, 1)
 
 # 更新位置并检测碰撞
 def update(timer):
-    for i, circle in enumerate(circles):
-        circle.update()
-        for j in range(i + 1, len(circles)):
-            circle.collide_with(circles[j])
+    ay, ax,az, gyro_x, gyro_y, gyro_z = qmi8658.Read_XYZ()
+    circle.update(ax, -ay)
+
 
 # 创建一个定时器，每 20 毫秒更新一次圆形位置
 lv.timer_create(update, int(dt * 1000), None)

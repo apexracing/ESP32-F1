@@ -32,6 +32,7 @@ font_IconE60230 = lv.font_load("A:ui_font_IconE60230.bin")
 font_IconE60618 = lv.font_load("A:ui_font_IconE60618.bin")
 font_SetupIcons = lv.font_load("A:ui_font_SetupIcons.bin")
 font_Chinese12 = lv.font_load("A:ui_font_Chinese12.bin")
+font_Tyre1 = lv.font_load("A:ui_font_Tyre1.bin")
 
 _ui_theme_color_Default = [0xFFDD00, 0x3671C6, 0xFF0101]
 _ui_theme_alpha_Default = [255, 255, 255]
@@ -530,89 +531,6 @@ def ui_WiFiItem_create(comp_parent):
     _ui_comp_table[id(cui_WiFiItem)]= {"WiFiItem" : cui_WiFiItem,"WifiName" : cui_WifiName,"WiFiImg" : cui_WiFiImg, "_CompName" : "WiFiItem"}
     return cui_WiFiItem
 
-# COMPONENTS
-
- # COMPONENT DriverContainer
-def ui_DriverContainer_create(comp_parent):
-    cui_DriverContainer = lv.obj(comp_parent)
-    cui_DriverContainer.remove_style_all()
-    cui_DriverContainer.set_width(131)
-    cui_DriverContainer.set_height(16)
-    cui_DriverContainer.set_x(0)
-    cui_DriverContainer.set_y(-39)
-    cui_DriverContainer.set_align( lv.ALIGN.CENTER)
-    SetFlag(cui_DriverContainer, lv.obj.FLAG.CLICKABLE, False)
-    SetFlag(cui_DriverContainer, lv.obj.FLAG.SCROLLABLE, False)
-    cui_RaceScreen_Label1 = lv.label(cui_DriverContainer)
-    cui_RaceScreen_Label1.set_text("22")
-    cui_RaceScreen_Label1.set_width(16)
-    cui_RaceScreen_Label1.set_height(16)
-    cui_RaceScreen_Label1.set_x(5)
-    cui_RaceScreen_Label1.set_y(0)
-    cui_RaceScreen_Label1.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
-    cui_RaceScreen_Label1.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
-    cui_RaceScreen_Label1.set_style_text_align( lv.TEXT_ALIGN.RIGHT, lv.PART.MAIN | lv.STATE.DEFAULT )
-    cui_RaceScreen_Label1.set_style_text_font( font_DISPLAYM14, lv.PART.MAIN | lv.STATE.DEFAULT )
-    cui_RaceScreen_Container3 = lv.obj(cui_DriverContainer)
-    cui_RaceScreen_Container3.remove_style_all()
-    cui_RaceScreen_Container3.set_width(3)
-    cui_RaceScreen_Container3.set_height(14)
-    cui_RaceScreen_Container3.set_x(25)
-    cui_RaceScreen_Container3.set_y(0)
-    SetFlag(cui_RaceScreen_Container3, lv.obj.FLAG.CLICKABLE, False)
-    SetFlag(cui_RaceScreen_Container3, lv.obj.FLAG.SCROLLABLE, False)
-    cui_RaceScreen_Container3.set_style_bg_color(lv.color_hex(0x3671C6), lv.PART.MAIN | lv.STATE.DEFAULT )
-    cui_RaceScreen_Container3.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
-    cui_RaceScreen_Label3 = lv.label(cui_DriverContainer)
-    cui_RaceScreen_Label3.set_text("VER")
-    cui_RaceScreen_Label3.set_width(lv.SIZE.CONTENT)	# 1
-    cui_RaceScreen_Label3.set_height(lv.SIZE.CONTENT)   # 1
-    cui_RaceScreen_Label3.set_x(33)
-    cui_RaceScreen_Label3.set_y(0)
-    cui_RaceScreen_Label3.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
-    cui_RaceScreen_Label3.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
-    cui_RaceScreen_Label3.set_style_text_font( font_DISPLAYM14, lv.PART.MAIN | lv.STATE.DEFAULT )
-    cui_RaceScreen_Label4 = lv.label(cui_DriverContainer)
-    cui_RaceScreen_Label4.set_text("Interval")
-    cui_RaceScreen_Label4.set_width(60)
-    cui_RaceScreen_Label4.set_height(16)
-    cui_RaceScreen_Label4.set_x(70)
-    cui_RaceScreen_Label4.set_y(0)
-    cui_RaceScreen_Label4.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
-    cui_RaceScreen_Label4.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
-    cui_RaceScreen_Label4.set_style_text_align( lv.TEXT_ALIGN.RIGHT, lv.PART.MAIN | lv.STATE.DEFAULT )
-    cui_RaceScreen_Label4.set_style_text_font( font_DISPLAYM14, lv.PART.MAIN | lv.STATE.DEFAULT )
-    _ui_comp_table[id(cui_DriverContainer)]= {"DriverContainer" : cui_DriverContainer,"RaceScreen_Label1" : cui_RaceScreen_Label1,"RaceScreen_Container3" : cui_RaceScreen_Container3,"RaceScreen_Label3" : cui_RaceScreen_Label3,"RaceScreen_Label4" : cui_RaceScreen_Label4, "_CompName" : "DriverContainer"}
-    return cui_DriverContainer
-
- # COMPONENT WiFiItem
-def ui_WiFiItem_create(comp_parent):
-    cui_WiFiItem = lv.obj(comp_parent)
-    cui_WiFiItem.remove_style_all()
-    cui_WiFiItem.set_width(170)
-    cui_WiFiItem.set_height(25)
-    cui_WiFiItem.set_align( lv.ALIGN.CENTER)
-    SetFlag(cui_WiFiItem, lv.obj.FLAG.CLICKABLE, False)
-    SetFlag(cui_WiFiItem, lv.obj.FLAG.SCROLLABLE, False)
-    cui_WifiName = lv.label(cui_WiFiItem)
-    cui_WifiName.set_text("XiaoMiao")
-    cui_WifiName.set_width(lv.SIZE.CONTENT)	# 1
-    cui_WifiName.set_height(lv.SIZE.CONTENT)   # 1
-    cui_WifiName.set_align( lv.ALIGN.LEFT_MID)
-    cui_WifiName.set_style_text_color(lv.color_hex(0x01A3D8), lv.PART.MAIN | lv.STATE.DEFAULT )
-    cui_WifiName.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
-    cui_WifiName.set_style_text_font( font_DISPLAYM18, lv.PART.MAIN | lv.STATE.DEFAULT )
-    cui_WiFiImg = lv.img(cui_WiFiItem)
-    cui_WiFiImg.set_src(ui_images.ui_img_wifi_strong_png)
-    cui_WiFiImg.set_width(lv.SIZE.CONTENT)	# 1
-    cui_WiFiImg.set_height(lv.SIZE.CONTENT)   # 1
-    cui_WiFiImg.set_align( lv.ALIGN.RIGHT_MID)
-    SetFlag(cui_WiFiImg, lv.obj.FLAG.ADV_HITTEST, True)
-    SetFlag(cui_WiFiImg, lv.obj.FLAG.SCROLLABLE, False)
-    cui_WiFiImg.set_style_blend_mode( lv.BLEND_MODE.NORMAL, lv.PART.MAIN | lv.STATE.DEFAULT )
-    _ui_comp_table[id(cui_WiFiItem)]= {"WiFiItem" : cui_WiFiItem,"WifiName" : cui_WifiName,"WiFiImg" : cui_WiFiImg, "_CompName" : "WiFiItem"}
-    return cui_WiFiItem
-
 ui____initial_actions0 = lv.obj()
 
 def TeamRadioScreen_eventhandler(event_struct):
@@ -742,7 +660,6 @@ ui_EmoilScreen.set_style_bg_grad_color(lv.color_hex(0x000000), lv.PART.MAIN | lv
 ui_EmoilScreen.set_style_bg_main_stop( 0, lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_EmoilScreen.set_style_bg_grad_stop( 255, lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_EmoilScreen.set_style_bg_grad_dir( lv.GRAD_DIR.VER, lv.PART.MAIN | lv.STATE.DEFAULT )
-ui_EmoilScreen.set_style_bg_img_src( ui_images.TemporaryImage, lv.PART.MAIN | lv.STATE.DEFAULT )
 
 ui_EmoilScreen_Image1 = lv.img(ui_EmoilScreen)
 ui_EmoilScreen_Image1.set_src(ui_images.ui_img_helmet_redbull_png)
@@ -1082,8 +999,8 @@ ui_Speed_Arc.set_style_arc_opa(200, lv.PART.MAIN| lv.STATE.DEFAULT )
 ui_Speed_Arc.set_style_arc_width( 17, lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_Speed_Arc.set_style_arc_rounded( False, lv.PART.MAIN | lv.STATE.DEFAULT )
 
-ui_object_set_themeable_style_property( ui_Speed_Arc, lv.PART.INDICATOR | lv.STATE.DEFAULT, lv.STYLE.ARC_COLOR, UI_THEME_COLOR_COLORTEAM)
-ui_object_set_themeable_style_property( ui_Speed_Arc, lv.PART.INDICATOR | lv.STATE.DEFAULT, lv.STYLE.ARC_OPA, UI_THEME_COLOR_COLORTEAM)
+ui_Speed_Arc.set_style_arc_color(lv.color_hex(0x0093CC), lv.PART.INDICATOR | lv.STATE.DEFAULT )
+ui_Speed_Arc.set_style_arc_opa(255, lv.PART.INDICATOR| lv.STATE.DEFAULT )
 ui_Speed_Arc.set_style_arc_width( 17, lv.PART.INDICATOR | lv.STATE.DEFAULT )
 ui_Speed_Arc.set_style_arc_rounded( False, lv.PART.INDICATOR | lv.STATE.DEFAULT )
 
@@ -2004,5 +1921,88 @@ ui_QCodeTitle.set_style_text_align( lv.TEXT_ALIGN.LEFT, lv.PART.MAIN | lv.STATE.
 ui_QCodeTitle.set_style_text_font( font_Chinese12, lv.PART.MAIN | lv.STATE.DEFAULT )
 
 ui_WiFiScan.add_event_cb(WiFiScan_eventhandler, lv.EVENT.ALL, None)
+
+ui_TyreScreen = lv.obj()
+SetFlag(ui_TyreScreen, lv.obj.FLAG.SCROLLABLE, False)
+ui_TyreScreen.set_style_bg_color(lv.color_hex(0x550161), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_TyreScreen.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+
+ui_Tyre = lv.obj(ui_TyreScreen)
+ui_Tyre.remove_style_all()
+ui_Tyre.set_width(lv.SIZE.CONTENT)	# 150
+ui_Tyre.set_height(lv.SIZE.CONTENT)   # 150
+ui_Tyre.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_Tyre, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_Tyre, lv.obj.FLAG.SCROLLABLE, False)
+
+ui_TyreRubber = lv.arc(ui_Tyre)
+ui_TyreRubber.set_width(150)
+ui_TyreRubber.set_height(150)
+ui_TyreRubber.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_TyreRubber, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_TyreRubber, lv.obj.FLAG.PRESS_LOCK, False)
+SetFlag(ui_TyreRubber, lv.obj.FLAG.CLICK_FOCUSABLE, False)
+SetFlag(ui_TyreRubber, lv.obj.FLAG.SNAPPABLE, False)
+SetFlag(ui_TyreRubber, lv.obj.FLAG.SCROLLABLE, False)
+SetFlag(ui_TyreRubber, lv.obj.FLAG.SCROLL_ELASTIC, False)
+SetFlag(ui_TyreRubber, lv.obj.FLAG.SCROLL_MOMENTUM, False)
+SetFlag(ui_TyreRubber, lv.obj.FLAG.SCROLL_CHAIN, False)
+ui_TyreRubber.set_value(100)
+ui_TyreRubber.set_bg_angles(0,360)
+ui_TyreRubber.set_style_arc_color(lv.color_hex(0x000000), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_TyreRubber.set_style_arc_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_TyreRubber.set_style_arc_width( 38, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_TyreRubber.set_style_arc_color(lv.color_hex(0x000000), lv.PART.INDICATOR | lv.STATE.DEFAULT )
+ui_TyreRubber.set_style_arc_opa(255, lv.PART.INDICATOR| lv.STATE.DEFAULT )
+ui_TyreRubber.set_style_arc_width( 38, lv.PART.INDICATOR | lv.STATE.DEFAULT )
+
+ui_TyreRubber.set_style_bg_color(lv.color_hex(0xFFFFFF), lv.PART.KNOB | lv.STATE.DEFAULT )
+ui_TyreRubber.set_style_bg_opa(0, lv.PART.KNOB| lv.STATE.DEFAULT )
+
+ui_TyreWheel = lv.label(ui_Tyre)
+ui_TyreWheel.set_text("")
+ui_TyreWheel.set_width(lv.SIZE.CONTENT)	# 1
+ui_TyreWheel.set_height(lv.SIZE.CONTENT)   # 1
+ui_TyreWheel.set_x(0)
+ui_TyreWheel.set_y(2)
+ui_TyreWheel.set_align( lv.ALIGN.CENTER)
+ui_TyreWheel.set_style_text_color(lv.color_hex(0x000000), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_TyreWheel.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_TyreWheel.set_style_text_font( font_Tyre1, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_TyreLabel = lv.label(ui_Tyre)
+ui_TyreLabel.set_text("")
+ui_TyreLabel.set_width(lv.SIZE.CONTENT)	# 1
+ui_TyreLabel.set_height(lv.SIZE.CONTENT)   # 1
+ui_TyreLabel.set_align( lv.ALIGN.CENTER)
+ui_TyreLabel.set_style_text_color(lv.color_hex(0xCE0000), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_TyreLabel.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_TyreLabel.set_style_text_font( font_Tyre1, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_TyreRim = lv.arc(ui_Tyre)
+ui_TyreRim.set_width(78)
+ui_TyreRim.set_height(78)
+ui_TyreRim.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_TyreRim, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_TyreRim, lv.obj.FLAG.PRESS_LOCK, False)
+SetFlag(ui_TyreRim, lv.obj.FLAG.CLICK_FOCUSABLE, False)
+SetFlag(ui_TyreRim, lv.obj.FLAG.SNAPPABLE, False)
+SetFlag(ui_TyreRim, lv.obj.FLAG.SCROLLABLE, False)
+SetFlag(ui_TyreRim, lv.obj.FLAG.SCROLL_ELASTIC, False)
+SetFlag(ui_TyreRim, lv.obj.FLAG.SCROLL_MOMENTUM, False)
+SetFlag(ui_TyreRim, lv.obj.FLAG.SCROLL_CHAIN, False)
+ui_TyreRim.set_value(100)
+ui_TyreRim.set_bg_angles(0,360)
+ui_object_set_themeable_style_property( ui_TyreRim, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.ARC_COLOR, UI_THEME_COLOR_COLORTEAM)
+ui_object_set_themeable_style_property( ui_TyreRim, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.ARC_OPA, UI_THEME_COLOR_COLORTEAM)
+ui_TyreRim.set_style_arc_width( 6, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_object_set_themeable_style_property( ui_TyreRim, lv.PART.INDICATOR | lv.STATE.DEFAULT, lv.STYLE.ARC_COLOR, UI_THEME_COLOR_COLORTEAM)
+ui_object_set_themeable_style_property( ui_TyreRim, lv.PART.INDICATOR | lv.STATE.DEFAULT, lv.STYLE.ARC_OPA, UI_THEME_COLOR_COLORTEAM)
+ui_TyreRim.set_style_arc_width( 6, lv.PART.INDICATOR | lv.STATE.DEFAULT )
+
+ui_TyreRim.set_style_bg_color(lv.color_hex(0xFFFFFF), lv.PART.KNOB | lv.STATE.DEFAULT )
+ui_TyreRim.set_style_bg_opa(0, lv.PART.KNOB| lv.STATE.DEFAULT )
 
 lv.scr_load(ui_TeamRadioScreen)
