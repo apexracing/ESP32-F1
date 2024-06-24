@@ -15,7 +15,7 @@ class WiFiScanScreen(Screen):
         data = "http://192.168.0.1"
         qr.update(data, len(data))
         self.ui_QCodeTitle = lv.label(self.screen)
-        self.ui_QCodeTitle.set_text("1:使用手机连接WIFI热点:\n  F1LiveTime\n2:扫描下方二维码")
+        self.ui_QCodeTitle.set_text("1:使用手机连接WIFI热点:\n  F1-LiveTime\n2:扫描下方二维码")
         self.ui_QCodeTitle.set_width(lv.SIZE.CONTENT)  # 1
         self.ui_QCodeTitle.set_height(lv.SIZE.CONTENT)  # 1
         self.ui_QCodeTitle.set_x(0)
