@@ -1,4 +1,3 @@
-from lib.microdot import Microdot
 import network
 import time
 import json

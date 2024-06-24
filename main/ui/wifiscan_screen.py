@@ -1,10 +1,16 @@
 from ui.screen import Screen
 import lvgl as lv
+from lib.microdot import Microdot
+from common import wifi
+import uasyncio as asyncio
 
 
 class WiFiScanScreen(Screen):
     def __init__(self):
         super().__init__()
+
+        self.app = Microdot()
+        self.app.url_map.append((["POST","GET"], "/setWifi", self.set_wifi))
         self.SetFlag(self.screen, lv.obj.FLAG.SCROLLABLE, False)
         self.screen.set_style_bg_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT)
         self.screen.set_style_bg_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
@@ -31,6 +37,25 @@ class WiFiScanScreen(Screen):
 
     def WiFiScan_eventhandler(self, event_struct):
         event = event_struct.code
-        if event == lv.EVENT.SCREEN_LOADED and True:
+        if event == lv.EVENT.SCREEN_LOAD_START and True:
             self.top_Animation(self.ui_QCodeTitle, 0)
+        if event == lv.EVENT.SCREEN_LOADED:
+            asyncio.create_task(self.run())
         return
+
+    async def run(self):
+        # 开启配网模式
+        wifi.start_ap(essid='F1-LiveTime', hostname="speedim.cn")
+        print("MicroDot WebServer Running!")
+        await self.app.start_server(port=80,debug=True)
+
+    async def set_wifi(self, request):
+        ssid = request.args.get('ssid')
+        pwd = request.args.get('pwd')
+        try:
+            result = wifi.connect_wifi(ssid, pwd)
+            print(result)
+        except Exception as e:
+            return {"error": e}
+        finally:
+            self.app.shutdown()
