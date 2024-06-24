@@ -1,6 +1,6 @@
 from ui.screen import Screen
 import lvgl as lv
-from lib.microdot import Microdot
+from lib.microdot import Microdot,URLPattern
 from common import wifi
 import uasyncio as asyncio
 
@@ -8,9 +8,10 @@ import uasyncio as asyncio
 class WiFiScanScreen(Screen):
     def __init__(self):
         super().__init__()
-
+        #UI 配置HttpServer
         self.app = Microdot()
-        self.app.url_map.append((["POST","GET"], "/setWifi", self.set_wifi))
+        self.app.url_map.append((["POST","GET"], URLPattern("/setWifi"), self.set_wifi))
+        #UI 部分
         self.SetFlag(self.screen, lv.obj.FLAG.SCROLLABLE, False)
         self.screen.set_style_bg_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT)
         self.screen.set_style_bg_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
@@ -18,7 +19,7 @@ class WiFiScanScreen(Screen):
         qr.set_align(lv.ALIGN.CENTER)
         qr.set_x(0)
         qr.set_y(27)
-        data = "http://192.168.0.1"
+        data = "http://192.168.1.1"
         qr.update(data, len(data))
         self.ui_QCodeTitle = lv.label(self.screen)
         self.ui_QCodeTitle.set_text("1:使用手机连接WIFI热点:\n  F1-LiveTime\n2:扫描下方二维码")
@@ -52,6 +53,7 @@ class WiFiScanScreen(Screen):
     async def set_wifi(self, request):
         ssid = request.args.get('ssid')
         pwd = request.args.get('pwd')
+        print(ssid)
         try:
             result = wifi.connect_wifi(ssid, pwd)
             print(result)
