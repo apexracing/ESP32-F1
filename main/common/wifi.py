@@ -4,13 +4,14 @@ import json
 
 wifi_data = {}
 wifi = None
-
+ap = None
 
 def start_ap(essid="esp32", hostname=None):
     '''
     开启热点，默认网关地址:192.168.1.1;并启用一个域名解析地址
     :return:
     '''
+    global ap
     ap = network.WLAN(network.AP_IF)  # create access-point interface
     ap.active(False)
     time.sleep(1)
