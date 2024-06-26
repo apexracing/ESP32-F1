@@ -81,8 +81,7 @@ class WiFiScanScreen(Screen):
         print(self.wifi_msg)
         is_ok = is_wifi_connect()
         if is_ok:
-            timer = lv.timer_create(self.shutdown, 5000, None)
-            timer.set_repeat_count(1)
+            asyncio.create_task(self.shutdown)
             return {'code': self.wifi_conn_flag, "msg": "已连接成功，设备将在5秒后自动重启."}
         else:
             return {'code': self.wifi_conn_flag, 'msg': self.wifi_msg}
@@ -98,6 +97,7 @@ class WiFiScanScreen(Screen):
         self.wifi_msg = msg
         self.wifi_conn_flag = flag
 
-    def shutdown(self, timer):
+    async def shutdown(self, timer):
+        asyncio.sleep_ms(5000)
         self.app.shutdown()
         machine.reset()
