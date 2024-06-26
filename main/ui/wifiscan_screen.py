@@ -98,6 +98,6 @@ class WiFiScanScreen(Screen):
         self.wifi_conn_flag = flag
 
     async def shutdown(self):
-        asyncio.sleep_ms(5000)
+        await asyncio.sleep_ms(5000)
         self.app.shutdown()
         machine.reset()
