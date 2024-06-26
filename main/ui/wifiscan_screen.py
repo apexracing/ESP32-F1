@@ -81,7 +81,7 @@ class WiFiScanScreen(Screen):
         print(self.wifi_msg)
         is_ok = is_wifi_connect()
         if is_ok:
-            asyncio.create_task(self.shutdown)
+            asyncio.create_task(self.shutdown())
             self.wifi_msg = "已连接成功，设备将在5秒后自动重启."
         return Response({'code': self.wifi_conn_flag, 'msg': self.wifi_msg}, 200,{"Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "*","Content-Type": "application/json; charset=UTF-8"}, None)
 
