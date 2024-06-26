@@ -50,6 +50,9 @@ async def connect_wifi(ssid: str, password: str, callback=None,try_num: int = 5)
         await asyncio.sleep_ms(3000)
         num += 1
     if wifi.isconnected():
+        global wifi_data
+        wifi_data[ssid]=password
+        wifi_cfg_flush()
         if callback is not None:
             callback(f"已成功连接到Wi-Fi:{ssid}", 1)
         print(f'已连接WIFI:{ssid},IPV4 地址:{wifi.ifconfig()}')  # get the interface's IP/netmask/gw/DNS addresses
@@ -60,6 +63,7 @@ async def connect_wifi(ssid: str, password: str, callback=None,try_num: int = 5)
 
 
 def wifi_cfg_flush():
+    global wifi_data
     with open("wifi.cfg", "w+", encoding="utf-8") as f:
         f.write(json.dumps(wifi_data))
 
