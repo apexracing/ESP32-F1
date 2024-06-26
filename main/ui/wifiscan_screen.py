@@ -71,8 +71,8 @@ class WiFiScanScreen(Screen):
         return Response.send_file("ui/html/wifi_result.html", content_type="text/html")
 
     async def wifi_try(self, request):
-        ssid = request.form.get('ssid')
-        pwd = request.form.get('pwd')
+        ssid = request.json['ssid']
+        pwd = request.json['pwd']
         connect_wifi(ssid, pwd, self.wifi_conn_callback)
         return "ok"
 
