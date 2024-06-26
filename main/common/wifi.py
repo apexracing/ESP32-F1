@@ -40,7 +40,7 @@ async def connect_wifi(ssid, password, try_num=5, callback=None):
     wifi.disconnect()
     wifi.connect(ssid, password)  # connect to an AP
     # 等待几秒，要不然isconnected 一直是false
-    num = 1;
+    num = 1
     while not wifi.isconnected() and num < try_num:
         wifi.active(True)
         wifi.disconnect()
