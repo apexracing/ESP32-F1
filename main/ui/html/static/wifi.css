@@ -42,12 +42,14 @@ body {
     line-height: 20pt;
     margin-top: 17px;
 }
-.loading{
-  width: 100%;
-  padding:0px 10px;
-  outline:none;
-  text-align:center;
+
+.loading {
+    width: 100%;
+    padding: 0px 10px;
+    outline: none;
+    text-align: center;
 }
+
 #input-area {
     margin-top: 40px;
 }
@@ -72,10 +74,16 @@ body {
 }
 
 .login-box {
+    width: 100%;
+    position: fixed; /* 固定定位 */
+    margin-bottom: 25px;
+    top: 100%; /* 距离顶部50% */
+    left: 50%; /* 距离左边50% */
+    transform: translate(-50%, -100%);
 }
 
 .login-box a {
-    margin-top: 70px;
+    margin-bottom: 25px;
     position: fixed; /* 使div固定位置 */
     top: 50%; /* 距离顶部50% */
     left: 50%; /* 距离左边50% */
@@ -181,35 +189,36 @@ body {
     width: 0;
 }
 
-.wifiselect{
+.wifiselect {
     position: absolute;
     display: inline;
     margin-top: 10px;
     right: 30px;
 }
+
 .wifiselect .button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  height: 28px;
-  width: 90px;
-  border: none;
-  background: #03f40f33;
-  border-radius: 20px;
-  cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    height: 28px;
+    width: 90px;
+    border: none;
+    background: #03f40f33;
+    border-radius: 20px;
+    cursor: pointer;
 }
 
 .wifiselect .lable {
-  line-height: 20px;
-  font-size: 12px;
-  color: #03f40f;
-  font-family: sans-serif;
-  letter-spacing: 1px;
+    line-height: 20px;
+    font-size: 12px;
+    color: #03f40f;
+    font-family: sans-serif;
+    letter-spacing: 1px;
 }
 
 .wifiselect .button:hover {
-  background: #03f40fA0;
+    background: #03f40fA0;
 }
 
 .overlay {
@@ -221,9 +230,9 @@ body {
     bottom: 0;
     background: rgba(0, 0, 0, 0.7);
     z-index: 1000;
-  }
+}
 
-  .modal {
+.modal {
     position: fixed;
     bottom: -50%;
     left: 0;
@@ -235,35 +244,38 @@ body {
     transition: bottom 0.3s ease;
     z-index: 1001;
     overflow-y: scroll;
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
 
-  }
- .modal::-webkit-scrollbar {
-    display: none;  /* Chrome, Safari, Opera */
-  }
+}
 
-  .overlay.active {
+.modal::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+.overlay.active {
     display: block;
-  }
+}
 
-  .modal.active {
+.modal.active {
     bottom: 0;
-  }
-  .wifi-list {
-    padding: 20px;
-  }
+}
 
-  .wifi-item {
-    color:white;
-    text-align:center;
+.wifi-list {
+    padding: 20px;
+}
+
+.wifi-item {
+    color: white;
+    text-align: center;
     font-size: 16pt;
     line-height: 20pt;
     padding: 10px;
     border-bottom: 1px solid #33333388;
     cursor: pointer;
     position: relative;
-  }
+}
+
 .wifi-item::after {
     content: '';
     display: none;
@@ -272,14 +284,19 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(3, 244, 15, 1);
+    background: rgba(3, 244, 15, 0.5);
     animation: green-flash 0.5s;
-  }
-  .wifi-item.active::after {
-    display: block;
-  }
+}
 
-  @keyframes green-flash {
-    0% { background: rgba(3, 244, 15, 1); }
-    100% { background: rgba(3, 244, 15, 0); }
-  }
+.wifi-item.active::after {
+    display: block;
+}
+
+@keyframes green-flash {
+    0% {
+        background: rgba(3, 244, 15, 0.5);
+    }
+    100% {
+        background: rgba(3, 244, 15, 0);
+    }
+}

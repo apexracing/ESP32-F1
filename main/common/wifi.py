@@ -1,12 +1,14 @@
 import network
 import time
 import json
+import espidf as esp32
 
 wifi_data = {}
-wifi = None
+wifi = network.WLAN(network.STA_IF)
 ap = None
 
-def start_ap(essid="esp32", hostname=None):
+
+def start_ap(essid="esp32", hostname=None, ip='192.168.1.1'):
     '''
     开启热点，默认网关地址:192.168.1.1;并启用一个域名解析地址
     :return:
@@ -17,14 +19,14 @@ def start_ap(essid="esp32", hostname=None):
     time.sleep(1)
     ap.active(True)  # activate the interface
     ap.config(essid=essid, authmode=network.AUTH_OPEN)  # set the SSID of the access point
-    ap.ifconfig(('192.168.1.1', '255.255.255.0', '192.168.1.1', '8.8.8.8'))
+    ap.ifconfig((ip, '255.255.255.0', ip, '8.8.8.8'))
     # 设置DNS服务器
     if hostname:
-        ap.config(dhcp_hostname=hostname)  # 设置主机名
+        setup_mdns("speedim.cn")
     print(f'开启WIFI热点:{ap.ifconfig()}')
 
 
-def connect_wifi(ssid, password, try_num=5):
+async def connect_wifi(ssid, password, try_num=5, callback=None):
     '''
     连接到WIFI
     :param ssid: wifi ssid
@@ -32,20 +34,28 @@ def connect_wifi(ssid, password, try_num=5):
     :param try_num 最多偿试几次
     :return:
     '''
+    print('正在连接wifi')
     global wifi
-    wifi = network.WLAN(network.STA_IF)  # create station interface
     wifi.active(True)  # activate the interface
     wifi.disconnect()
     wifi.connect(ssid, password)  # connect to an AP
     # 等待几秒，要不然isconnected 一直是false
-    while not wifi.isconnected() and try_num > 0:
+    num = 1;
+    while not wifi.isconnected() and num < try_num:
         wifi.active(True)
         wifi.disconnect()
+        if callback is not None:
+            callback(f"正在第{num}次尝试,连接到Wi-Fi:{ssid}", 0)
         wifi.connect(ssid, password)
-        time.sleep(5)
-        try_num -= 1
+        time.sleep(3)
+        num += 1
     if wifi.isconnected():
+        if callback is not None:
+            callback(f"已成功连接到Wi-Fi:{ssid}", 1)
         print(f'已连接WIFI:{ssid},IPV4 地址:{wifi.ifconfig()}')  # get the interface's IP/netmask/gw/DNS addresses
+    else:
+        if callback is not None:
+            callback(f"连接到Wi-Fi:{ssid},失败.", 2)
     return wifi.isconnected()
 
 
@@ -71,7 +81,6 @@ def wifi_auto_connect():
     '''
     result = False
     wifi_cfg_load()
-    wifi = network.WLAN(network.STA_IF)
     wifi.active(True)  # activate the interface
     wifi.disconnect()
     wifiList = wifi.scan()
@@ -108,3 +117,10 @@ def get_wifi_strength_level(rssi):
         return 2
     else:
         return 1
+
+
+def setup_mdns(hostname):
+    print('Setting up mDNS...')
+    esp32.mdns_init()
+    esp32.mdns_hostname_set(hostname)
+    esp32.mdns_service_add(None, '_http', '_tcp', 80, None, 0)

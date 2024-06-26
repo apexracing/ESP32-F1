@@ -22,4 +22,5 @@
 ### 大彩色图片加载优化
 >- https://lvgl.io/tools/imageconverter 先将图片转为RGB565Swap格式的.bin文件
 >- 从文件中按二进制读取.bin文件,要seek(1)一位数据，将读取的图片数据存储到全局变量缓存里,具体可里查看文件[资源管理器](./main/ui/resource_manager.py)
-### 配网文案使用AP热点上传密码,使用了[MicroDot v2.0.6,GitHub](https://github.com/miguelgrinberg/microdot/blob/v2.0.6/src/microdot/microdot.py)
+### 配网文案使用AP热点上传密码,使用了[MicroDot v2.0.6,GitHub](https://github.com/miguelgrinberg/microdot/blob/v2.0.6/src/microdot/microdot.py)作为Web服务
+

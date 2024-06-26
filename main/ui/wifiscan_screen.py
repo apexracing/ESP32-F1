@@ -1,17 +1,25 @@
 from ui.screen import Screen
 import lvgl as lv
-from lib.microdot import Microdot,URLPattern
-from common import wifi
+from lib.microdot import Microdot, URLPattern, Response
+from common.wifi import *
 import uasyncio as asyncio
+import machine
 
 
 class WiFiScanScreen(Screen):
     def __init__(self):
         super().__init__()
-        #UI 配置HttpServer
+        # UI 配置HttpServer
         self.app = Microdot()
-        self.app.url_map.append((["POST","GET"], URLPattern("/setWifi"), self.set_wifi))
-        #UI 部分
+        self.app.url_map.append((["GET"], URLPattern("/wifi"), self.wifi))
+        self.app.url_map.append((["GET"], URLPattern("/wifi_result"), self.wifi_result))
+        self.app.url_map.append((["POST"], URLPattern("/wifi_try"), self.wifi_try))
+        self.app.url_map.append((["GET"], URLPattern("/wifi_try_msg"), self.wifi))
+        self.app.url_map.append((["GET"], URLPattern('/static/<path:path>'), self.static))
+
+        self.wifi_msg = ""
+        self.wifi_conn_flag = 0
+        # UI 部分
         self.SetFlag(self.screen, lv.obj.FLAG.SCROLLABLE, False)
         self.screen.set_style_bg_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT)
         self.screen.set_style_bg_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
@@ -19,7 +27,7 @@ class WiFiScanScreen(Screen):
         qr.set_align(lv.ALIGN.CENTER)
         qr.set_x(0)
         qr.set_y(27)
-        data = "http://192.168.1.1"
+        data = "http://192.168.1.1/wifi"
         qr.update(data, len(data))
         self.ui_QCodeTitle = lv.label(self.screen)
         self.ui_QCodeTitle.set_text("1:使用手机连接Wi-Fi:\n  F1-LiveTime\n2:扫描下方二维码")
@@ -46,18 +54,48 @@ class WiFiScanScreen(Screen):
 
     async def run(self):
         # 开启配网模式
-        wifi.start_ap(essid='F1-LiveTime', hostname="speedim.cn")
+        start_ap(essid='F1-LiveTime', hostname="speedim.cn")
         print("MicroDot WebServer Running!")
-        await self.app.start_server(port=80,debug=True)
+        await self.app.start_server(port=80, debug=True)
 
-    async def set_wifi(self, request):
-        ssid = request.args.get('ssid')
-        pwd = request.args.get('pwd')
-        print(ssid)
-        try:
-            result = wifi.connect_wifi(ssid, pwd)
-            print(result)
-        except Exception as e:
-            return {"error": e}
-        finally:
-            self.app.shutdown()
+    async def wifi(self, request):
+        global wifi
+        wifiList = wifi.scan()
+        from lib.tpl import Template
+        wifi_index = Template("wifi_index.html")
+        return Response.send_file(filename="wifi_index.html", content_type="text/html",
+                                  stream=wifi_index.render(wifis=wifiList))
+
+    async def wifi_result(self, request):
+        return Response.send_file("ui/html/wifi_result.html")
+
+    async def wifi_try(self, request):
+        ssid = request.form.get('ssid')
+        pwd = request.form.get('pwd')
+        connect_wifi(ssid, pwd, self.wifi_conn_callback)
+        return Response.redirect("/wifi_result")
+
+    async def wifi_try_msg(self, request):
+        print(self.wifi_msg)
+        is_ok = is_wifi_connect()
+        if is_ok:
+            timer = lv.timer_create(self.shutdown, 5000, None)
+            timer.set_repeat_count(1)
+            return {'code': self.wifi_conn_flag, "msg": "已连接成功，设备将在5秒后自动重启."}
+        else:
+            return {'code': self.wifi_conn_flag, 'msg': self.wifi_msg}
+
+    async def static(self, request, path):
+        print(f"static->{path}")
+        if '..' in path:
+            # directory traversal is not allowed
+            return 'Not found', 404
+        return Response.send_file('ui/html/static/' + path)
+
+    def wifi_conn_callback(self, msg, flag):
+        self.wifi_msg = msg
+        self.wifi_conn_flag = flag
+
+    def shutdown(self, timer):
+        self.app.shutdown()
+        machine.reset()

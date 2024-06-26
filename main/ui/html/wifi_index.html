@@ -1,11 +1,12 @@
+{% args wifis %}
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>WeUI</title>
+    <title>网络配置</title>
     <!-- 引入 WeUI CDN 链接 -->
-    <link rel="stylesheet" href="./wifi.css"/>
+    <link rel="stylesheet" href="static/wifi.css"/>
 
 </head>
 <body>
@@ -19,11 +20,12 @@
                 Wi-Fi名称仅支持英文字符及数字
             </div>
         </div>
+        <form id="myForm" action="http://192.168.1.1/wifi_try" method="post">
         <div id="input-area">
             <div class="form-inp">
                 <input placeholder="请输入Wi-Fi名称" type="text" name="ssid" id="mySSID">
                 <div class="wifiselect">
-                    <button class="button" id="openModalBtn">
+                    <button type="button" class="button" id="openModalBtn">
                         <span class="lable">切换Wi-Fi</span>
                     </button>
                 </div>
@@ -41,29 +43,25 @@
                 </label>
             </div>
         </div>
-
+        </form>
         <div class="desc">请仔细检查Wi-Fi密码,一般WiFi密码包含8个字符</div>
-    </div>
-    <div class="login-box">
-        <a href="#" id="myNextBtn">
-            下一步
-            <span></span>
-        </a></center>
+
     </div>
 
+    <div class="login-box">
+    <a href="#" id="myNextBtn">
+        下一步
+        <span></span>
+    </a></center>
+    </div>
 
 </div>
 <div id="overlay" class="overlay"></div>
 <div id="modal" class="modal">
     <div class="wifi-list">
-        <div class="wifi-item">Network 3</div>
-        <div class="wifi-item">Network 4</div>
-        <div class="wifi-item">Network 5</div>
-        <div class="wifi-item">Network 6</div>
-        <div class="wifi-item">Network 7</div>
-        <div class="wifi-item">Network 8</div>
-        <div class="wifi-item">Network 9</div>
-        <div class="wifi-item">Network 10</div>
+        {% for (ssid, _, _, rssi, _, _) in wifis%}
+                <div class="wifi-item">{{ssid.decode("UTF-8")}}</div>
+        {% endfor %}
     </div>
 
 </div>
@@ -71,8 +69,8 @@
 <script>
     const checkbox = document.getElementById('myCheckbox')
     myPwd = document.getElementById('myPwd')
-    mySSID=document.getElementById('mySSID')
-    myNextBtn=document.getElementById('myNextBtn')
+    mySSID = document.getElementById('mySSID')
+    myNextBtn = document.getElementById('myNextBtn')
     checkbox.addEventListener('change', (event) => {
         if (myPwd.type == "password") {
             myPwd.type = "text";
@@ -80,38 +78,47 @@
             myPwd.type = "password";
         }
     })
-<!--  实现弹出wifi列表-->
-  const openModalBtn = document.getElementById('openModalBtn');
-  const overlay = document.getElementById('overlay');
-  const modal = document.getElementById('modal');
-  const wifiItems = document.querySelectorAll('.wifi-item');
-  openModalBtn.addEventListener('click', () => {
-    overlay.classList.add('active');
-    modal.classList.add('active');
-  });
-
-  overlay.addEventListener('click', () => {
-    closeModal()
-  });
-  myNextBtn.addEventListener('click', () => {
-    alert('Next')
-  });
-wifiItems.forEach(item => {
-    item.addEventListener('click', () => {
-      const wifiName = item.textContent;
-      mySSID.value=wifiName;
-      console.log(`Selected WiFi: ${wifiName}`);
-      item.classList.add('active');
-      setTimeout(() => {
-        item.classList.remove('active');
-        closeModal()
-      }, 500);
+    <!--  实现弹出wifi列表-->
+    const openModalBtn = document.getElementById('openModalBtn');
+    const overlay = document.getElementById('overlay');
+    const modal = document.getElementById('modal');
+    const wifiItems = document.querySelectorAll('.wifi-item');
+    openModalBtn.addEventListener('click', () => {
+        overlay.classList.add('active');
+        modal.classList.add('active');
     });
-  });
-function closeModal(){
-    overlay.classList.remove('active');
-    modal.classList.remove('active');
-}
+
+    overlay.addEventListener('click', () => {
+        closeModal()
+    });
+    myNextBtn.addEventListener('click', () => {
+            myForm = document.getElementById('myForm')
+            myForm.submit()
+       /* post("http://192.168.1.1/wifi_conn", {"ssid": mySSID.value, "pwd": myPwd.value}, function (error, data) {
+            if (error) {
+                alert(error)
+            } else {
+                window.location.href = "http://192.168.1.1/wifi_result"
+            }
+        });*/
+    });
+    wifiItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const wifiName = item.textContent;
+            mySSID.value = wifiName;
+            console.log(`Selected WiFi: ${wifiName}`);
+            item.classList.add('active');
+            setTimeout(() => {
+                item.classList.remove('active');
+                closeModal()
+            }, 500);
+        });
+    });
+
+    function closeModal() {
+        overlay.classList.remove('active');
+        modal.classList.remove('active');
+    }
 
 
 </script>
