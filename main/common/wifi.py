@@ -48,7 +48,7 @@ async def connect_wifi(ssid, password, try_num=5, callback=None):
             callback(f"正在第{num}次尝试,连接到Wi-Fi:{ssid}", 0)
         wifi.connect(ssid, password)
         time.sleep(3)
-        num += 1
+        num =num+1
     if wifi.isconnected():
         if callback is not None:
             callback(f"已成功连接到Wi-Fi:{ssid}", 1)
