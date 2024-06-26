@@ -26,7 +26,7 @@ def start_ap(essid="esp32", hostname=None, ip='192.168.1.1'):
     print(f'开启WIFI热点:{ap.ifconfig()}')
 
 
-async def connect_wifi(ssid, password, try_num=5, callback=None):
+async def connect_wifi(ssid: str, password: str, try_num: int = 5, callback=None):
     '''
     连接到WIFI
     :param ssid: wifi ssid
@@ -40,7 +40,7 @@ async def connect_wifi(ssid, password, try_num=5, callback=None):
     wifi.disconnect()
     wifi.connect(ssid, password)  # connect to an AP
     # 等待几秒，要不然isconnected 一直是false
-    num = 1
+    num: int = 1
     while not wifi.isconnected() and num < try_num:
         wifi.active(True)
         wifi.disconnect()
@@ -48,7 +48,7 @@ async def connect_wifi(ssid, password, try_num=5, callback=None):
             callback(f"正在第{num}次尝试,连接到Wi-Fi:{ssid}", 0)
         wifi.connect(ssid, password)
         time.sleep(3)
-        num =num+1
+        num = num + 1
     if wifi.isconnected():
         if callback is not None:
             callback(f"已成功连接到Wi-Fi:{ssid}", 1)
