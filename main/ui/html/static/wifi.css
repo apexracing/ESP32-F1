@@ -38,9 +38,9 @@ body {
 .msg {
     color: #ffffff;
     line-break: auto;
-    font-size: 12pt;
-    line-height: 20pt;
-    margin-top: 17px;
+    font-size: 8pt;
+    line-height: 12pt;
+    margin-top: 5px;
 }
 
 .loading {
