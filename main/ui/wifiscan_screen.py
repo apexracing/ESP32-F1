@@ -4,6 +4,7 @@ from lib.microdot import Microdot, URLPattern, Response
 from common.wifi import *
 import uasyncio as asyncio
 import machine
+import json
 
 
 class WiFiScanScreen(Screen):
@@ -12,13 +13,13 @@ class WiFiScanScreen(Screen):
         # UI 配置HttpServer
         self.app = Microdot()
         Response.default_content_type = "application/json"
-        self.app.url_map.append((["GET"], URLPattern("/wifi"), self.wifi))
-        self.app.url_map.append((["GET"], URLPattern("/wifi_result"), self.wifi_result))
-        self.app.url_map.append((["POST"], URLPattern("/wifi_try"), self.wifi_try))
-        self.app.url_map.append((["GET"], URLPattern("/wifi_try_msg"), self.wifi))
-        self.app.url_map.append((["GET"], URLPattern('/static/<path:path>'), self.static))
-        #用于显示连网过程消息
-        self.wifi_msg = ""
+        self.app.url_map.append((["GET", "POST"], URLPattern("/wifi"), self.wifi))
+        self.app.url_map.append((["GET", "POST"], URLPattern("/wifi_result"), self.wifi_result))
+        self.app.url_map.append((["GET", "POST"], URLPattern("/wifi_try"), self.wifi_try))
+        self.app.url_map.append((["GET", "POST"], URLPattern("/wifi_try_msg"), self.wifi_try_msg))
+        self.app.url_map.append((["GET", "POST"], URLPattern('/static/<path:path>'), self.static))
+        # 用于显示连网过程消息
+        self.wifi_msg = "设备无响应"
         self.wifi_conn_flag = 0
         # UI 部分
         self.SetFlag(self.screen, lv.obj.FLAG.SCROLLABLE, False)
@@ -60,8 +61,7 @@ class WiFiScanScreen(Screen):
         await self.app.start_server(port=80, debug=True)
 
     async def wifi(self, request):
-        global wifi
-        wifiList = wifi.scan()
+        wifiList = wifi_scan()
         from lib.tpl import Template
         wifi_index = Template("wifi_index.html")
         return Response.send_file(filename="wifi_index.html", content_type="text/html",
@@ -74,17 +74,16 @@ class WiFiScanScreen(Screen):
         ssid = request.json['ssid']
         pwd = request.json['pwd']
         print(f"用户正在配置网络->ssid:{ssid},pwd:{pwd}")
-        await connect_wifi(ssid, pwd, self.wifi_conn_callback)
-        return "ok"
+        asyncio.create_task(connect_wifi(ssid, pwd, self.wifi_conn_callback))
+        return Response({'code': 0, 'msg': "OK"}, 200,{"Access-Control-Allow-Origin": "*","Access-Control-Allow-Methods":"*","Content-Type":"application/json; charset=UTF-8"},None)
 
     async def wifi_try_msg(self, request):
         print(self.wifi_msg)
         is_ok = is_wifi_connect()
         if is_ok:
             asyncio.create_task(self.shutdown)
-            return {'code': self.wifi_conn_flag, "msg": "已连接成功，设备将在5秒后自动重启."}
-        else:
-            return {'code': self.wifi_conn_flag, 'msg': self.wifi_msg}
+            self.wifi_msg = "已连接成功，设备将在5秒后自动重启."
+        return Response({'code': self.wifi_conn_flag, 'msg': self.wifi_msg}, 200,{"Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "*","Content-Type": "application/json; charset=UTF-8"}, None)
 
     async def static(self, request, path):
         print(f"static->{path}")
@@ -94,6 +93,7 @@ class WiFiScanScreen(Screen):
         return Response.send_file('ui/html/static/' + path)
 
     def wifi_conn_callback(self, msg, flag):
+        print(msg)
         self.wifi_msg = msg
         self.wifi_conn_flag = flag
 

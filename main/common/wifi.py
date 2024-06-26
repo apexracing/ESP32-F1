@@ -20,9 +20,9 @@ def start_ap(essid="esp32", hostname=None, ip='192.168.1.1'):
     ap.active(True)  # activate the interface
     ap.config(essid=essid, authmode=network.AUTH_OPEN)  # set the SSID of the access point
     ap.ifconfig((ip, '255.255.255.0', ip, '8.8.8.8'))
-    # 设置DNS服务器
-    if hostname:
-        setup_mdns("speedim.cn")
+    # # 设置DNS服务器
+    # if hostname:
+    #     setup_mdns("speedim.cn")
     print(f'开启WIFI热点:{ap.ifconfig()}')
 
 
@@ -47,7 +47,7 @@ async def connect_wifi(ssid: str, password: str, callback=None,try_num: int = 5)
         if callback is not None:
             callback(f"正在第{num}次尝试,连接到Wi-Fi:{ssid}", 0)
         wifi.connect(ssid, password)
-        asyncio.sleep_ms(3000)
+        await asyncio.sleep_ms(3000)
         num += 1
     if wifi.isconnected():
         if callback is not None:
@@ -72,7 +72,10 @@ def wifi_cfg_load():
     except:
         wifi_cfg_flush()
 
-
+def wifi_scan():
+    wifi.active(True)
+    wifi.disconnect()
+    return  wifi.scan()
 def wifi_auto_connect():
     global wifi
     '''

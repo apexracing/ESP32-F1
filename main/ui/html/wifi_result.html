@@ -40,7 +40,7 @@
     function getResult() {
         get("http://192.168.1.1/wifi_try_msg", function (error, data) {
             if (error) {
-                alert(error)
+                myPreBtn.removeAttribute("style")
             } else {
                 let divElement = document.createElement("div");
                 divElement.setAttribute("class", "msg");

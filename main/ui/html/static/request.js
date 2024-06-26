@@ -2,12 +2,12 @@
 function get(url, callback) {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', url, true);
-
+  xhr.setRequestHeader('Content-Type', 'application/json');
   xhr.onreadystatechange = function() {
     if (xhr.readyState === 4) { // 请求完成
       if (xhr.status >= 200 && xhr.status < 300) { // 请求成功
-        var data = JSON.parse(xhr.responseText); // 假设返回的数据是 JSON 格式
-        callback(null, data);
+        var responseData = JSON.parse(xhr.responseText); // 假设返回的数据是 JSON 格式
+        callback(null, responseData);
       } else {
         callback('Request failed with status ' + xhr.status);
       }
