@@ -2,7 +2,7 @@ import network
 import time
 import json
 import espidf as esp32
-
+import uasyncio as asyncio
 wifi_data = {}
 wifi = network.WLAN(network.STA_IF)
 ap = None
@@ -26,7 +26,7 @@ def start_ap(essid="esp32", hostname=None, ip='192.168.1.1'):
     print(f'开启WIFI热点:{ap.ifconfig()}')
 
 
-def connect_wifi(ssid: str, password: str, callback=None,try_num: int = 5):
+async def connect_wifi(ssid: str, password: str, callback=None,try_num: int = 5):
     '''
     连接到WIFI
     :param ssid: wifi ssid
@@ -47,7 +47,7 @@ def connect_wifi(ssid: str, password: str, callback=None,try_num: int = 5):
         if callback is not None:
             callback(f"正在第{num}次尝试,连接到Wi-Fi:{ssid}", 0)
         wifi.connect(ssid, password)
-        time.sleep(3)
+        asyncio.sleep_ms(3000)
         num += 1
     if wifi.isconnected():
         if callback is not None:

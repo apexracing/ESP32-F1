@@ -73,7 +73,8 @@ class WiFiScanScreen(Screen):
     async def wifi_try(self, request):
         ssid = request.json['ssid']
         pwd = request.json['pwd']
-        connect_wifi(ssid, pwd, self.wifi_conn_callback)
+        print(f"用户正在配置网络->ssid:{ssid},pwd:{pwd}")
+        await connect_wifi(ssid, pwd, self.wifi_conn_callback)
         return "ok"
 
     async def wifi_try_msg(self, request):
