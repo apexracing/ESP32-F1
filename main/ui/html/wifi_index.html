@@ -20,7 +20,6 @@
                 Wi-Fi名称仅支持英文字符及数字
             </div>
         </div>
-        <form id="myForm" action="http://192.168.1.1/wifi_try" method="post">
         <div id="input-area">
             <div class="form-inp">
                 <input placeholder="请输入Wi-Fi名称" type="text" name="ssid" id="mySSID">
@@ -43,7 +42,6 @@
                 </label>
             </div>
         </div>
-        </form>
         <div class="desc">请仔细检查Wi-Fi密码,一般WiFi密码包含8个字符</div>
 
     </div>
@@ -92,15 +90,13 @@
         closeModal()
     });
     myNextBtn.addEventListener('click', () => {
-            myForm = document.getElementById('myForm')
-            myForm.submit()
-       /* post("http://192.168.1.1/wifi_conn", {"ssid": mySSID.value, "pwd": myPwd.value}, function (error, data) {
+       post("http://192.168.1.1/wifi_try", {"ssid": mySSID.value, "pwd": myPwd.value}, function (error, data) {
             if (error) {
                 alert(error)
             } else {
-                window.location.href = "http://192.168.1.1/wifi_result"
             }
-        });*/
+        });
+        window.location.href = "http://192.168.1.1/wifi_result"
     });
     wifiItems.forEach(item => {
         item.addEventListener('click', () => {

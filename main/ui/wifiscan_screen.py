@@ -73,8 +73,8 @@ class WiFiScanScreen(Screen):
     async def wifi_try(self, request):
         ssid = request.form.get('ssid')
         pwd = request.form.get('pwd')
-        asyncio.create_task(connect_wifi(ssid, pwd, self.wifi_conn_callback))
-        return Response.redirect("/wifi_result")
+        connect_wifi(ssid, pwd, self.wifi_conn_callback)
+        return "ok"
 
     async def wifi_try_msg(self, request):
         print(self.wifi_msg)

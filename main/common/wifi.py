@@ -26,7 +26,7 @@ def start_ap(essid="esp32", hostname=None, ip='192.168.1.1'):
     print(f'开启WIFI热点:{ap.ifconfig()}')
 
 
-async def connect_wifi(ssid: str, password: str, callback=None,try_num: int = 5):
+def connect_wifi(ssid: str, password: str, callback=None,try_num: int = 5):
     '''
     连接到WIFI
     :param ssid: wifi ssid
