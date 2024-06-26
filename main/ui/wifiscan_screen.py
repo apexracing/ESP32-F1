@@ -11,12 +11,13 @@ class WiFiScanScreen(Screen):
         super().__init__()
         # UI 配置HttpServer
         self.app = Microdot()
+        Response.default_content_type = "application/json"
         self.app.url_map.append((["GET"], URLPattern("/wifi"), self.wifi))
         self.app.url_map.append((["GET"], URLPattern("/wifi_result"), self.wifi_result))
         self.app.url_map.append((["POST"], URLPattern("/wifi_try"), self.wifi_try))
         self.app.url_map.append((["GET"], URLPattern("/wifi_try_msg"), self.wifi))
         self.app.url_map.append((["GET"], URLPattern('/static/<path:path>'), self.static))
-
+        #用于显示连网过程消息
         self.wifi_msg = ""
         self.wifi_conn_flag = 0
         # UI 部分
@@ -67,7 +68,7 @@ class WiFiScanScreen(Screen):
                                   stream=wifi_index.render(wifis=wifiList))
 
     async def wifi_result(self, request):
-        return Response.send_file("ui/html/wifi_result.html")
+        return Response.send_file("ui/html/wifi_result.html", content_type="text/html")
 
     async def wifi_try(self, request):
         ssid = request.form.get('ssid')
