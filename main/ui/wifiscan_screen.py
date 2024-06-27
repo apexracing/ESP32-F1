@@ -69,13 +69,15 @@ class WiFiScanScreen(Screen):
 
     async def wifi_result(self, request):
         return Response.send_file("ui/html/wifi_result.html", content_type="text/html")
-
+    async def wifi_connect_delay(self,ssid,pwd):
+        await asyncio.sleep_ms(3000) #延迟3秒后，刷新到下一个页面再开始连接wifi
+        asyncio.create_task(connect_wifi(ssid, pwd, self.wifi_conn_callback))
     async def wifi_try(self, request):
         ssid = request.json['ssid']
         pwd = request.json['pwd']
         self.wifi_msg.clear()
         print(f"用户正在配置网络->ssid:{ssid},pwd:{pwd}")
-        asyncio.create_task(connect_wifi(ssid, pwd, self.wifi_conn_callback))
+        asyncio.create_task(self.wifi_connect_delay(ssid,pwd))
         return Response({'code': 0, 'msg': "OK"}, 200,
                         {"Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "*",
                          "Content-Type": "application/json; charset=UTF-8"}, None)
