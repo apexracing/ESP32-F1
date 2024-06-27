@@ -13,14 +13,13 @@ class WiFiScanScreen(Screen):
         # UI 配置HttpServer
         self.app = Microdot()
         Response.default_content_type = "application/json"
-        self.app.url_map.append((["GET", "POST"], URLPattern("/wifi"), self.wifi))
+        self.app.url_map.append((["GET", "POST"], URLPattern("/"), self.wifi))
         self.app.url_map.append((["GET", "POST"], URLPattern("/wifi_result"), self.wifi_result))
         self.app.url_map.append((["GET", "POST"], URLPattern("/wifi_try"), self.wifi_try))
         self.app.url_map.append((["GET", "POST"], URLPattern("/wifi_try_msg"), self.wifi_try_msg))
         self.app.url_map.append((["GET", "POST"], URLPattern('/static/<path:path>'), self.static))
         # 用于显示连网过程消息
-        self.wifi_msg = "设备无响应"
-        self.wifi_conn_flag = 0
+        self.wifi_msg = []
         # UI 部分
         self.SetFlag(self.screen, lv.obj.FLAG.SCROLLABLE, False)
         self.screen.set_style_bg_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT)
@@ -73,17 +72,21 @@ class WiFiScanScreen(Screen):
     async def wifi_try(self, request):
         ssid = request.json['ssid']
         pwd = request.json['pwd']
+        self.wifi_msg.clear()
         print(f"用户正在配置网络->ssid:{ssid},pwd:{pwd}")
         asyncio.create_task(connect_wifi(ssid, pwd, self.wifi_conn_callback))
-        return Response({'code': 0, 'msg': "OK"}, 200,{"Access-Control-Allow-Origin": "*","Access-Control-Allow-Methods":"*","Content-Type":"application/json; charset=UTF-8"},None)
+        return Response({'code': 0, 'msg': "OK"}, 200,
+                        {"Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "*",
+                         "Content-Type": "application/json; charset=UTF-8"}, None)
 
     async def wifi_try_msg(self, request):
-        print(self.wifi_msg)
         is_ok = is_wifi_connect()
         if is_ok:
             asyncio.create_task(self.shutdown())
-            self.wifi_msg = "已连接成功，设备将在5秒后自动重启."
-        return Response({'code': self.wifi_conn_flag, 'msg': self.wifi_msg}, 200,{"Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "*","Content-Type": "application/json; charset=UTF-8"}, None)
+            self.wifi_msg.append({'msg': "已连接成功，设备将在5秒后自动重启.", 'flag': 1})
+        return Response(self.wifi_msg, 200,
+                        {"Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "*",
+                         "Content-Type": "application/json; charset=UTF-8"}, None)
 
     async def static(self, request, path):
         print(f"static->{path}")
@@ -92,12 +95,15 @@ class WiFiScanScreen(Screen):
             return 'Not found', 404
         return Response.send_file('ui/html/static/' + path)
 
-    def wifi_conn_callback(self, msg, flag):
+    def wifi_conn_callback(self, msg, flag, ssid=None, password=None):
         print(msg)
-        self.wifi_msg = msg
-        self.wifi_conn_flag = flag
+        self.wifi_msg.append({'msg': msg, 'flag': flag})
+        if flag == 1:
+            wifi_data[ssid] = password
+            wifi_cfg_flush()
 
     async def shutdown(self):
+        print("5秒后，设备将会重启...")
         await asyncio.sleep_ms(5000)
         self.app.shutdown()
         machine.reset()

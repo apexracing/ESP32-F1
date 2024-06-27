@@ -1,7 +1,15 @@
 import lvgl as lv
 from lib import cst816
 
-
+def singleton(cls):
+    instance = None
+    def getinstance(*args, **kwargs):
+        nonlocal instance
+        if instance is None:
+            instance = cls(*args, **kwargs)
+        return instance
+    return getinstance
+@singleton
 class TouchDriver:
 	def __init__(self):
 		self.cst816 = cst816.CST816()

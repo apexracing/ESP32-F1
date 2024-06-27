@@ -7,7 +7,7 @@
     <title>网络配置</title>
     <!-- 引入 WeUI CDN 链接 -->
     <link rel="stylesheet" href="static/wifi.css"/>
-    <script src="static/request.js"></script>
+
 </head>
 <body>
 
@@ -76,6 +76,9 @@
             myPwd.type = "password";
         }
     })
+    {% if len(wifis)>0 %}
+        mySSID.value="{{wifis[0][0].decode("UTF-8")}}"
+    {% endif %}
     <!--  实现弹出wifi列表-->
     const openModalBtn = document.getElementById('openModalBtn');
     const overlay = document.getElementById('overlay');
@@ -94,9 +97,9 @@
             if (error) {
                 alert(error)
             } else {
-              window.location.href = "http://192.168.1.1/wifi_result"
             }
         });
+        window.location.href = "http://192.168.1.1/wifi_result"
     });
     wifiItems.forEach(item => {
         item.addEventListener('click', () => {

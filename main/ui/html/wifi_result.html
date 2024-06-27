@@ -26,7 +26,7 @@
         </div>
     </div>
     <div class="login-box" style="display: none" id="myPreBtn">
-        <a href="#" >
+        <a href="#">
             上一步
             <span></span>
         </a></center>
@@ -36,30 +36,38 @@
 <script>
     myLoading = document.getElementById("myLoading")
     myPreBtn = document.getElementById("myPreBtn")
-    last_msg=''
-     //1秒请求一次结果
-    timer=setInterval(getResult, 500);
+    //1秒请求一次结果
+    timer = setInterval(getResult, 500);
+
     function getResult() {
         get("http://192.168.1.1/wifi_try_msg", function (error, data) {
             if (error) {
-                myPreBtn.style.display="block"
+                myPreBtn.style.display = "block"
                 clearInterval(timer)
             } else {
-                if(last_msg !=data['msg']){
-                    last_msg=data['msg'];
+                let childElements = myLoading.getElementsByClassName("msg");
+                // 将子元素列表转换为数组
+                let childArray = Array.from(childElements);
+
+                // 遍历并删除子元素
+                childArray.forEach(function (child) {
+                    myLoading.removeChild(child);
+                });
+                for (let i = 0; i < data.length; i++) {
+                    msg = data[i];
                     let divElement = document.createElement("div");
                     divElement.setAttribute("class", "msg");
-                    divElement.innerHTML = last_msg;
+                    divElement.innerHTML = msg['msg'];
                     myLoading.appendChild(divElement);
-                    if (data['code'] == 2) {
+                    if (msg['flag'] == 2) {
                         //连接wifi失败错误码,显示返回上一步按钮
-                        myPreBtn.style.display="block"
+                        myPreBtn.style.display = "block"
                         clearInterval(timer)
                     }
-                     if (data['code'] == 1) {
-                         //成功联网
+                    if (data['flag'] == 1) {
+                        //成功联网
                         clearInterval(timer)
-                     }
+                    }
                 }
 
             }
@@ -67,7 +75,7 @@
     }
 
     myPreBtn.addEventListener('click', () => {
-        window.location.href = "http://192.168.1.1/wifi"
+        window.location.href = "http://192.168.1.1"
     });
 
 </script>

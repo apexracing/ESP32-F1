@@ -3,6 +3,7 @@ import time
 import json
 import espidf as esp32
 import uasyncio as asyncio
+
 wifi_data = {}
 wifi = network.WLAN(network.STA_IF)
 ap = None
@@ -18,15 +19,15 @@ def start_ap(essid="esp32", hostname=None, ip='192.168.1.1'):
     ap.active(False)
     time.sleep(1)
     ap.active(True)  # activate the interface
-    ap.config(essid=essid, authmode=network.AUTH_OPEN)  # set the SSID of the access point
+    ap.config(essid=essid, password="12345678",authmode=network.AUTH_WPA_WPA2_PSK)  # set the SSID of the access point
     ap.ifconfig((ip, '255.255.255.0', ip, '8.8.8.8'))
     # # 设置DNS服务器
-    # if hostname:
-    #     setup_mdns("speedim.cn")
+    if hostname:
+        setup_mdns("speedim.cn")
     print(f'开启WIFI热点:{ap.ifconfig()}')
 
 
-async def connect_wifi(ssid: str, password: str, callback=None,try_num: int = 5):
+async def connect_wifi(ssid: str, password: str, callback=None, try_num: int = 5):
     '''
     连接到WIFI
     :param ssid: wifi ssid
@@ -50,11 +51,8 @@ async def connect_wifi(ssid: str, password: str, callback=None,try_num: int = 5)
         await asyncio.sleep_ms(3000)
         num += 1
     if wifi.isconnected():
-        global wifi_data
-        wifi_data[ssid]=password
-        wifi_cfg_flush()
         if callback is not None:
-            callback(f"已成功连接到Wi-Fi:{ssid}", 1)
+            callback(f"已成功连接到Wi-Fi:{ssid}", 1, ssid, password)
         print(f'已连接WIFI:{ssid},IPV4 地址:{wifi.ifconfig()}')  # get the interface's IP/netmask/gw/DNS addresses
     else:
         if callback is not None:
@@ -66,21 +64,27 @@ def wifi_cfg_flush():
     global wifi_data
     with open("wifi.cfg", "w+", encoding="utf-8") as f:
         f.write(json.dumps(wifi_data))
+        print(f"保存Wifi密码{json.dumps(wifi_data)}")
 
 
 def wifi_cfg_load():
     try:
-        global wifi_data
-        with open("wifi.cfg", "rw+", encoding="UTF-8") as f:
+        with open("wifi.cfg", "r+", encoding="UTF-8") as f:
+            global wifi_data
             wifi_data = json.loads(f.read())
+            print(f"加载Wifi密码{wifi_data}")
+
     except:
         wifi_cfg_flush()
+
 
 def wifi_scan():
     wifi.active(True)
     wifi.disconnect()
-    return  wifi.scan()
-def wifi_auto_connect():
+    return wifi.scan()
+
+
+async def wifi_auto_connect():
     global wifi
     '''
     从已保存的ssid,password中自动连接到一个可用的网络
@@ -95,9 +99,8 @@ def wifi_auto_connect():
     # sorted_networks = sorted(wifiList, key=lambda x: x[3], reverse=True)
     for (ssid, _, _, rssi, _, _) in wifiList:
         ssid = ssid.decode("UTF-8")
-        print(f"ssid->{ssid} 信号强度: {get_wifi_strength_level(rssi)}")
-        if wifi_data.get(ssid) is not None:
-            result = connect_wifi(ssid, wifi_data[ssid])
+        if ssid in wifi_data:
+            result = await connect_wifi(ssid, wifi_data[ssid])
             break
     return result
 
