@@ -72,7 +72,6 @@ class DNSServer:
                 data, addr = self.sock.recvfrom(512)
                 response = self.build_response(data)
                 writeBytes=self.sock.sendto(response, addr)
-                print(f'输出长度{writeBytes}')
             except Exception as e:
                 print(f"Error handling DNS request: {e}")
             await asyncio.sleep_ms(100)  # 确保事件循环继续运行
