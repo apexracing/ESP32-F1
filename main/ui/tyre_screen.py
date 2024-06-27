@@ -215,6 +215,7 @@ class TyreScreen(Screen):
         self.qmi8658 = None
         self.checkmiuTimer = None
         self.screen.add_event_cb(self.TyreScreen_eventhandler, lv.EVENT.ALL, None)
+        self.cpu_high()
 
     def interpolate_color(self,color1, color2, t):
         """在两个 RGB565 颜色之间进行插值"""

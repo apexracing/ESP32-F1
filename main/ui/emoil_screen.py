@@ -53,7 +53,7 @@ class EmoilScreen(Screen):
         self.screen.add_event_cb(self.EmoilScreen_eventhandler, lv.EVENT.ALL, None)
         print("init2")
         lv.timer_create(self.timer_callback, 30000, None);
-
+        self.cpu_low()
     def EmoilScreen_eventhandler(self, event_struct):
         event = event_struct.code
         if event == lv.EVENT.GESTURE:

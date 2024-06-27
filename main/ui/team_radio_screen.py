@@ -129,6 +129,7 @@ class TeamRadioScreen(Screen):
         self.timer = lv.timer_create(self.update_msg, 30, None)
         self.timer.pause()
         self.screen.add_event_cb(self.TeamRadioScreen_eventhandler, lv.EVENT.ALL, None)
+        self.cpu_low()
 
     def TeamRadioScreen_eventhandler(self, event_struct):
         event = event_struct.code
