@@ -94,11 +94,11 @@
         closeModal()
     });
     myNextBtn.addEventListener('click', () => {
-       post("http://wifi.speedim.cn/wifi_try", {"ssid": mySSID.value, "pwd": myPwd.value}, function (error, data) {
+       post("http://192.168.1.1/wifi_try", {"ssid": mySSID.value, "pwd": myPwd.value}, function (error, data) {
             if (error) {
                 alert(error)
             } else {
-               window.location.href = "http://wifi.speedim.cn/wifi_result"
+               window.location.href = "http://192.168.1.1/wifi_result"
             }
         });
     });

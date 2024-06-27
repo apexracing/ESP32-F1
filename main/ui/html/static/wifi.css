@@ -63,8 +63,11 @@ body {
     font-size: 16px;
     color: #fff;
     margin-bottom: 30px;
-    border: none;
-    border-bottom: 1px solid #fff;
+    border: 0;
+    -webkit-appearance: none;
+    -moz-animation: none;
+    appearance: none;
+    border-bottom: 1px solid #666;
     outline: none;
     background: transparent;
 }
