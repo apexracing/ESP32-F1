@@ -89,9 +89,9 @@ body {
     left: 50%; /* 距离左边50% */
     transform: translate(-50%, -50%);
     display: inline-block;
-    padding: 5px 40px;
+    padding: 5px 20px;
     color: #ffffff;
-    font-size: 20pt;
+    font-size: 15pt;
     text-decoration: none;
     text-transform: uppercase;
     overflow: hidden;

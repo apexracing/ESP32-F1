@@ -7,6 +7,7 @@
     <title>网络配置</title>
     <!-- 引入 WeUI CDN 链接 -->
     <link rel="stylesheet" href="static/wifi.css"/>
+    <script src="static/request.js"></script>
 
 </head>
 <body>
@@ -93,11 +94,11 @@
         closeModal()
     });
     myNextBtn.addEventListener('click', () => {
-       post("http://192.168.1.1/wifi_try", {"ssid": mySSID.value, "pwd": myPwd.value}, function (error, data) {
+       post("http://wifi.speedim.cn/wifi_try", {"ssid": mySSID.value, "pwd": myPwd.value}, function (error, data) {
             if (error) {
                 alert(error)
             } else {
-               window.location.href = "http://192.168.1.1/wifi_result"
+               window.location.href = "http://wifi.speedim.cn/wifi_result"
             }
         });
     });
