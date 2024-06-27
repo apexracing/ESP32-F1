@@ -3,11 +3,12 @@ from ui.resource_manager import ResourceManager
 from ui.theme_manager import ThemeManager
 import machine
 
+CPU_LOW = const(80000000)
+CPU_NORMAL = const(160000000)
+CPU_HIGH = const(240000000)
+
 
 class Screen:
-    cpu_low = 80000000
-    cpu_normal = 160000000
-    cpu_high = 240000000
 
     def __init__(self):
         self._ui_comp_table = {}
@@ -15,17 +16,21 @@ class Screen:
         self._ui_name_prev = None
         self._ui_child_prev = None
         self._ui_comp_table.clear()
-        machine.freq(Screen.cpu_normal)
+        self.cpu_normal()
         self.screen = lv.obj()
         self.resourceManager = ResourceManager()
         self.themeManager = ThemeManager()
         self.SetFlag(self.screen, lv.obj.FLAG.SCROLLABLE, False)
+
     def cpu_normal(self):
-        machine.freq(Screen.cpu_normal)
+        machine.freq(CPU_NORMAL)
+
     def cpu_low(self):
-        machine.freq(Screen.cpu_low)
+        machine.freq(CPU_LOW)
+
     def cpu_high(self):
-        machine.freq(Screen.cpu_high)
+        machine.freq(CPU_HIGH)
+
     def src_load(self):
         lv.scr_load(self.screen)
 

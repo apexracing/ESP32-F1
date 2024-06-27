@@ -20,10 +20,7 @@ def start_ap(essid="esp32", hostname=None, ip='192.168.1.1'):
     time.sleep(1)
     ap.active(True)  # activate the interface
     ap.config(essid=essid, password="12345678",authmode=network.AUTH_WPA_WPA2_PSK)  # set the SSID of the access point
-    ap.ifconfig((ip, '255.255.255.0', ip, '8.8.8.8'))
-    # # 设置DNS服务器
-    if hostname:
-        setup_mdns("speedim.cn")
+    ap.ifconfig((ip, '255.255.255.0', ip, ip))
     print(f'开启WIFI热点:{ap.ifconfig()}')
 
 
@@ -128,9 +125,3 @@ def get_wifi_strength_level(rssi):
     else:
         return 1
 
-
-def setup_mdns(hostname):
-    print('Setting up mDNS...')
-    esp32.mdns_init()
-    esp32.mdns_hostname_set(hostname)
-    esp32.mdns_service_add(None, '_http', '_tcp', 80, None, 0)

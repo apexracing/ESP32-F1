@@ -4,7 +4,7 @@ from lib.microdot import Microdot, URLPattern, Response
 from common.wifi import *
 import uasyncio as asyncio
 import machine
-import json
+from lib.dns import DNSServer
 
 
 class WiFiScanScreen(Screen):
@@ -12,12 +12,26 @@ class WiFiScanScreen(Screen):
         super().__init__()
         # UI 配置HttpServer
         self.app = Microdot()
+        dns_records = {
+            "speedim.cn": {
+                "A": "192.168.1.1",
+                "CNAME": "wifi.speedim.cn"
+            },
+            "wifi.speedim.cn": {
+                "A": "192.168.1.1"
+            },
+            "*": {
+                "A": "192.168.1.1"
+            }
+        }
+        self.dns = DNSServer(dns_records)
         Response.default_content_type = "application/json"
         self.app.url_map.append((["GET", "POST"], URLPattern("/"), self.wifi))
         self.app.url_map.append((["GET", "POST"], URLPattern("/wifi_result"), self.wifi_result))
         self.app.url_map.append((["GET", "POST"], URLPattern("/wifi_try"), self.wifi_try))
         self.app.url_map.append((["GET", "POST"], URLPattern("/wifi_try_msg"), self.wifi_try_msg))
         self.app.url_map.append((["GET", "POST"], URLPattern('/static/<path:path>'), self.static))
+
         # 用于显示连网过程消息
         self.wifi_msg = []
         # UI 部分
@@ -56,6 +70,7 @@ class WiFiScanScreen(Screen):
     async def run(self):
         # 开启配网模式
         start_ap(essid='F1-LiveTime', hostname="speedim.cn")
+        asyncio.create_task(self.dns.run())
         print("MicroDot WebServer Running!")
         await self.app.start_server(port=80, debug=True)
 
@@ -106,4 +121,5 @@ class WiFiScanScreen(Screen):
         print("5秒后，设备将会重启...")
         await asyncio.sleep_ms(5000)
         self.app.shutdown()
+        self.dns.shutdown()
         machine.reset()
