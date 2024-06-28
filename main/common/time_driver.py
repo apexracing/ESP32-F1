@@ -68,13 +68,14 @@ class TimeDriver:
 
     def __sync_time(self):
         ntp_ok = False
-        while ntp_ok is False:
+        ntp_hosts = ["ntp.aliyun.com", "ntp.tencent.com", "pool.ntp.org"]
+        for ntp_host in ntp_hosts:
             try:
                 self.timezone_offset = self.__get_network_timezone()
-                ntptime.host = "ntp.aliyun.com"
+                ntptime.host = ntp_host
                 ntptime.settime()
-                ntp_ok = True
                 print("Ntp synchronize Ok!")
+                break
             except Exception as e:
                 print("Failed to synchronize time:", e)
 
