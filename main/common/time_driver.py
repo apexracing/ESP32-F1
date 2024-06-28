@@ -67,10 +67,16 @@ class TimeDriver:
         return self.timezone
 
     def __sync_time(self):
-        self.timezone_offset = self.__get_network_timezone()
-        ntptime.host = "ntp.aliyun.com"
-        ntptime.settime()
-        self.print_current_time()
+        ntp_ok = False
+        while ntp_ok is False:
+            try:
+                self.timezone_offset = self.__get_network_timezone()
+                ntptime.host = "ntp.aliyun.com"
+                ntptime.settime()
+                ntp_ok = True
+                print("Ntp synchronize Ok!")
+            except Exception as e:
+                print("Failed to synchronize time:", e)
 
     # 设置定时器定期同步时间
     def init_sync_timer(self, interval=24 * 60 * 60 * 1000):
@@ -83,6 +89,7 @@ class TimeDriver:
             self.__sync_time()
 
         self.__sync_time()
+        self.print_current_time()
         timer = machine.Timer(-1)
         timer.init(period=interval, mode=machine.Timer.PERIODIC, callback=timer_callback)
         print(f"Timer set to sync every {interval // 1000} seconds")
