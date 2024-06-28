@@ -60,8 +60,17 @@ class TimeDriver:
     def get_local_time(self):
         return utime.localtime(time.time() + self.timezone_offset)
 
-    def get_utc_time(self):
+    @staticmethod
+    def get_utc_time():
         return utime.gmtime()
+
+    @staticmethod
+    def iso8610_to_unixtime(time_str):
+        time_tuple = (int(time_str[0:4]), int(time_str[5:7]), int(time_str[8:10]),
+                      int(time_str[11:13]), int(time_str[14:16]), int(time_str[17:19]), 0, 0)
+
+        # 将时间元组转换为Unix时间戳
+        return utime.mktime(time_tuple)
 
     def get_time_zone(self):
         return self.timezone
