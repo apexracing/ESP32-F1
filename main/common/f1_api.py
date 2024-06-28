@@ -18,8 +18,6 @@ def get_f1_events(year):
 def get_f1_current_next_event():
     events = get_f1_events()
     for event in events:
-        sessions=event["sessions"]
-        for session in  sessions.keys():
-            start_time=sessions[session]
-
-
+        sessions = event["sessions"]
+        for session in sessions.keys():
+            start_time = sessions[session]
