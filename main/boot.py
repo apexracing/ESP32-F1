@@ -27,6 +27,10 @@ async def main():
     display.backlight_on()
     await scr1.loadResouces()
     await wifi_auto_connect()
+    if is_wifi_connect():
+        from common.time_driver import TimeDriver
+        time_driver = TimeDriver()
+        time_driver.init_sync_timer()
 
 
 asyncio.run(main())
