@@ -27,15 +27,15 @@ class WiFiScanScreen(Screen):
         self.screen.set_style_bg_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT)
         self.screen.set_style_bg_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
 
-        ui_WiFiScanStep1 = lv.obj(self.screen)
-        ui_WiFiScanStep1.remove_style_all()
-        ui_WiFiScanStep1.set_width(lv.pct(100))
-        ui_WiFiScanStep1.set_height(lv.pct(100))
-        ui_WiFiScanStep1.set_align(lv.ALIGN.CENTER)
-        self.SetFlag(ui_WiFiScanStep1, lv.obj.FLAG.CLICKABLE, False)
-        self.SetFlag(ui_WiFiScanStep1, lv.obj.FLAG.SCROLLABLE, False)
+        self.ui_WiFiScanStep1 = lv.obj(self.screen)
+        self.ui_WiFiScanStep1.remove_style_all()
+        self.ui_WiFiScanStep1.set_width(lv.pct(100))
+        self.ui_WiFiScanStep1.set_height(lv.pct(100))
+        self.ui_WiFiScanStep1.set_align(lv.ALIGN.CENTER)
+        self.SetFlag(self.ui_WiFiScanStep1, lv.obj.FLAG.CLICKABLE, False)
+        self.SetFlag(self.ui_WiFiScanStep1, lv.obj.FLAG.SCROLLABLE, False)
 
-        ui_WiFiScan_Image4 = lv.img(ui_WiFiScanStep1)
+        ui_WiFiScan_Image4 = lv.img(self.ui_WiFiScanStep1)
         ui_WiFiScan_Image4.set_src(self.resourceManager.load_img("ui/assets/wifi_first_setup.bin",width=200,height=106))
         ui_WiFiScan_Image4.set_width(lv.SIZE.CONTENT)  # 1
         ui_WiFiScan_Image4.set_height(lv.SIZE.CONTENT)  # 1
@@ -45,7 +45,7 @@ class WiFiScanScreen(Screen):
         self.SetFlag(ui_WiFiScan_Image4, lv.obj.FLAG.ADV_HITTEST, True)
         self.SetFlag(ui_WiFiScan_Image4, lv.obj.FLAG.SCROLLABLE, False)
 
-        self.ui_WiFiScan_Container1 = lv.obj(ui_WiFiScanStep1)
+        self.ui_WiFiScan_Container1 = lv.obj(self.ui_WiFiScanStep1)
         self.ui_WiFiScan_Container1.remove_style_all()
         self.ui_WiFiScan_Container1.set_width(240)
         self.ui_WiFiScan_Container1.set_height(240)
@@ -78,16 +78,24 @@ class WiFiScanScreen(Screen):
         ui_WiFiScan_Label3.set_style_text_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
         ui_WiFiScan_Label3.set_style_text_font(self.resourceManager.load_font("Chinese", 12), lv.PART.MAIN | lv.STATE.DEFAULT)
 
-        ui_WiFiScanStep2 = lv.obj(self.screen)
-        ui_WiFiScanStep2.remove_style_all()
-        ui_WiFiScanStep2.set_width(lv.pct(100))
-        ui_WiFiScanStep2.set_height(lv.pct(100))
-        ui_WiFiScanStep2.set_align(lv.ALIGN.CENTER)
-        self.SetFlag(ui_WiFiScanStep2, lv.obj.FLAG.HIDDEN, True)
-        self.SetFlag(ui_WiFiScanStep2, lv.obj.FLAG.CLICKABLE, False)
-        self.SetFlag(ui_WiFiScanStep2, lv.obj.FLAG.SCROLLABLE, False)
-
-        ui_QCodeTitle2 = lv.label(ui_WiFiScanStep2)
+        self.ui_WiFiScanStep2 = lv.obj(self.screen)
+        self.ui_WiFiScanStep2.remove_style_all()
+        self.ui_WiFiScanStep2.set_width(lv.pct(100))
+        self.ui_WiFiScanStep2.set_height(lv.pct(100))
+        self.ui_WiFiScanStep2.set_align(lv.ALIGN.CENTER)
+        self.SetFlag(self.ui_WiFiScanStep2, lv.obj.FLAG.HIDDEN, True)
+        self.SetFlag(self.ui_WiFiScanStep2, lv.obj.FLAG.CLICKABLE, False)
+        self.SetFlag(self.ui_WiFiScanStep2, lv.obj.FLAG.SCROLLABLE, False)
+        self.ui_WiFiScan_Container2 = lv.obj(self.ui_WiFiScanStep2)
+        self.ui_WiFiScan_Container2.remove_style_all()
+        self.ui_WiFiScan_Container2.set_width(240)
+        self.ui_WiFiScan_Container2.set_height(240)
+        self.ui_WiFiScan_Container2.set_x(0)
+        self.ui_WiFiScan_Container2.set_y(0)
+        self.ui_WiFiScan_Container2.set_align(lv.ALIGN.CENTER)
+        self.SetFlag(self.ui_WiFiScan_Container2, lv.obj.FLAG.CLICKABLE, False)
+        self.SetFlag(self.ui_WiFiScan_Container2, lv.obj.FLAG.SCROLLABLE, False)
+        ui_QCodeTitle2 = lv.label(self.ui_WiFiScan_Container2)
         ui_QCodeTitle2.set_text("第二步\n打开手机浏览器")
         ui_QCodeTitle2.set_width(lv.SIZE.CONTENT)  # 1
         ui_QCodeTitle2.set_height(lv.SIZE.CONTENT)  # 1
@@ -99,7 +107,7 @@ class WiFiScanScreen(Screen):
         ui_QCodeTitle2.set_style_text_align(lv.TEXT_ALIGN.CENTER, lv.PART.MAIN | lv.STATE.DEFAULT)
         ui_QCodeTitle2.set_style_text_font(self.resourceManager.load_font("ChineseB", 16), lv.PART.MAIN | lv.STATE.DEFAULT)
 
-        ui_WiFiScan_Label2 = lv.label(ui_WiFiScanStep2)
+        ui_WiFiScan_Label2 = lv.label(self.ui_WiFiScan_Container2)
         ui_WiFiScan_Label2.set_text("在地址栏中输入\"192.168.1.1\"")
         ui_WiFiScan_Label2.set_width(lv.SIZE.CONTENT)  # 1
         ui_WiFiScan_Label2.set_height(lv.SIZE.CONTENT)  # 1
@@ -110,7 +118,7 @@ class WiFiScanScreen(Screen):
         ui_WiFiScan_Label2.set_style_text_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
         ui_WiFiScan_Label2.set_style_text_font(self.resourceManager.load_font("Chinese", 12), lv.PART.MAIN | lv.STATE.DEFAULT)
 
-        ui_WiFiScan_Image2 = lv.img(ui_WiFiScanStep2)
+        ui_WiFiScan_Image2 = lv.img(self.ui_WiFiScanStep2)
         ui_WiFiScan_Image2.set_src(self.resourceManager.load_img("ui/assets/wifi_second_setup.bin",width=200,height=72))
         ui_WiFiScan_Image2.set_width(lv.SIZE.CONTENT)  # 1
         ui_WiFiScan_Image2.set_height(lv.SIZE.CONTENT)  # 1
@@ -120,49 +128,14 @@ class WiFiScanScreen(Screen):
         self.SetFlag(ui_WiFiScan_Image2, lv.obj.FLAG.ADV_HITTEST, True)
         self.SetFlag(ui_WiFiScan_Image2, lv.obj.FLAG.SCROLLABLE, False)
 
-        self.pageComponent=PageComponent(self.screen,[ui_WiFiScanStep1,ui_WiFiScanStep2],0,84)
+        self.pageComponent=PageComponent(self.screen,[self.ui_WiFiScanStep1,self.ui_WiFiScanStep2],0,84)
         self.screen.add_event_cb(self.WiFiScan_eventhandler, lv.EVENT.ALL, None)
-
-    # def ui_Page_Container_create(self,comp_parent,pages):
-    #     cui_Page_Container = lv.obj(comp_parent)
-    #     cui_Page_Container.remove_style_all()
-    #     cui_Page_Container.set_width(14)
-    #     cui_Page_Container.set_height(10)
-    #     cui_Page_Container.set_x(0)
-    #     cui_Page_Container.set_y(84)
-    #     cui_Page_Container.set_align(lv.ALIGN.CENTER)
-    #     cui_Page_Container.set_flex_flow(lv.FLEX_FLOW.ROW)
-    #     cui_Page_Container.set_flex_align(lv.FLEX_ALIGN.SPACE_AROUND, lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.SPACE_AROUND)
-    #     self.SetFlag(cui_Page_Container, lv.obj.FLAG.CLICKABLE, False)
-    #     self.SetFlag(cui_Page_Container, lv.obj.FLAG.SCROLLABLE, False)
-    #     cui_Page1 = lv.btn(cui_Page_Container)
-    #     cui_Page1.set_width(4)
-    #     cui_Page1.set_height(4)
-    #     cui_Page1.set_align(lv.ALIGN.CENTER)
-    #     self.SetFlag(cui_Page1, lv.obj.FLAG.SCROLLABLE, False)
-    #     self.SetFlag(cui_Page1, lv.obj.FLAG.SCROLL_ON_FOCUS, True)
-    #     self.themeManager.ui_object_set_themeable_style_property(cui_Page1, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.BG_COLOR,
-    #                                            Themes.UI_THEME_COLOR_COLORTEAM)
-    #     self.themeManager.ui_object_set_themeable_style_property(cui_Page1, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.BG_OPA,
-    #                                            Themes.UI_THEME_COLOR_COLORTEAM)
-    #     self.themeManager.ui_object_set_themeable_style_property(cui_Page1, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.SHADOW_COLOR,
-    #                                            Themes.UI_THEME_COLOR_COLORTEAM)
-    #     self.themeManager.ui_object_set_themeable_style_property(cui_Page1, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.SHADOW_OPA,
-    #                                            Themes.UI_THEME_COLOR_COLORTEAM)
-    #     cui_Page1.set_style_shadow_width(5, lv.PART.MAIN | lv.STATE.DEFAULT)
-    #     cui_Page1.set_style_shadow_spread(1, lv.PART.MAIN | lv.STATE.DEFAULT)
-    #     cui_Page2 = lv.btn(cui_Page_Container)
-    #     cui_Page2.set_width(4)
-    #     cui_Page2.set_height(4)
-    #     cui_Page2.set_align(lv.ALIGN.CENTER)
-    #     self.SetFlag(cui_Page2, lv.obj.FLAG.SCROLLABLE, False)
-    #     self.SetFlag(cui_Page2, lv.obj.FLAG.SCROLL_ON_FOCUS, True)
-    #     cui_Page2.set_style_bg_color(lv.color_hex(0x9A9A9A), lv.PART.MAIN | lv.STATE.DEFAULT)
-    #     cui_Page2.set_style_bg_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
-    #
-    #     self._ui_comp_table[id(cui_Page_Container)] = {"Page_Container": cui_Page_Container, "Page1": cui_Page1,
-    #                                               "Page2": cui_Page2, "_CompName": "Page Container"}
-    #     return cui_Page_Container
+        self.pageComponent.set_page_change(self.page_change)
+    def page_change(self,target):
+        if target == self.ui_WiFiScanStep1:
+            self.top_Animation(self.ui_WiFiScan_Container1, 0)
+        if target == self.ui_WiFiScanStep2:
+            self.top_Animation(self.ui_WiFiScan_Container2, 0)
 
     def WiFiScan_eventhandler(self, event_struct):
         event = event_struct.code

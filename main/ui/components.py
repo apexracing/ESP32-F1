@@ -7,7 +7,7 @@ class PageComponent:
         for page in self.pages:
             self.SetFlag(page, lv.obj.FLAG.HIDDEN, True)
         self.SetFlag(self.pages[self.page_idx], lv.obj.FLAG.HIDDEN, False)
-
+        self.fn=None
         cui_Page_Container = lv.obj(comp_parent)
         cui_Page_Container.remove_style_all()
         cui_Page_Container.set_width(14)
@@ -30,6 +30,8 @@ class PageComponent:
             self.pages_indactor.append(indactor)
 
         self.updatePageIndactor()
+    def set_page_change(self,fn):
+        self.fn=fn
 
     def updatePageIndactor(self):
         for idx,indactor in enumerate(self.pages_indactor):
@@ -54,6 +56,8 @@ class PageComponent:
         self.page_idx += 1
         self.SetFlag(self.pages[self.page_idx], lv.obj.FLAG.HIDDEN, False)
         self.updatePageIndactor()
+        if self.fn is not None:
+            self.fn(self.pages[self.page_idx])
     def prePage(self):
         if self.page_idx - 1 < 0:
             return
@@ -61,7 +65,8 @@ class PageComponent:
         self.page_idx -= 1
         self.SetFlag(self.pages[self.page_idx], lv.obj.FLAG.HIDDEN, False)
         self.updatePageIndactor()
-
+        if self.fn is not None:
+            self.fn(self.pages[self.page_idx])
     def SetFlag(self, obj, flag, value):
         if (value):
             obj.add_flag(flag)

@@ -1940,6 +1940,7 @@ ui_WiFiScanStep1.remove_style_all()
 ui_WiFiScanStep1.set_width(lv.pct(100))
 ui_WiFiScanStep1.set_height(lv.pct(100))
 ui_WiFiScanStep1.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_WiFiScanStep1, lv.obj.FLAG.HIDDEN, True)
 SetFlag(ui_WiFiScanStep1, lv.obj.FLAG.CLICKABLE, False)
 SetFlag(ui_WiFiScanStep1, lv.obj.FLAG.SCROLLABLE, False)
 
@@ -1989,32 +1990,8 @@ ui_WiFiScanStep2.remove_style_all()
 ui_WiFiScanStep2.set_width(lv.pct(100))
 ui_WiFiScanStep2.set_height(lv.pct(100))
 ui_WiFiScanStep2.set_align( lv.ALIGN.CENTER)
-SetFlag(ui_WiFiScanStep2, lv.obj.FLAG.HIDDEN, True)
 SetFlag(ui_WiFiScanStep2, lv.obj.FLAG.CLICKABLE, False)
 SetFlag(ui_WiFiScanStep2, lv.obj.FLAG.SCROLLABLE, False)
-
-ui_QCodeTitle2 = lv.label(ui_WiFiScanStep2)
-ui_QCodeTitle2.set_text("第二步\n打开手机浏览器")
-ui_QCodeTitle2.set_width(lv.SIZE.CONTENT)	# 1
-ui_QCodeTitle2.set_height(lv.SIZE.CONTENT)   # 1
-ui_QCodeTitle2.set_x(-2)
-ui_QCodeTitle2.set_y(-86)
-ui_QCodeTitle2.set_align( lv.ALIGN.CENTER)
-ui_QCodeTitle2.set_style_text_color(lv.color_hex(0x393939), lv.PART.MAIN | lv.STATE.DEFAULT )
-ui_QCodeTitle2.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
-ui_QCodeTitle2.set_style_text_align( lv.TEXT_ALIGN.CENTER, lv.PART.MAIN | lv.STATE.DEFAULT )
-ui_QCodeTitle2.set_style_text_font( font_ChineseB16, lv.PART.MAIN | lv.STATE.DEFAULT )
-
-ui_WiFiScan_Label2 = lv.label(ui_WiFiScanStep2)
-ui_WiFiScan_Label2.set_text("在地址栏中输入\"192.168.1.1\"")
-ui_WiFiScan_Label2.set_width(lv.SIZE.CONTENT)	# 1
-ui_WiFiScan_Label2.set_height(lv.SIZE.CONTENT)   # 1
-ui_WiFiScan_Label2.set_x(-1)
-ui_WiFiScan_Label2.set_y(-48)
-ui_WiFiScan_Label2.set_align( lv.ALIGN.CENTER)
-ui_WiFiScan_Label2.set_style_text_color(lv.color_hex(0x5A595A), lv.PART.MAIN | lv.STATE.DEFAULT )
-ui_WiFiScan_Label2.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
-ui_WiFiScan_Label2.set_style_text_font( font_Chinese12, lv.PART.MAIN | lv.STATE.DEFAULT )
 
 ui_WiFiScan_Image2 = lv.img(ui_WiFiScanStep2)
 ui_WiFiScan_Image2.set_src(ui_images.ui_img_wifi_second_setup_png)
@@ -2025,6 +2002,37 @@ ui_WiFiScan_Image2.set_y(14)
 ui_WiFiScan_Image2.set_align( lv.ALIGN.CENTER)
 SetFlag(ui_WiFiScan_Image2, lv.obj.FLAG.ADV_HITTEST, True)
 SetFlag(ui_WiFiScan_Image2, lv.obj.FLAG.SCROLLABLE, False)
+
+ui_WiFiScan_Container2 = lv.obj(ui_WiFiScanStep2)
+ui_WiFiScan_Container2.remove_style_all()
+ui_WiFiScan_Container2.set_width(240)
+ui_WiFiScan_Container2.set_height(240)
+ui_WiFiScan_Container2.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_WiFiScan_Container2, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_WiFiScan_Container2, lv.obj.FLAG.SCROLLABLE, False)
+
+ui_WiFiScan_Label2 = lv.label(ui_WiFiScan_Container2)
+ui_WiFiScan_Label2.set_text("在地址栏中输入\"192.168.1.1\"")
+ui_WiFiScan_Label2.set_width(lv.SIZE.CONTENT)	# 1
+ui_WiFiScan_Label2.set_height(lv.SIZE.CONTENT)   # 1
+ui_WiFiScan_Label2.set_x(-1)
+ui_WiFiScan_Label2.set_y(-48)
+ui_WiFiScan_Label2.set_align( lv.ALIGN.CENTER)
+ui_WiFiScan_Label2.set_style_text_color(lv.color_hex(0x5A595A), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_WiFiScan_Label2.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_WiFiScan_Label2.set_style_text_font( font_Chinese12, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_QCodeTitle2 = lv.label(ui_WiFiScan_Container2)
+ui_QCodeTitle2.set_text("第二步\n打开手机浏览器")
+ui_QCodeTitle2.set_width(lv.SIZE.CONTENT)	# 1
+ui_QCodeTitle2.set_height(lv.SIZE.CONTENT)   # 1
+ui_QCodeTitle2.set_x(-2)
+ui_QCodeTitle2.set_y(-86)
+ui_QCodeTitle2.set_align( lv.ALIGN.CENTER)
+ui_QCodeTitle2.set_style_text_color(lv.color_hex(0x393939), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_QCodeTitle2.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_QCodeTitle2.set_style_text_align( lv.TEXT_ALIGN.CENTER, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_QCodeTitle2.set_style_text_font( font_ChineseB16, lv.PART.MAIN | lv.STATE.DEFAULT )
 
 ui_Page_Container = ui_Page_Container_create(ui_WiFiScan)
 ui_Page_Container.set_x(0)
