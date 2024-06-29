@@ -5,7 +5,7 @@ from common.wifi import *
 import uasyncio as asyncio
 import machine
 from ui.theme_manager import Themes
-
+from ui.components import PageComponent
 
 class WiFiScanScreen(Screen):
     def __init__(self):
@@ -120,51 +120,49 @@ class WiFiScanScreen(Screen):
         self.SetFlag(ui_WiFiScan_Image2, lv.obj.FLAG.ADV_HITTEST, True)
         self.SetFlag(ui_WiFiScan_Image2, lv.obj.FLAG.SCROLLABLE, False)
 
-        ui_Page_Container = self.ui_Page_Container_create(self.screen)
-        ui_Page_Container.set_x(0)
-        ui_Page_Container.set_y(84)
-
+        self.pageComponent=PageComponent(self.screen,[ui_WiFiScanStep1,ui_WiFiScanStep2],0,84)
         self.screen.add_event_cb(self.WiFiScan_eventhandler, lv.EVENT.ALL, None)
 
-    def ui_Page_Container_create(self,comp_parent):
-        cui_Page_Container = lv.obj(comp_parent)
-        cui_Page_Container.remove_style_all()
-        cui_Page_Container.set_width(14)
-        cui_Page_Container.set_height(10)
-        cui_Page_Container.set_x(0)
-        cui_Page_Container.set_y(84)
-        cui_Page_Container.set_align(lv.ALIGN.CENTER)
-        cui_Page_Container.set_flex_flow(lv.FLEX_FLOW.ROW)
-        cui_Page_Container.set_flex_align(lv.FLEX_ALIGN.SPACE_AROUND, lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.SPACE_AROUND)
-        self.SetFlag(cui_Page_Container, lv.obj.FLAG.CLICKABLE, False)
-        self.SetFlag(cui_Page_Container, lv.obj.FLAG.SCROLLABLE, False)
-        cui_Page1 = lv.btn(cui_Page_Container)
-        cui_Page1.set_width(4)
-        cui_Page1.set_height(4)
-        cui_Page1.set_align(lv.ALIGN.CENTER)
-        self.SetFlag(cui_Page1, lv.obj.FLAG.SCROLLABLE, False)
-        self.SetFlag(cui_Page1, lv.obj.FLAG.SCROLL_ON_FOCUS, True)
-        self.themeManager.ui_object_set_themeable_style_property(cui_Page1, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.BG_COLOR,
-                                               Themes.UI_THEME_COLOR_COLORTEAM)
-        self.themeManager.ui_object_set_themeable_style_property(cui_Page1, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.BG_OPA,
-                                               Themes.UI_THEME_COLOR_COLORTEAM)
-        self.themeManager.ui_object_set_themeable_style_property(cui_Page1, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.SHADOW_COLOR,
-                                               Themes.UI_THEME_COLOR_COLORTEAM)
-        self.themeManager.ui_object_set_themeable_style_property(cui_Page1, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.SHADOW_OPA,
-                                               Themes.UI_THEME_COLOR_COLORTEAM)
-        cui_Page1.set_style_shadow_width(5, lv.PART.MAIN | lv.STATE.DEFAULT)
-        cui_Page1.set_style_shadow_spread(1, lv.PART.MAIN | lv.STATE.DEFAULT)
-        cui_Page2 = lv.btn(cui_Page_Container)
-        cui_Page2.set_width(4)
-        cui_Page2.set_height(4)
-        cui_Page2.set_align(lv.ALIGN.CENTER)
-        self.SetFlag(cui_Page2, lv.obj.FLAG.SCROLLABLE, False)
-        self.SetFlag(cui_Page2, lv.obj.FLAG.SCROLL_ON_FOCUS, True)
-        cui_Page2.set_style_bg_color(lv.color_hex(0x9A9A9A), lv.PART.MAIN | lv.STATE.DEFAULT)
-        cui_Page2.set_style_bg_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
-        self._ui_comp_table[id(cui_Page_Container)] = {"Page_Container": cui_Page_Container, "Page1": cui_Page1,
-                                                  "Page2": cui_Page2, "_CompName": "Page Container"}
-        return cui_Page_Container
+    # def ui_Page_Container_create(self,comp_parent,pages):
+    #     cui_Page_Container = lv.obj(comp_parent)
+    #     cui_Page_Container.remove_style_all()
+    #     cui_Page_Container.set_width(14)
+    #     cui_Page_Container.set_height(10)
+    #     cui_Page_Container.set_x(0)
+    #     cui_Page_Container.set_y(84)
+    #     cui_Page_Container.set_align(lv.ALIGN.CENTER)
+    #     cui_Page_Container.set_flex_flow(lv.FLEX_FLOW.ROW)
+    #     cui_Page_Container.set_flex_align(lv.FLEX_ALIGN.SPACE_AROUND, lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.SPACE_AROUND)
+    #     self.SetFlag(cui_Page_Container, lv.obj.FLAG.CLICKABLE, False)
+    #     self.SetFlag(cui_Page_Container, lv.obj.FLAG.SCROLLABLE, False)
+    #     cui_Page1 = lv.btn(cui_Page_Container)
+    #     cui_Page1.set_width(4)
+    #     cui_Page1.set_height(4)
+    #     cui_Page1.set_align(lv.ALIGN.CENTER)
+    #     self.SetFlag(cui_Page1, lv.obj.FLAG.SCROLLABLE, False)
+    #     self.SetFlag(cui_Page1, lv.obj.FLAG.SCROLL_ON_FOCUS, True)
+    #     self.themeManager.ui_object_set_themeable_style_property(cui_Page1, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.BG_COLOR,
+    #                                            Themes.UI_THEME_COLOR_COLORTEAM)
+    #     self.themeManager.ui_object_set_themeable_style_property(cui_Page1, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.BG_OPA,
+    #                                            Themes.UI_THEME_COLOR_COLORTEAM)
+    #     self.themeManager.ui_object_set_themeable_style_property(cui_Page1, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.SHADOW_COLOR,
+    #                                            Themes.UI_THEME_COLOR_COLORTEAM)
+    #     self.themeManager.ui_object_set_themeable_style_property(cui_Page1, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.SHADOW_OPA,
+    #                                            Themes.UI_THEME_COLOR_COLORTEAM)
+    #     cui_Page1.set_style_shadow_width(5, lv.PART.MAIN | lv.STATE.DEFAULT)
+    #     cui_Page1.set_style_shadow_spread(1, lv.PART.MAIN | lv.STATE.DEFAULT)
+    #     cui_Page2 = lv.btn(cui_Page_Container)
+    #     cui_Page2.set_width(4)
+    #     cui_Page2.set_height(4)
+    #     cui_Page2.set_align(lv.ALIGN.CENTER)
+    #     self.SetFlag(cui_Page2, lv.obj.FLAG.SCROLLABLE, False)
+    #     self.SetFlag(cui_Page2, lv.obj.FLAG.SCROLL_ON_FOCUS, True)
+    #     cui_Page2.set_style_bg_color(lv.color_hex(0x9A9A9A), lv.PART.MAIN | lv.STATE.DEFAULT)
+    #     cui_Page2.set_style_bg_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
+    #
+    #     self._ui_comp_table[id(cui_Page_Container)] = {"Page_Container": cui_Page_Container, "Page1": cui_Page1,
+    #                                               "Page2": cui_Page2, "_CompName": "Page Container"}
+    #     return cui_Page_Container
 
     def WiFiScan_eventhandler(self, event_struct):
         event = event_struct.code
@@ -172,8 +170,12 @@ class WiFiScanScreen(Screen):
             self.top_Animation(self.ui_WiFiScan_Container1, 0)
         if event == lv.EVENT.SCREEN_LOADED:
             asyncio.create_task(self.run())
-        return
-
+        if event == lv.EVENT.GESTURE:
+            direction = lv.indev_t.get_gesture_dir(lv.indev_get_act())
+            if direction & lv.DIR.LEFT == lv.DIR.LEFT:
+                self.pageComponent.nextPage()
+            if direction & lv.DIR.RIGHT == lv.DIR.RIGHT:
+                self.pageComponent.prePage()
     async def run(self):
         # 开启配网模式
         start_ap(essid='F1-LiveTime', hostname="speedim.cn")
