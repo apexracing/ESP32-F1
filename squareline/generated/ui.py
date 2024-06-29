@@ -31,6 +31,7 @@ font_IconE60330 = lv.font_load("A:ui_font_IconE60330.bin")
 font_IconE60230 = lv.font_load("A:ui_font_IconE60230.bin")
 font_IconE60618 = lv.font_load("A:ui_font_IconE60618.bin")
 font_SetupIcons = lv.font_load("A:ui_font_SetupIcons.bin")
+font_ChineseB16 = lv.font_load("A:ui_font_ChineseB16.bin")
 font_Chinese12 = lv.font_load("A:ui_font_Chinese12.bin")
 font_Tyre1 = lv.font_load("A:ui_font_Tyre1.bin")
 
@@ -502,6 +503,280 @@ def ui_DriverContainer_create(comp_parent):
     cui_RaceScreen_Label4.set_style_text_font( font_DISPLAYM14, lv.PART.MAIN | lv.STATE.DEFAULT )
     _ui_comp_table[id(cui_DriverContainer)]= {"DriverContainer" : cui_DriverContainer,"RaceScreen_Label1" : cui_RaceScreen_Label1,"RaceScreen_Container3" : cui_RaceScreen_Container3,"RaceScreen_Label3" : cui_RaceScreen_Label3,"RaceScreen_Label4" : cui_RaceScreen_Label4, "_CompName" : "DriverContainer"}
     return cui_DriverContainer
+
+ # COMPONENT Page Container
+def ui_Page_Container_create(comp_parent):
+    cui_Page_Container = lv.obj(comp_parent)
+    cui_Page_Container.remove_style_all()
+    cui_Page_Container.set_width(14)
+    cui_Page_Container.set_height(10)
+    cui_Page_Container.set_x(0)
+    cui_Page_Container.set_y(84)
+    cui_Page_Container.set_align( lv.ALIGN.CENTER)
+    cui_Page_Container.set_flex_flow(lv.FLEX_FLOW.ROW)
+    cui_Page_Container.set_flex_align(lv.FLEX_ALIGN.SPACE_AROUND, lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.SPACE_AROUND)
+    SetFlag(cui_Page_Container, lv.obj.FLAG.CLICKABLE, False)
+    SetFlag(cui_Page_Container, lv.obj.FLAG.SCROLLABLE, False)
+    cui_Page1 = lv.btn(cui_Page_Container)
+    cui_Page1.set_width(4)
+    cui_Page1.set_height(4)
+    cui_Page1.set_align( lv.ALIGN.CENTER)
+    SetFlag(cui_Page1, lv.obj.FLAG.SCROLLABLE, False)
+    SetFlag(cui_Page1, lv.obj.FLAG.SCROLL_ON_FOCUS, True)
+    ui_object_set_themeable_style_property( cui_Page1, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.BG_COLOR, UI_THEME_COLOR_COLORTEAM)
+    ui_object_set_themeable_style_property( cui_Page1, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.BG_OPA, UI_THEME_COLOR_COLORTEAM)
+    ui_object_set_themeable_style_property( cui_Page1, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.SHADOW_COLOR, UI_THEME_COLOR_COLORTEAM)
+    ui_object_set_themeable_style_property( cui_Page1, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.SHADOW_OPA, UI_THEME_COLOR_COLORTEAM)
+    cui_Page1.set_style_shadow_width( 5, lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_Page1.set_style_shadow_spread( 1, lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_Page2 = lv.btn(cui_Page_Container)
+    cui_Page2.set_width(4)
+    cui_Page2.set_height(4)
+    cui_Page2.set_align( lv.ALIGN.CENTER)
+    SetFlag(cui_Page2, lv.obj.FLAG.SCROLLABLE, False)
+    SetFlag(cui_Page2, lv.obj.FLAG.SCROLL_ON_FOCUS, True)
+    cui_Page2.set_style_bg_color(lv.color_hex(0x9A9A9A), lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_Page2.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+    _ui_comp_table[id(cui_Page_Container)]= {"Page_Container" : cui_Page_Container,"Page1" : cui_Page1,"Page2" : cui_Page2, "_CompName" : "Page Container"}
+    return cui_Page_Container
+
+ # COMPONENT WiFiItem
+def ui_WiFiItem_create(comp_parent):
+    cui_WiFiItem = lv.obj(comp_parent)
+    cui_WiFiItem.remove_style_all()
+    cui_WiFiItem.set_width(170)
+    cui_WiFiItem.set_height(25)
+    cui_WiFiItem.set_align( lv.ALIGN.CENTER)
+    SetFlag(cui_WiFiItem, lv.obj.FLAG.CLICKABLE, False)
+    SetFlag(cui_WiFiItem, lv.obj.FLAG.SCROLLABLE, False)
+    cui_WifiName = lv.label(cui_WiFiItem)
+    cui_WifiName.set_text("XiaoMiao")
+    cui_WifiName.set_width(lv.SIZE.CONTENT)	# 1
+    cui_WifiName.set_height(lv.SIZE.CONTENT)   # 1
+    cui_WifiName.set_align( lv.ALIGN.LEFT_MID)
+    cui_WifiName.set_style_text_color(lv.color_hex(0x01A3D8), lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_WifiName.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+    cui_WifiName.set_style_text_font( font_DISPLAYM18, lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_WiFiImg = lv.img(cui_WiFiItem)
+    cui_WiFiImg.set_src(ui_images.ui_img_wifi_strong_png)
+    cui_WiFiImg.set_width(lv.SIZE.CONTENT)	# 1
+    cui_WiFiImg.set_height(lv.SIZE.CONTENT)   # 1
+    cui_WiFiImg.set_align( lv.ALIGN.RIGHT_MID)
+    SetFlag(cui_WiFiImg, lv.obj.FLAG.ADV_HITTEST, True)
+    SetFlag(cui_WiFiImg, lv.obj.FLAG.SCROLLABLE, False)
+    cui_WiFiImg.set_style_blend_mode( lv.BLEND_MODE.NORMAL, lv.PART.MAIN | lv.STATE.DEFAULT )
+    _ui_comp_table[id(cui_WiFiItem)]= {"WiFiItem" : cui_WiFiItem,"WifiName" : cui_WifiName,"WiFiImg" : cui_WiFiImg, "_CompName" : "WiFiItem"}
+    return cui_WiFiItem
+
+# COMPONENTS
+
+ # COMPONENT DriverContainer
+def ui_DriverContainer_create(comp_parent):
+    cui_DriverContainer = lv.obj(comp_parent)
+    cui_DriverContainer.remove_style_all()
+    cui_DriverContainer.set_width(131)
+    cui_DriverContainer.set_height(16)
+    cui_DriverContainer.set_x(0)
+    cui_DriverContainer.set_y(-39)
+    cui_DriverContainer.set_align( lv.ALIGN.CENTER)
+    SetFlag(cui_DriverContainer, lv.obj.FLAG.CLICKABLE, False)
+    SetFlag(cui_DriverContainer, lv.obj.FLAG.SCROLLABLE, False)
+    cui_RaceScreen_Label1 = lv.label(cui_DriverContainer)
+    cui_RaceScreen_Label1.set_text("22")
+    cui_RaceScreen_Label1.set_width(16)
+    cui_RaceScreen_Label1.set_height(16)
+    cui_RaceScreen_Label1.set_x(5)
+    cui_RaceScreen_Label1.set_y(0)
+    cui_RaceScreen_Label1.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_RaceScreen_Label1.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+    cui_RaceScreen_Label1.set_style_text_align( lv.TEXT_ALIGN.RIGHT, lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_RaceScreen_Label1.set_style_text_font( font_DISPLAYM14, lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_RaceScreen_Container3 = lv.obj(cui_DriverContainer)
+    cui_RaceScreen_Container3.remove_style_all()
+    cui_RaceScreen_Container3.set_width(3)
+    cui_RaceScreen_Container3.set_height(14)
+    cui_RaceScreen_Container3.set_x(25)
+    cui_RaceScreen_Container3.set_y(0)
+    SetFlag(cui_RaceScreen_Container3, lv.obj.FLAG.CLICKABLE, False)
+    SetFlag(cui_RaceScreen_Container3, lv.obj.FLAG.SCROLLABLE, False)
+    cui_RaceScreen_Container3.set_style_bg_color(lv.color_hex(0x3671C6), lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_RaceScreen_Container3.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+    cui_RaceScreen_Label3 = lv.label(cui_DriverContainer)
+    cui_RaceScreen_Label3.set_text("VER")
+    cui_RaceScreen_Label3.set_width(lv.SIZE.CONTENT)	# 1
+    cui_RaceScreen_Label3.set_height(lv.SIZE.CONTENT)   # 1
+    cui_RaceScreen_Label3.set_x(33)
+    cui_RaceScreen_Label3.set_y(0)
+    cui_RaceScreen_Label3.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_RaceScreen_Label3.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+    cui_RaceScreen_Label3.set_style_text_font( font_DISPLAYM14, lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_RaceScreen_Label4 = lv.label(cui_DriverContainer)
+    cui_RaceScreen_Label4.set_text("Interval")
+    cui_RaceScreen_Label4.set_width(60)
+    cui_RaceScreen_Label4.set_height(16)
+    cui_RaceScreen_Label4.set_x(70)
+    cui_RaceScreen_Label4.set_y(0)
+    cui_RaceScreen_Label4.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_RaceScreen_Label4.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+    cui_RaceScreen_Label4.set_style_text_align( lv.TEXT_ALIGN.RIGHT, lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_RaceScreen_Label4.set_style_text_font( font_DISPLAYM14, lv.PART.MAIN | lv.STATE.DEFAULT )
+    _ui_comp_table[id(cui_DriverContainer)]= {"DriverContainer" : cui_DriverContainer,"RaceScreen_Label1" : cui_RaceScreen_Label1,"RaceScreen_Container3" : cui_RaceScreen_Container3,"RaceScreen_Label3" : cui_RaceScreen_Label3,"RaceScreen_Label4" : cui_RaceScreen_Label4, "_CompName" : "DriverContainer"}
+    return cui_DriverContainer
+
+ # COMPONENT Page Container
+def ui_Page_Container_create(comp_parent):
+    cui_Page_Container = lv.obj(comp_parent)
+    cui_Page_Container.remove_style_all()
+    cui_Page_Container.set_width(14)
+    cui_Page_Container.set_height(10)
+    cui_Page_Container.set_x(0)
+    cui_Page_Container.set_y(84)
+    cui_Page_Container.set_align( lv.ALIGN.CENTER)
+    cui_Page_Container.set_flex_flow(lv.FLEX_FLOW.ROW)
+    cui_Page_Container.set_flex_align(lv.FLEX_ALIGN.SPACE_AROUND, lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.SPACE_AROUND)
+    SetFlag(cui_Page_Container, lv.obj.FLAG.CLICKABLE, False)
+    SetFlag(cui_Page_Container, lv.obj.FLAG.SCROLLABLE, False)
+    cui_Page1 = lv.btn(cui_Page_Container)
+    cui_Page1.set_width(4)
+    cui_Page1.set_height(4)
+    cui_Page1.set_align( lv.ALIGN.CENTER)
+    SetFlag(cui_Page1, lv.obj.FLAG.SCROLLABLE, False)
+    SetFlag(cui_Page1, lv.obj.FLAG.SCROLL_ON_FOCUS, True)
+    ui_object_set_themeable_style_property( cui_Page1, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.BG_COLOR, UI_THEME_COLOR_COLORTEAM)
+    ui_object_set_themeable_style_property( cui_Page1, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.BG_OPA, UI_THEME_COLOR_COLORTEAM)
+    ui_object_set_themeable_style_property( cui_Page1, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.SHADOW_COLOR, UI_THEME_COLOR_COLORTEAM)
+    ui_object_set_themeable_style_property( cui_Page1, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.SHADOW_OPA, UI_THEME_COLOR_COLORTEAM)
+    cui_Page1.set_style_shadow_width( 5, lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_Page1.set_style_shadow_spread( 1, lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_Page2 = lv.btn(cui_Page_Container)
+    cui_Page2.set_width(4)
+    cui_Page2.set_height(4)
+    cui_Page2.set_align( lv.ALIGN.CENTER)
+    SetFlag(cui_Page2, lv.obj.FLAG.SCROLLABLE, False)
+    SetFlag(cui_Page2, lv.obj.FLAG.SCROLL_ON_FOCUS, True)
+    cui_Page2.set_style_bg_color(lv.color_hex(0x9A9A9A), lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_Page2.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+    _ui_comp_table[id(cui_Page_Container)]= {"Page_Container" : cui_Page_Container,"Page1" : cui_Page1,"Page2" : cui_Page2, "_CompName" : "Page Container"}
+    return cui_Page_Container
+
+ # COMPONENT WiFiItem
+def ui_WiFiItem_create(comp_parent):
+    cui_WiFiItem = lv.obj(comp_parent)
+    cui_WiFiItem.remove_style_all()
+    cui_WiFiItem.set_width(170)
+    cui_WiFiItem.set_height(25)
+    cui_WiFiItem.set_align( lv.ALIGN.CENTER)
+    SetFlag(cui_WiFiItem, lv.obj.FLAG.CLICKABLE, False)
+    SetFlag(cui_WiFiItem, lv.obj.FLAG.SCROLLABLE, False)
+    cui_WifiName = lv.label(cui_WiFiItem)
+    cui_WifiName.set_text("XiaoMiao")
+    cui_WifiName.set_width(lv.SIZE.CONTENT)	# 1
+    cui_WifiName.set_height(lv.SIZE.CONTENT)   # 1
+    cui_WifiName.set_align( lv.ALIGN.LEFT_MID)
+    cui_WifiName.set_style_text_color(lv.color_hex(0x01A3D8), lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_WifiName.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+    cui_WifiName.set_style_text_font( font_DISPLAYM18, lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_WiFiImg = lv.img(cui_WiFiItem)
+    cui_WiFiImg.set_src(ui_images.ui_img_wifi_strong_png)
+    cui_WiFiImg.set_width(lv.SIZE.CONTENT)	# 1
+    cui_WiFiImg.set_height(lv.SIZE.CONTENT)   # 1
+    cui_WiFiImg.set_align( lv.ALIGN.RIGHT_MID)
+    SetFlag(cui_WiFiImg, lv.obj.FLAG.ADV_HITTEST, True)
+    SetFlag(cui_WiFiImg, lv.obj.FLAG.SCROLLABLE, False)
+    cui_WiFiImg.set_style_blend_mode( lv.BLEND_MODE.NORMAL, lv.PART.MAIN | lv.STATE.DEFAULT )
+    _ui_comp_table[id(cui_WiFiItem)]= {"WiFiItem" : cui_WiFiItem,"WifiName" : cui_WifiName,"WiFiImg" : cui_WiFiImg, "_CompName" : "WiFiItem"}
+    return cui_WiFiItem
+
+# COMPONENTS
+
+ # COMPONENT DriverContainer
+def ui_DriverContainer_create(comp_parent):
+    cui_DriverContainer = lv.obj(comp_parent)
+    cui_DriverContainer.remove_style_all()
+    cui_DriverContainer.set_width(131)
+    cui_DriverContainer.set_height(16)
+    cui_DriverContainer.set_x(0)
+    cui_DriverContainer.set_y(-39)
+    cui_DriverContainer.set_align( lv.ALIGN.CENTER)
+    SetFlag(cui_DriverContainer, lv.obj.FLAG.CLICKABLE, False)
+    SetFlag(cui_DriverContainer, lv.obj.FLAG.SCROLLABLE, False)
+    cui_RaceScreen_Label1 = lv.label(cui_DriverContainer)
+    cui_RaceScreen_Label1.set_text("22")
+    cui_RaceScreen_Label1.set_width(16)
+    cui_RaceScreen_Label1.set_height(16)
+    cui_RaceScreen_Label1.set_x(5)
+    cui_RaceScreen_Label1.set_y(0)
+    cui_RaceScreen_Label1.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_RaceScreen_Label1.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+    cui_RaceScreen_Label1.set_style_text_align( lv.TEXT_ALIGN.RIGHT, lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_RaceScreen_Label1.set_style_text_font( font_DISPLAYM14, lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_RaceScreen_Container3 = lv.obj(cui_DriverContainer)
+    cui_RaceScreen_Container3.remove_style_all()
+    cui_RaceScreen_Container3.set_width(3)
+    cui_RaceScreen_Container3.set_height(14)
+    cui_RaceScreen_Container3.set_x(25)
+    cui_RaceScreen_Container3.set_y(0)
+    SetFlag(cui_RaceScreen_Container3, lv.obj.FLAG.CLICKABLE, False)
+    SetFlag(cui_RaceScreen_Container3, lv.obj.FLAG.SCROLLABLE, False)
+    cui_RaceScreen_Container3.set_style_bg_color(lv.color_hex(0x3671C6), lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_RaceScreen_Container3.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+    cui_RaceScreen_Label3 = lv.label(cui_DriverContainer)
+    cui_RaceScreen_Label3.set_text("VER")
+    cui_RaceScreen_Label3.set_width(lv.SIZE.CONTENT)	# 1
+    cui_RaceScreen_Label3.set_height(lv.SIZE.CONTENT)   # 1
+    cui_RaceScreen_Label3.set_x(33)
+    cui_RaceScreen_Label3.set_y(0)
+    cui_RaceScreen_Label3.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_RaceScreen_Label3.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+    cui_RaceScreen_Label3.set_style_text_font( font_DISPLAYM14, lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_RaceScreen_Label4 = lv.label(cui_DriverContainer)
+    cui_RaceScreen_Label4.set_text("Interval")
+    cui_RaceScreen_Label4.set_width(60)
+    cui_RaceScreen_Label4.set_height(16)
+    cui_RaceScreen_Label4.set_x(70)
+    cui_RaceScreen_Label4.set_y(0)
+    cui_RaceScreen_Label4.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_RaceScreen_Label4.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+    cui_RaceScreen_Label4.set_style_text_align( lv.TEXT_ALIGN.RIGHT, lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_RaceScreen_Label4.set_style_text_font( font_DISPLAYM14, lv.PART.MAIN | lv.STATE.DEFAULT )
+    _ui_comp_table[id(cui_DriverContainer)]= {"DriverContainer" : cui_DriverContainer,"RaceScreen_Label1" : cui_RaceScreen_Label1,"RaceScreen_Container3" : cui_RaceScreen_Container3,"RaceScreen_Label3" : cui_RaceScreen_Label3,"RaceScreen_Label4" : cui_RaceScreen_Label4, "_CompName" : "DriverContainer"}
+    return cui_DriverContainer
+
+ # COMPONENT Page Container
+def ui_Page_Container_create(comp_parent):
+    cui_Page_Container = lv.obj(comp_parent)
+    cui_Page_Container.remove_style_all()
+    cui_Page_Container.set_width(14)
+    cui_Page_Container.set_height(10)
+    cui_Page_Container.set_x(0)
+    cui_Page_Container.set_y(84)
+    cui_Page_Container.set_align( lv.ALIGN.CENTER)
+    cui_Page_Container.set_flex_flow(lv.FLEX_FLOW.ROW)
+    cui_Page_Container.set_flex_align(lv.FLEX_ALIGN.SPACE_AROUND, lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.SPACE_AROUND)
+    SetFlag(cui_Page_Container, lv.obj.FLAG.CLICKABLE, False)
+    SetFlag(cui_Page_Container, lv.obj.FLAG.SCROLLABLE, False)
+    cui_Page1 = lv.btn(cui_Page_Container)
+    cui_Page1.set_width(4)
+    cui_Page1.set_height(4)
+    cui_Page1.set_align( lv.ALIGN.CENTER)
+    SetFlag(cui_Page1, lv.obj.FLAG.SCROLLABLE, False)
+    SetFlag(cui_Page1, lv.obj.FLAG.SCROLL_ON_FOCUS, True)
+    ui_object_set_themeable_style_property( cui_Page1, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.BG_COLOR, UI_THEME_COLOR_COLORTEAM)
+    ui_object_set_themeable_style_property( cui_Page1, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.BG_OPA, UI_THEME_COLOR_COLORTEAM)
+    ui_object_set_themeable_style_property( cui_Page1, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.SHADOW_COLOR, UI_THEME_COLOR_COLORTEAM)
+    ui_object_set_themeable_style_property( cui_Page1, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.SHADOW_OPA, UI_THEME_COLOR_COLORTEAM)
+    cui_Page1.set_style_shadow_width( 5, lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_Page1.set_style_shadow_spread( 1, lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_Page2 = lv.btn(cui_Page_Container)
+    cui_Page2.set_width(4)
+    cui_Page2.set_height(4)
+    cui_Page2.set_align( lv.ALIGN.CENTER)
+    SetFlag(cui_Page2, lv.obj.FLAG.SCROLLABLE, False)
+    SetFlag(cui_Page2, lv.obj.FLAG.SCROLL_ON_FOCUS, True)
+    cui_Page2.set_style_bg_color(lv.color_hex(0x9A9A9A), lv.PART.MAIN | lv.STATE.DEFAULT )
+    cui_Page2.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+    _ui_comp_table[id(cui_Page_Container)]= {"Page_Container" : cui_Page_Container,"Page1" : cui_Page1,"Page2" : cui_Page2, "_CompName" : "Page Container"}
+    return cui_Page_Container
 
  # COMPONENT WiFiItem
 def ui_WiFiItem_create(comp_parent):
@@ -1499,7 +1774,7 @@ ui_Page2.set_height(4)
 ui_Page2.set_align( lv.ALIGN.CENTER)
 SetFlag(ui_Page2, lv.obj.FLAG.SCROLLABLE, False)
 SetFlag(ui_Page2, lv.obj.FLAG.SCROLL_ON_FOCUS, True)
-ui_Page2.set_style_bg_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Page2.set_style_bg_color(lv.color_hex(0x9A9A9A), lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_Page2.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
 
 ui_Page3 = lv.btn(ui_Page_Container)
@@ -1508,7 +1783,7 @@ ui_Page3.set_height(4)
 ui_Page3.set_align( lv.ALIGN.CENTER)
 SetFlag(ui_Page3, lv.obj.FLAG.SCROLLABLE, False)
 SetFlag(ui_Page3, lv.obj.FLAG.SCROLL_ON_FOCUS, True)
-ui_Page3.set_style_bg_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Page3.set_style_bg_color(lv.color_hex(0x9A9A9A), lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_Page3.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
 
 ui_Page4 = lv.btn(ui_Page_Container)
@@ -1517,7 +1792,7 @@ ui_Page4.set_height(4)
 ui_Page4.set_align( lv.ALIGN.CENTER)
 SetFlag(ui_Page4, lv.obj.FLAG.SCROLLABLE, False)
 SetFlag(ui_Page4, lv.obj.FLAG.SCROLL_ON_FOCUS, True)
-ui_Page4.set_style_bg_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Page4.set_style_bg_color(lv.color_hex(0x9A9A9A), lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_Page4.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
 
 ui_Driver_Container = lv.obj(ui_RaceScreen)
@@ -1889,8 +2164,8 @@ ui_ThemeScreen_Roller.set_style_bg_opa(255, lv.PART.SELECTED| lv.STATE.DEFAULT )
 
 def WiFiScan_eventhandler(event_struct):
    event = event_struct.code
-   if event == lv.EVENT.SCREEN_LOADED and True:
-      top_Animation(ui_QCodeTitle, 0)
+   if event == lv.EVENT.SCREEN_LOAD_START and True:
+      top_Animation(ui_WiFiScan_Container1, 0)
    return
 
 ui_WiFiScan = lv.obj()
@@ -1898,27 +2173,100 @@ SetFlag(ui_WiFiScan, lv.obj.FLAG.SCROLLABLE, False)
 ui_WiFiScan.set_style_bg_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_WiFiScan.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
 
-ui_QcodeImg = lv.img(ui_WiFiScan)
-ui_QcodeImg.set_src(ui_images.ui_img_qcode_png)
-ui_QcodeImg.set_width(lv.SIZE.CONTENT)	# 1
-ui_QcodeImg.set_height(lv.SIZE.CONTENT)   # 1
-ui_QcodeImg.set_x(0)
-ui_QcodeImg.set_y(27)
-ui_QcodeImg.set_align( lv.ALIGN.CENTER)
-SetFlag(ui_QcodeImg, lv.obj.FLAG.ADV_HITTEST, True)
-SetFlag(ui_QcodeImg, lv.obj.FLAG.SCROLLABLE, False)
+ui_WiFiScanStep1 = lv.obj(ui_WiFiScan)
+ui_WiFiScanStep1.remove_style_all()
+ui_WiFiScanStep1.set_width(lv.pct(100))
+ui_WiFiScanStep1.set_height(lv.pct(100))
+ui_WiFiScanStep1.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_WiFiScanStep1, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_WiFiScanStep1, lv.obj.FLAG.SCROLLABLE, False)
 
-ui_QCodeTitle = lv.label(ui_WiFiScan)
-ui_QCodeTitle.set_text("1:使用手机连接WIFI热点:\n	F1LiveTime\n2:扫描下方二维码")
+ui_WiFiScan_Image4 = lv.img(ui_WiFiScanStep1)
+ui_WiFiScan_Image4.set_src(ui_images.ui_img_wifi_first_setup_png)
+ui_WiFiScan_Image4.set_width(lv.SIZE.CONTENT)	# 1
+ui_WiFiScan_Image4.set_height(lv.SIZE.CONTENT)   # 1
+ui_WiFiScan_Image4.set_x(0)
+ui_WiFiScan_Image4.set_y(21)
+ui_WiFiScan_Image4.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_WiFiScan_Image4, lv.obj.FLAG.ADV_HITTEST, True)
+SetFlag(ui_WiFiScan_Image4, lv.obj.FLAG.SCROLLABLE, False)
+
+ui_WiFiScan_Container1 = lv.obj(ui_WiFiScanStep1)
+ui_WiFiScan_Container1.remove_style_all()
+ui_WiFiScan_Container1.set_width(240)
+ui_WiFiScan_Container1.set_height(240)
+ui_WiFiScan_Container1.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_WiFiScan_Container1, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_WiFiScan_Container1, lv.obj.FLAG.SCROLLABLE, False)
+
+ui_QCodeTitle = lv.label(ui_WiFiScan_Container1)
+ui_QCodeTitle.set_text("第一步\n手机连接以下Wi-Fi")
 ui_QCodeTitle.set_width(lv.SIZE.CONTENT)	# 1
 ui_QCodeTitle.set_height(lv.SIZE.CONTENT)   # 1
-ui_QCodeTitle.set_x(0)
-ui_QCodeTitle.set_y(-59)
+ui_QCodeTitle.set_x(-2)
+ui_QCodeTitle.set_y(-86)
 ui_QCodeTitle.set_align( lv.ALIGN.CENTER)
-ui_QCodeTitle.set_style_text_color(lv.color_hex(0x000000), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_QCodeTitle.set_style_text_color(lv.color_hex(0x393939), lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_QCodeTitle.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
-ui_QCodeTitle.set_style_text_align( lv.TEXT_ALIGN.LEFT, lv.PART.MAIN | lv.STATE.DEFAULT )
-ui_QCodeTitle.set_style_text_font( font_Chinese12, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_QCodeTitle.set_style_text_align( lv.TEXT_ALIGN.CENTER, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_QCodeTitle.set_style_text_font( font_ChineseB16, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_WiFiScan_Label3 = lv.label(ui_WiFiScan_Container1)
+ui_WiFiScan_Label3.set_text("Wi-Fi密码:12345678")
+ui_WiFiScan_Label3.set_width(lv.SIZE.CONTENT)	# 1
+ui_WiFiScan_Label3.set_height(lv.SIZE.CONTENT)   # 1
+ui_WiFiScan_Label3.set_x(0)
+ui_WiFiScan_Label3.set_y(-48)
+ui_WiFiScan_Label3.set_align( lv.ALIGN.CENTER)
+ui_WiFiScan_Label3.set_style_text_color(lv.color_hex(0x5A595A), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_WiFiScan_Label3.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_WiFiScan_Label3.set_style_text_font( font_Chinese12, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_WiFiScanStep2 = lv.obj(ui_WiFiScan)
+ui_WiFiScanStep2.remove_style_all()
+ui_WiFiScanStep2.set_width(lv.pct(100))
+ui_WiFiScanStep2.set_height(lv.pct(100))
+ui_WiFiScanStep2.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_WiFiScanStep2, lv.obj.FLAG.HIDDEN, True)
+SetFlag(ui_WiFiScanStep2, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_WiFiScanStep2, lv.obj.FLAG.SCROLLABLE, False)
+
+ui_QCodeTitle2 = lv.label(ui_WiFiScanStep2)
+ui_QCodeTitle2.set_text("第二步\n打开手机浏览器")
+ui_QCodeTitle2.set_width(lv.SIZE.CONTENT)	# 1
+ui_QCodeTitle2.set_height(lv.SIZE.CONTENT)   # 1
+ui_QCodeTitle2.set_x(-2)
+ui_QCodeTitle2.set_y(-86)
+ui_QCodeTitle2.set_align( lv.ALIGN.CENTER)
+ui_QCodeTitle2.set_style_text_color(lv.color_hex(0x393939), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_QCodeTitle2.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_QCodeTitle2.set_style_text_align( lv.TEXT_ALIGN.CENTER, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_QCodeTitle2.set_style_text_font( font_ChineseB16, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_WiFiScan_Label2 = lv.label(ui_WiFiScanStep2)
+ui_WiFiScan_Label2.set_text("在地址栏中输入\"192.168.1.1\"")
+ui_WiFiScan_Label2.set_width(lv.SIZE.CONTENT)	# 1
+ui_WiFiScan_Label2.set_height(lv.SIZE.CONTENT)   # 1
+ui_WiFiScan_Label2.set_x(-1)
+ui_WiFiScan_Label2.set_y(-48)
+ui_WiFiScan_Label2.set_align( lv.ALIGN.CENTER)
+ui_WiFiScan_Label2.set_style_text_color(lv.color_hex(0x5A595A), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_WiFiScan_Label2.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_WiFiScan_Label2.set_style_text_font( font_Chinese12, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_WiFiScan_Image2 = lv.img(ui_WiFiScanStep2)
+ui_WiFiScan_Image2.set_src(ui_images.ui_img_wifi_second_setup_png)
+ui_WiFiScan_Image2.set_width(lv.SIZE.CONTENT)	# 1
+ui_WiFiScan_Image2.set_height(lv.SIZE.CONTENT)   # 1
+ui_WiFiScan_Image2.set_x(0)
+ui_WiFiScan_Image2.set_y(14)
+ui_WiFiScan_Image2.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_WiFiScan_Image2, lv.obj.FLAG.ADV_HITTEST, True)
+SetFlag(ui_WiFiScan_Image2, lv.obj.FLAG.SCROLLABLE, False)
+
+ui_Page_Container = ui_Page_Container_create(ui_WiFiScan)
+ui_Page_Container.set_x(0)
+ui_Page_Container.set_y(84)
 
 ui_WiFiScan.add_event_cb(WiFiScan_eventhandler, lv.EVENT.ALL, None)
 

@@ -1,0 +1,16 @@
+{
+  "codename": "ChineseB16",
+  "ttf_path": "/assets/SourceHanSansSC-Bold.otf",
+  "bin_path": "/assets\\ui_font_ChineseB16.bin",
+  "c_path": "/assets\\ui_font_ChineseB16.c",
+  "cfg_path": "/assets\\ui_font_ChineseB16.fcfg",
+  "size": 16,
+  "bpp": 4,
+  "letters": 0,
+  "ranges": [
+    "0x20-0x7f"
+  ],
+  "symbols": "第一步使用手机连接以下名称密码二打开浏览器\r在地址栏中输入",
+  "customparams": "--no-compress --no-prefilter",
+  "uploaded": false
+}

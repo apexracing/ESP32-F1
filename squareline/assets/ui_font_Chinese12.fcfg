@@ -1,16 +1,16 @@
 {
   "codename": "Chinese12",
-  "ttf_path": "/assets/SourceHanSerifSC-Regular.otf",
+  "ttf_path": "/assets/SourceHanSansSC-Regular.otf",
   "bin_path": "/assets\\ui_font_Chinese12.bin",
   "c_path": "/assets\\ui_font_Chinese12.c",
   "cfg_path": "/assets\\ui_font_Chinese12.fcfg",
   "size": 12,
   "bpp": 4,
-  "letters": 5,
+  "letters": 0,
   "ranges": [
     "0x20-0x7f"
   ],
-  "symbols": "首先使用手机连接热点\n后扫描下方二维码",
+  "symbols": "第一步使用手机连接以下名称密码二打开浏览器\r在地址栏中输入",
   "customparams": "--no-compress --no-prefilter",
   "uploaded": false
 }
