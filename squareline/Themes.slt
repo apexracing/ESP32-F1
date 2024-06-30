@@ -74,8 +74,8 @@
           "strval": "ColorTeamSecond",
           "intarray": [
             255,
-            1,
-            1,
+            255,
+            255,
             255
           ],
           "InheritedType": 0
@@ -90,9 +90,9 @@
           "strtype": "THEME_COLOR",
           "strval": "ColorTeamThree",
           "intarray": [
-            255,
-            221,
-            0,
+            4,
+            175,
+            250,
             255
           ],
           "InheritedType": 0
@@ -114,9 +114,9 @@
           "strtype": "THEME_COLOR",
           "strval": "ColorTeamSecond",
           "intarray": [
-            4,
-            175,
-            250,
+            255,
+            221,
+            0,
             255
           ],
           "InheritedType": 0

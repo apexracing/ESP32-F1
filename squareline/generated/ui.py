@@ -38,10 +38,10 @@ font_Tyre1 = lv.font_load("A:ui_font_Tyre1.bin")
 _ui_theme_color_Default = [0xFFDD00, 0x3671C6, 0xFF0101]
 _ui_theme_alpha_Default = [255, 255, 255]
 
-_ui_theme_color_AMG = [0xFFDD00, 0x00D1BA, 0xFF0101]
+_ui_theme_color_AMG = [0xFFDD00, 0x00D1BA, 0xFFFFFF]
 _ui_theme_alpha_AMG = [255, 255, 255]
 
-_ui_theme_color_ferrari = [0xFFDD00, 0xFF2800, 0x04AFFA]
+_ui_theme_color_ferrari = [0x04AFFA, 0xFF2800, 0xFFDD00]
 _ui_theme_alpha_ferrari = [255, 255, 255]
 
 _ui_theme_list_colors = [_ui_theme_color_Default, _ui_theme_color_AMG, _ui_theme_color_ferrari]
@@ -591,8 +591,8 @@ ui_Team_Label.set_height(lv.SIZE.CONTENT)   # 1
 ui_Team_Label.set_x(-1)
 ui_Team_Label.set_y(lv.pct(12))
 ui_Team_Label.set_align( lv.ALIGN.TOP_MID)
-ui_Team_Label.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
-ui_Team_Label.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_object_set_themeable_style_property( ui_Team_Label, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_COLOR, UI_THEME_COLOR_COLORTEAMSECOND)
+ui_object_set_themeable_style_property( ui_Team_Label, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_OPA, UI_THEME_COLOR_COLORTEAMSECOND)
 ui_Team_Label.set_style_text_font( font_F1R14, lv.PART.MAIN | lv.STATE.DEFAULT )
 
 ui_Team_Color_Container = lv.obj(ui_TeamRadioScreen)
@@ -603,8 +603,8 @@ ui_Team_Color_Container.set_x(67)
 ui_Team_Color_Container.set_y(19)
 SetFlag(ui_Team_Color_Container, lv.obj.FLAG.CLICKABLE, False)
 SetFlag(ui_Team_Color_Container, lv.obj.FLAG.SCROLLABLE, False)
-ui_object_set_themeable_style_property( ui_Team_Color_Container, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.BG_COLOR, UI_THEME_COLOR_COLORTEAMSECOND)
-ui_object_set_themeable_style_property( ui_Team_Color_Container, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.BG_OPA, UI_THEME_COLOR_COLORTEAMSECOND)
+ui_object_set_themeable_style_property( ui_Team_Color_Container, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.BG_COLOR, UI_THEME_COLOR_COLORTEAM)
+ui_object_set_themeable_style_property( ui_Team_Color_Container, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.BG_OPA, UI_THEME_COLOR_COLORTEAM)
 
 ui_wave_Container = lv.obj(ui_TeamRadioScreen)
 ui_wave_Container.remove_style_all()
@@ -927,6 +927,7 @@ ui_TimeContinerNow.remove_style_all()
 ui_TimeContinerNow.set_width(240)
 ui_TimeContinerNow.set_height(240)
 ui_TimeContinerNow.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_TimeContinerNow, lv.obj.FLAG.HIDDEN, True)
 SetFlag(ui_TimeContinerNow, lv.obj.FLAG.CLICKABLE, False)
 SetFlag(ui_TimeContinerNow, lv.obj.FLAG.SCROLLABLE, False)
 
@@ -1012,7 +1013,6 @@ ui_TimeContinerTarget.remove_style_all()
 ui_TimeContinerTarget.set_width(240)
 ui_TimeContinerTarget.set_height(240)
 ui_TimeContinerTarget.set_align( lv.ALIGN.CENTER)
-SetFlag(ui_TimeContinerTarget, lv.obj.FLAG.HIDDEN, True)
 SetFlag(ui_TimeContinerTarget, lv.obj.FLAG.CLICKABLE, False)
 SetFlag(ui_TimeContinerTarget, lv.obj.FLAG.SCROLLABLE, False)
 

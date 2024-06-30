@@ -287,10 +287,11 @@
                       {
                         "nid": -1043452086,
                         "strtype": "_style/Text_Color",
+                        "strval": "ColorTeamSecond",
                         "intarray": [
                           255,
-                          255,
-                          255,
+                          1,
+                          1,
                           255
                         ],
                         "InheritedType": 7
@@ -582,11 +583,11 @@
                       {
                         "nid": -1371963431,
                         "strtype": "_style/Bg_Color",
-                        "strval": "ColorTeamSecond",
+                        "strval": "ColorTeam",
                         "intarray": [
-                          255,
-                          1,
-                          1,
+                          54,
+                          113,
+                          198,
                           255
                         ],
                         "InheritedType": 7
@@ -8605,8 +8606,7 @@
                     "InheritedType": 11
                   }
                 ],
-                "saved_objtypeKey": "CONTAINER",
-                "tree_closed": true
+                "saved_objtypeKey": "CONTAINER"
               },
               {
                 "guid": "GUID36041052-219801S211153182",
@@ -10223,7 +10223,7 @@
               {
                 "nid": -1977343836,
                 "strtype": "OBJECT/Hidden",
-                "strval": "False",
+                "strval": "True",
                 "InheritedType": 2
               },
               {
@@ -12661,7 +12661,7 @@
               {
                 "nid": -318218775,
                 "strtype": "OBJECT/Hidden",
-                "strval": "True",
+                "strval": "False",
                 "InheritedType": 2
               },
               {
@@ -12861,8 +12861,7 @@
                 "InheritedType": 11
               }
             ],
-            "saved_objtypeKey": "CONTAINER",
-            "tree_closed": true
+            "saved_objtypeKey": "CONTAINER"
           }
         ],
         "isPage": true,
@@ -57760,7 +57759,7 @@
     "theme_color2": 0,
     "uiExportFolderPath": "E:\\github\\esp32\\squareline\\generated",
     "projectExportFolderPath": "",
-    "backup_cnt": 1098,
+    "backup_cnt": 1108,
     "autosave_cnt": 0,
     "lvgl_version": "8.3.11",
     "callfuncsexport": "PY_FILE",
