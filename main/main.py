@@ -27,7 +27,7 @@ async def main():
         wifiScanScr = WiFiScanScreen()
         wifiScanScr.src_load_anim(fademode=lv.SCR_LOAD_ANIM.MOVE_BOTTOM, speed=50)
     else:
-        scr2 = TyreScreen()
+        scr2 = ScheduleScreen()
         scr2.src_load_anim(fademode=lv.SCR_LOAD_ANIM.MOVE_LEFT, speed=150)
     while True:
         lv.task_handler()

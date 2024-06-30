@@ -1,9 +1,13 @@
 from ui.screen import Screen
 import lvgl as lv
-from ui.theme_manager import  Themes,ThemeManager
+from ui.theme_manager import Themes, ThemeManager
 from common.time_driver import TimeDriver
 from common.f1_api import *
-SEC_STEP=const(10)
+import time
+
+SEC_STEP = const(10)
+
+
 class ScheduleScreen(Screen):
     def __init__(self):
         super().__init__()
@@ -17,10 +21,10 @@ class ScheduleScreen(Screen):
         self.ui_Second_Arc.set_width(230)
         self.ui_Second_Arc.set_height(230)
         self.ui_Second_Arc.set_align(lv.ALIGN.CENTER)
-        self.ui_Second_Arc.set_range(0, 59*SEC_STEP)
+        self.ui_Second_Arc.set_range(0, 29999)
         self.ui_Second_Arc.set_value(0)
         self.ui_Second_Arc.set_bg_angles(0, 360)
-        self.ui_Second_Arc.set_rotation(-90)
+        self.ui_Second_Arc.set_rotation(270)
         self.ui_Second_Arc.set_style_arc_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT)
         self.ui_Second_Arc.set_style_arc_opa(0, lv.PART.MAIN | lv.STATE.DEFAULT)
         self.ui_Second_Arc.set_style_arc_width(3, lv.PART.MAIN | lv.STATE.DEFAULT)
@@ -35,11 +39,11 @@ class ScheduleScreen(Screen):
         self.SetFlag(self.ui_Second_Arc, lv.obj.FLAG.SCROLL_CHAIN, False)
 
         self.themeManager.ui_object_set_themeable_style_property(self.ui_Second_Arc, lv.PART.INDICATOR | lv.STATE.DEFAULT, lv.STYLE.ARC_COLOR,
-                                               Themes.UI_THEME_COLOR_COLORTEAMTHREE)
+                                                                 Themes.UI_THEME_COLOR_COLORTEAMTHREE)
         self.themeManager.ui_object_set_themeable_style_property(self.ui_Second_Arc, lv.PART.INDICATOR | lv.STATE.DEFAULT, lv.STYLE.ARC_OPA,
-                                               Themes.UI_THEME_COLOR_COLORTEAMTHREE)
+                                                                 Themes.UI_THEME_COLOR_COLORTEAMTHREE)
         self.ui_Second_Arc.set_style_arc_width(2, lv.PART.INDICATOR | lv.STATE.DEFAULT)
-        self.ui_Second_Arc.set_style_arc_rounded(True, lv.PART.INDICATOR | lv.STATE.DEFAULT)
+        self.ui_Second_Arc.set_style_arc_rounded(False, lv.PART.INDICATOR | lv.STATE.DEFAULT)
 
         self.ui_Second_Arc.set_style_opa(0, lv.PART.KNOB | lv.STATE.DEFAULT)
 
@@ -52,7 +56,7 @@ class ScheduleScreen(Screen):
         self.ui_Upcoming_Label.set_align(lv.ALIGN.TOP_MID)
         self.ui_Upcoming_Label.set_style_text_color(lv.color_hex(0x8D8D8D), lv.PART.MAIN | lv.STATE.DEFAULT)
         self.ui_Upcoming_Label.set_style_text_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
-        self.ui_Upcoming_Label.set_style_text_font(self.resourceManager.load_font("DISPLAYB",14), lv.PART.MAIN | lv.STATE.DEFAULT)
+        self.ui_Upcoming_Label.set_style_text_font(self.resourceManager.load_font("DISPLAYB", 14), lv.PART.MAIN | lv.STATE.DEFAULT)
 
         ui_Gmt_Label = lv.label(self.screen)
         ui_Gmt_Label.set_text("UTC/GMT +8")
@@ -65,7 +69,7 @@ class ScheduleScreen(Screen):
         ui_Gmt_Label.set_style_text_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
         ui_Gmt_Label.set_style_text_letter_space(0, lv.PART.MAIN | lv.STATE.DEFAULT)
         ui_Gmt_Label.set_style_text_line_space(0, lv.PART.MAIN | lv.STATE.DEFAULT)
-        ui_Gmt_Label.set_style_text_font(self.resourceManager.load_font("DISPLAYM",10), lv.PART.MAIN | lv.STATE.DEFAULT)
+        ui_Gmt_Label.set_style_text_font(self.resourceManager.load_font("DISPLAYM", 10), lv.PART.MAIN | lv.STATE.DEFAULT)
 
         self.ui_Session_Label = lv.label(self.screen)
         self.ui_Session_Label.set_text("Canadian Grand Prix")
@@ -75,11 +79,11 @@ class ScheduleScreen(Screen):
         self.ui_Session_Label.set_y(51)
         self.ui_Session_Label.set_align(lv.ALIGN.CENTER)
         self.themeManager.ui_object_set_themeable_style_property(self.ui_Session_Label, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_COLOR,
-                                               Themes.UI_THEME_COLOR_COLORTEAMTHREE)
+                                                                 Themes.UI_THEME_COLOR_COLORTEAMTHREE)
         self.themeManager.ui_object_set_themeable_style_property(self.ui_Session_Label, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_OPA,
-                                               Themes.UI_THEME_COLOR_COLORTEAMTHREE)
+                                                                 Themes.UI_THEME_COLOR_COLORTEAMTHREE)
         self.ui_Session_Label.set_style_text_align(lv.TEXT_ALIGN.CENTER, lv.PART.MAIN | lv.STATE.DEFAULT)
-        self.ui_Session_Label.set_style_text_font(self.resourceManager.load_font("F1R",12), lv.PART.MAIN | lv.STATE.DEFAULT)
+        self.ui_Session_Label.set_style_text_font(self.resourceManager.load_font("F1R", 12), lv.PART.MAIN | lv.STATE.DEFAULT)
 
         self.ui_Event_Label = lv.label(self.screen)
         self.ui_Event_Label.set_text("Practice 1")
@@ -89,11 +93,11 @@ class ScheduleScreen(Screen):
         self.ui_Event_Label.set_y(79)
         self.ui_Event_Label.set_align(lv.ALIGN.CENTER)
         self.themeManager.ui_object_set_themeable_style_property(self.ui_Event_Label, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_COLOR,
-                                               Themes.UI_THEME_COLOR_COLORTEAMSECOND)
+                                                                 Themes.UI_THEME_COLOR_COLORTEAMSECOND)
         self.themeManager.ui_object_set_themeable_style_property(self.ui_Event_Label, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_OPA,
-                                               Themes.UI_THEME_COLOR_COLORTEAMSECOND)
+                                                                 Themes.UI_THEME_COLOR_COLORTEAMSECOND)
         self.ui_Event_Label.set_style_text_align(lv.TEXT_ALIGN.CENTER, lv.PART.MAIN | lv.STATE.DEFAULT)
-        self.ui_Event_Label.set_style_text_font(self.resourceManager.load_font("F1R",14), lv.PART.MAIN | lv.STATE.DEFAULT)
+        self.ui_Event_Label.set_style_text_font(self.resourceManager.load_font("F1R", 14), lv.PART.MAIN | lv.STATE.DEFAULT)
 
         self.ui_Days = lv.label(self.screen)
         self.ui_Days.set_text("5")
@@ -102,11 +106,11 @@ class ScheduleScreen(Screen):
         self.ui_Days.set_x(18)
         self.ui_Days.set_y(95)
         self.themeManager.ui_object_set_themeable_style_property(self.ui_Days, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_COLOR,
-                                               Themes.UI_THEME_COLOR_COLORTEAM)
+                                                                 Themes.UI_THEME_COLOR_COLORTEAM)
         self.themeManager.ui_object_set_themeable_style_property(self.ui_Days, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_OPA,
-                                               Themes.UI_THEME_COLOR_COLORTEAM)
+                                                                 Themes.UI_THEME_COLOR_COLORTEAM)
         self.ui_Days.set_style_text_align(lv.TEXT_ALIGN.LEFT, lv.PART.MAIN | lv.STATE.DEFAULT)
-        self.ui_Days.set_style_text_font(self.resourceManager.load_font("DISPLAYM",14), lv.PART.MAIN | lv.STATE.DEFAULT)
+        self.ui_Days.set_style_text_font(self.resourceManager.load_font("DISPLAYM", 14), lv.PART.MAIN | lv.STATE.DEFAULT)
 
         self.ui_Hours = lv.label(self.screen)
         self.ui_Hours.set_text("22")
@@ -115,11 +119,11 @@ class ScheduleScreen(Screen):
         self.ui_Hours.set_x(18)
         self.ui_Hours.set_y(121)
         self.themeManager.ui_object_set_themeable_style_property(self.ui_Hours, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_COLOR,
-                                               Themes.UI_THEME_COLOR_COLORTEAMSECOND)
+                                                                 Themes.UI_THEME_COLOR_COLORTEAMSECOND)
         self.themeManager.ui_object_set_themeable_style_property(self.ui_Hours, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_OPA,
-                                               Themes.UI_THEME_COLOR_COLORTEAMSECOND)
+                                                                 Themes.UI_THEME_COLOR_COLORTEAMSECOND)
         self.ui_Hours.set_style_text_align(lv.TEXT_ALIGN.LEFT, lv.PART.MAIN | lv.STATE.DEFAULT)
-        self.ui_Hours.set_style_text_font(self.resourceManager.load_font("DISPLAYM",14), lv.PART.MAIN | lv.STATE.DEFAULT)
+        self.ui_Hours.set_style_text_font(self.resourceManager.load_font("DISPLAYM", 14), lv.PART.MAIN | lv.STATE.DEFAULT)
 
         self.ui_Minutes = lv.label(self.screen)
         self.ui_Minutes.set_text("13")
@@ -128,11 +132,11 @@ class ScheduleScreen(Screen):
         self.ui_Minutes.set_x(18)
         self.ui_Minutes.set_y(146)
         self.themeManager.ui_object_set_themeable_style_property(self.ui_Minutes, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_COLOR,
-                                               Themes.UI_THEME_COLOR_COLORTEAMTHREE)
+                                                                 Themes.UI_THEME_COLOR_COLORTEAMTHREE)
         self.themeManager.ui_object_set_themeable_style_property(self.ui_Minutes, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_OPA,
-                                               Themes.UI_THEME_COLOR_COLORTEAMTHREE)
+                                                                 Themes.UI_THEME_COLOR_COLORTEAMTHREE)
         self.ui_Minutes.set_style_text_align(lv.TEXT_ALIGN.LEFT, lv.PART.MAIN | lv.STATE.DEFAULT)
-        self.ui_Minutes.set_style_text_font(self.resourceManager.load_font("DISPLAYM",14), lv.PART.MAIN | lv.STATE.DEFAULT)
+        self.ui_Minutes.set_style_text_font(self.resourceManager.load_font("DISPLAYM", 14), lv.PART.MAIN | lv.STATE.DEFAULT)
 
         self.ui_Days_Label = lv.label(self.screen)
         self.ui_Days_Label.set_text("Days")
@@ -143,7 +147,7 @@ class ScheduleScreen(Screen):
         self.ui_Days_Label.set_style_text_color(lv.color_hex(0x9E9E9E), lv.PART.MAIN | lv.STATE.DEFAULT)
         self.ui_Days_Label.set_style_text_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
         self.ui_Days_Label.set_style_text_align(lv.TEXT_ALIGN.LEFT, lv.PART.MAIN | lv.STATE.DEFAULT)
-        self.ui_Days_Label.set_style_text_font(self.resourceManager.load_font("DISPLAYM",10), lv.PART.MAIN | lv.STATE.DEFAULT)
+        self.ui_Days_Label.set_style_text_font(self.resourceManager.load_font("DISPLAYM", 10), lv.PART.MAIN | lv.STATE.DEFAULT)
 
         self.ui_Hours_Label = lv.label(self.screen)
         self.ui_Hours_Label.set_text("Hours")
@@ -154,7 +158,7 @@ class ScheduleScreen(Screen):
         self.ui_Hours_Label.set_style_text_color(lv.color_hex(0x9E9E9E), lv.PART.MAIN | lv.STATE.DEFAULT)
         self.ui_Hours_Label.set_style_text_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
         self.ui_Hours_Label.set_style_text_align(lv.TEXT_ALIGN.LEFT, lv.PART.MAIN | lv.STATE.DEFAULT)
-        self.ui_Hours_Label.set_style_text_font(self.resourceManager.load_font("DISPLAYM",10), lv.PART.MAIN | lv.STATE.DEFAULT)
+        self.ui_Hours_Label.set_style_text_font(self.resourceManager.load_font("DISPLAYM", 10), lv.PART.MAIN | lv.STATE.DEFAULT)
 
         self.ui_Minutes_Label = lv.label(self.screen)
         self.ui_Minutes_Label.set_text("Mins")
@@ -165,7 +169,7 @@ class ScheduleScreen(Screen):
         self.ui_Minutes_Label.set_style_text_color(lv.color_hex(0x9E9E9E), lv.PART.MAIN | lv.STATE.DEFAULT)
         self.ui_Minutes_Label.set_style_text_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
         self.ui_Minutes_Label.set_style_text_align(lv.TEXT_ALIGN.LEFT, lv.PART.MAIN | lv.STATE.DEFAULT)
-        self.ui_Minutes_Label.set_style_text_font(self.resourceManager.load_font("DISPLAYM",10), lv.PART.MAIN | lv.STATE.DEFAULT)
+        self.ui_Minutes_Label.set_style_text_font(self.resourceManager.load_font("DISPLAYM", 10), lv.PART.MAIN | lv.STATE.DEFAULT)
 
         self.screen_Container2 = lv.obj(self.screen)
         self.screen_Container2.remove_style_all()
@@ -187,7 +191,7 @@ class ScheduleScreen(Screen):
         self.ui_Calendar_Month.set_align(lv.ALIGN.CENTER)
         self.ui_Calendar_Month.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT)
         self.ui_Calendar_Month.set_style_text_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
-        self.ui_Calendar_Month.set_style_text_font(self.resourceManager.load_font("DISPLAYR",30), lv.PART.MAIN | lv.STATE.DEFAULT)
+        self.ui_Calendar_Month.set_style_text_font(self.resourceManager.load_font("DISPLAYR", 30), lv.PART.MAIN | lv.STATE.DEFAULT)
 
         self.screen_Container3 = lv.obj(self.screen)
         self.screen_Container3.remove_style_all()
@@ -209,7 +213,7 @@ class ScheduleScreen(Screen):
         self.ui_Calendar_Day.set_align(lv.ALIGN.CENTER)
         self.ui_Calendar_Day.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT)
         self.ui_Calendar_Day.set_style_text_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
-        self.ui_Calendar_Day.set_style_text_font(self.resourceManager.load_font("DISPLAYR",30), lv.PART.MAIN | lv.STATE.DEFAULT)
+        self.ui_Calendar_Day.set_style_text_font(self.resourceManager.load_font("DISPLAYR", 30), lv.PART.MAIN | lv.STATE.DEFAULT)
 
         self.ui_Time_Dot_Label = lv.label(self.screen)
         self.ui_Time_Dot_Label.set_text(":")
@@ -220,7 +224,7 @@ class ScheduleScreen(Screen):
         self.ui_Time_Dot_Label.set_align(lv.ALIGN.CENTER)
         self.ui_Time_Dot_Label.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT)
         self.ui_Time_Dot_Label.set_style_text_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
-        self.ui_Time_Dot_Label.set_style_text_font(self.resourceManager.load_font("DISPLAYR",60), lv.PART.MAIN | lv.STATE.DEFAULT)
+        self.ui_Time_Dot_Label.set_style_text_font(self.resourceManager.load_font("DISPLAYR", 60), lv.PART.MAIN | lv.STATE.DEFAULT)
 
         self.ui_Time_Min_Label = lv.label(self.screen)
         self.ui_Time_Min_Label.set_text("14")
@@ -231,7 +235,7 @@ class ScheduleScreen(Screen):
         self.ui_Time_Min_Label.set_align(lv.ALIGN.CENTER)
         self.ui_Time_Min_Label.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT)
         self.ui_Time_Min_Label.set_style_text_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
-        self.ui_Time_Min_Label.set_style_text_font(self.resourceManager.load_font("DISPLAYR",60), lv.PART.MAIN | lv.STATE.DEFAULT)
+        self.ui_Time_Min_Label.set_style_text_font(self.resourceManager.load_font("DISPLAYR", 60), lv.PART.MAIN | lv.STATE.DEFAULT)
 
         self.ui_Time_Hour_Label = lv.label(self.screen)
         self.ui_Time_Hour_Label.set_text("10")
@@ -242,15 +246,16 @@ class ScheduleScreen(Screen):
         self.ui_Time_Hour_Label.set_align(lv.ALIGN.CENTER)
         self.ui_Time_Hour_Label.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT)
         self.ui_Time_Hour_Label.set_style_text_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
-        self.ui_Time_Hour_Label.set_style_text_font(self.resourceManager.load_font("DISPLAYR",60), lv.PART.MAIN | lv.STATE.DEFAULT)
+        self.ui_Time_Hour_Label.set_style_text_font(self.resourceManager.load_font("DISPLAYR", 60), lv.PART.MAIN | lv.STATE.DEFAULT)
 
         self.screen.add_event_cb(self.ScheduleScreen_eventhandler, lv.EVENT.ALL, None)
-        lv.timer_create(self.ui_time_update, int(1000/SEC_STEP), None)
-        lv.timer_create(self.f1_events_update, 60*1000, None)
+        lv.timer_create(self.ui_time_update, SEC_STEP, None)
+        lv.timer_create(self.f1_events_update, 60 * 1000, None)
 
-    def ScheduleScreen_eventhandler(self,event_struct):
+    def ScheduleScreen_eventhandler(self, event_struct):
         event = event_struct.code
         if event == lv.EVENT.SCREEN_LOAD_START and True:
+            self.ui_time_update(None)
             self.top_Animation(self.ui_Calendar_Month, 0)
             self.top_Animation(self.ui_Calendar_Day, 0)
             self.left_Animation(self.ui_Time_Hour_Label, 0)
@@ -265,7 +270,18 @@ class ScheduleScreen(Screen):
 
         return
 
-    def ui_time_update(self,timer):
-        pass
-    def f1_events_update(self,timer):
+    def map_range(self, value, original_min, original_max, target_min, target_max):
+        # 计算线性映射
+        return target_min + (value - original_min) * (target_max - target_min) / (original_max - original_min)
+
+    def ui_time_update(self, timer):
+        current_ticks = time.ticks_ms()
+        y, m, d, h, m, s, *_ = self.timeDriver.get_utc_time()
+        # 获取当前毫秒数
+        current_millis = (time.time_ns() // 1000000) % 1000
+        # 计算秒针的位置
+        arc_value = (s * 1000 + current_millis)
+        self.ui_Second_Arc.set_value(int(self.map_range(arc_value, 0, 59999, 0, 29999)))
+
+    def f1_events_update(self, timer):
         pass

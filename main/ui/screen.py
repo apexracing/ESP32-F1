@@ -2,7 +2,7 @@ import lvgl as lv
 from ui.resource_manager import ResourceManager
 from ui.theme_manager import ThemeManager
 import machine
-
+from common.time_driver import TimeDriver
 CPU_LOW = const(80000000)
 CPU_NORMAL = const(160000000)
 CPU_HIGH = const(240000000)
@@ -20,6 +20,7 @@ class Screen:
         self.screen = lv.obj()
         self.resourceManager = ResourceManager()
         self.themeManager = ThemeManager()
+        self.timeDriver = TimeDriver()
         self.SetFlag(self.screen, lv.obj.FLAG.SCROLLABLE, False)
 
     def cpu_normal(self):

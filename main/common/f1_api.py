@@ -1,11 +1,11 @@
 from lib import urequests
-from time_driver import TimeDriver
+from common.time_driver import TimeDriver
 
 F1_API_HOST_BASE = "https://gitee.com/apexracing/f1livetime/raw/master"
 
 class F1Api:
     def __init__(self):
-        pass
+        self.timeDriver=TimeDriver()
     def get_events(self,year=None):
         '''
 
@@ -13,7 +13,8 @@ class F1Api:
         :return:
         '''
         if year is None:
-            year,*_=TimeDriver.get_utc_time()
+
+            year,*_=self.timeDriver.get_utc_time()
         try:
             response = urequests.get(f"{F1_API_HOST_BASE}/f1_{year}.json")
             events = response.json()

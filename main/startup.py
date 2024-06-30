@@ -30,27 +30,17 @@ theme = ThemeManager()
 theme.ui_theme_manager_reset()
 theme.ui_theme_set(Themes.UI_THEME_DEFAULT)
 loop = asyncio.get_event_loop()
+display.backlight_on()
 
 print("协程任务框架循环开始")
 
 
-async def main():
-    print('main is runing!')
-    # 开机动画
-    scr1 = FlashScreen()
-    scr1.src_load()
-    display.backlight_on()
-    await scr1.loadResouces()
-    if is_wifi_connect() is False and wifi_auto_connect() is False:
-        wifiScanScr = WiFiScanScreen()
-        wifiScanScr.src_load_anim(fademode=lv.SCR_LOAD_ANIM.MOVE_BOTTOM, speed=50)
-    else:
-        scr2 = TyreScreen()
-        scr2.src_load_anim(fademode=lv.SCR_LOAD_ANIM.MOVE_LEFT, speed=150)
+async def main():  
+    wifiScanScr = WiFiScanScreen()
+    wifiScanScr.src_load_anim(fademode=lv.SCR_LOAD_ANIM.MOVE_BOTTOM, speed=50)
     while True:
         lv.task_handler()
         await asyncio.sleep_ms(10)
-
 
 if __name__ == '__main__':
     asyncio.create_task(main())
