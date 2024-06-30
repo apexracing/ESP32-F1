@@ -281,7 +281,7 @@ class ScheduleScreen(Screen):
         current_millis = (time.time_ns() // 1000000) % 1000
         # 计算秒针的位置
         arc_value = (s * 1000 + current_millis)
-        self.ui_Second_Arc.set_value(int(self.map_range(arc_value, 0, 59999, 0, 29999)))
+        self.ui_Second_Arc.set_value(int(self.map_range(arc_value, 0, 59999, 0, 30000)))
 
     def f1_events_update(self, timer):
         pass
