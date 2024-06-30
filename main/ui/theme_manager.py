@@ -36,10 +36,10 @@ class ThemeManager:
         self._ui_theme_color_Default = [0xFFDD00, 0x3671C6, 0xFF0101]
         self._ui_theme_alpha_Default = [255, 255, 255]
 
-        self._ui_theme_color_AMG = [0xFFDD00, 0x00D1BA, 0xFF0101]
+        self._ui_theme_color_AMG = [0xFFDD00, 0x00D1BA, 0xFFFFFF]
         self._ui_theme_alpha_AMG = [255, 255, 255]
 
-        self._ui_theme_color_ferrari_ = [0xFFDD00, 0xFF2800, 0xFFDD00]
+        self._ui_theme_color_ferrari_ = [0x04AFFA, 0xFF2800, 0xFFDD00]
         self._ui_theme_alpha_ferrari_ = [255, 255, 255]
 
         self._ui_theme_list_colors = [self._ui_theme_color_Default, self._ui_theme_color_AMG,
