@@ -1,10 +1,13 @@
 from ui.screen import Screen
 import lvgl as lv
 from ui.theme_manager import  Themes,ThemeManager
-
+from common.time_driver import TimeDriver
+from common.f1_api import *
+SEC_STEP=const(10)
 class ScheduleScreen(Screen):
     def __init__(self):
         super().__init__()
+        self.cpu_low()
         self.SetFlag(self.screen, lv.obj.FLAG.SCROLLABLE, False)
         self.screen.set_style_bg_color(lv.color_hex(0x000000), lv.PART.MAIN | lv.STATE.DEFAULT)
         self.screen.set_style_bg_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
@@ -14,8 +17,8 @@ class ScheduleScreen(Screen):
         self.ui_Second_Arc.set_width(230)
         self.ui_Second_Arc.set_height(230)
         self.ui_Second_Arc.set_align(lv.ALIGN.CENTER)
-        self.ui_Second_Arc.set_range(0, 60)
-        self.ui_Second_Arc.set_value(45)
+        self.ui_Second_Arc.set_range(0, 59*SEC_STEP)
+        self.ui_Second_Arc.set_value(0)
         self.ui_Second_Arc.set_bg_angles(0, 360)
         self.ui_Second_Arc.set_rotation(-90)
         self.ui_Second_Arc.set_style_arc_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT)
@@ -242,6 +245,8 @@ class ScheduleScreen(Screen):
         self.ui_Time_Hour_Label.set_style_text_font(self.resourceManager.load_font("DISPLAYR",60), lv.PART.MAIN | lv.STATE.DEFAULT)
 
         self.screen.add_event_cb(self.ScheduleScreen_eventhandler, lv.EVENT.ALL, None)
+        lv.timer_create(self.ui_time_update, int(1000/SEC_STEP), None)
+        lv.timer_create(self.f1_events_update, 60*1000, None)
 
     def ScheduleScreen_eventhandler(self,event_struct):
         event = event_struct.code
@@ -260,3 +265,7 @@ class ScheduleScreen(Screen):
 
         return
 
+    def ui_time_update(self,timer):
+        pass
+    def f1_events_update(self,timer):
+        pass
