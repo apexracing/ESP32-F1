@@ -41,7 +41,7 @@ _ui_theme_alpha_Default = [255, 255, 255]
 _ui_theme_color_AMG = [0xFFDD00, 0x00D1BA, 0xFF0101]
 _ui_theme_alpha_AMG = [255, 255, 255]
 
-_ui_theme_color_ferrari = [0xFFDD00, 0xFF2800, 0xFFDD00]
+_ui_theme_color_ferrari = [0xFFDD00, 0xFF2800, 0x04AFFA]
 _ui_theme_alpha_ferrari = [255, 255, 255]
 
 _ui_theme_list_colors = [_ui_theme_color_Default, _ui_theme_color_AMG, _ui_theme_color_ferrari]
@@ -568,125 +568,6 @@ def ui_WiFiItem_create(comp_parent):
     _ui_comp_table[id(cui_WiFiItem)]= {"WiFiItem" : cui_WiFiItem,"WifiName" : cui_WifiName,"WiFiImg" : cui_WiFiImg, "_CompName" : "WiFiItem"}
     return cui_WiFiItem
 
-# COMPONENTS
-
- # COMPONENT DriverContainer
-def ui_DriverContainer_create(comp_parent):
-    cui_DriverContainer = lv.obj(comp_parent)
-    cui_DriverContainer.remove_style_all()
-    cui_DriverContainer.set_width(131)
-    cui_DriverContainer.set_height(16)
-    cui_DriverContainer.set_x(0)
-    cui_DriverContainer.set_y(-39)
-    cui_DriverContainer.set_align( lv.ALIGN.CENTER)
-    SetFlag(cui_DriverContainer, lv.obj.FLAG.CLICKABLE, False)
-    SetFlag(cui_DriverContainer, lv.obj.FLAG.SCROLLABLE, False)
-    cui_RaceScreen_Label1 = lv.label(cui_DriverContainer)
-    cui_RaceScreen_Label1.set_text("22")
-    cui_RaceScreen_Label1.set_width(16)
-    cui_RaceScreen_Label1.set_height(16)
-    cui_RaceScreen_Label1.set_x(5)
-    cui_RaceScreen_Label1.set_y(0)
-    cui_RaceScreen_Label1.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
-    cui_RaceScreen_Label1.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
-    cui_RaceScreen_Label1.set_style_text_align( lv.TEXT_ALIGN.RIGHT, lv.PART.MAIN | lv.STATE.DEFAULT )
-    cui_RaceScreen_Label1.set_style_text_font( font_DISPLAYM14, lv.PART.MAIN | lv.STATE.DEFAULT )
-    cui_RaceScreen_Container3 = lv.obj(cui_DriverContainer)
-    cui_RaceScreen_Container3.remove_style_all()
-    cui_RaceScreen_Container3.set_width(3)
-    cui_RaceScreen_Container3.set_height(14)
-    cui_RaceScreen_Container3.set_x(25)
-    cui_RaceScreen_Container3.set_y(0)
-    SetFlag(cui_RaceScreen_Container3, lv.obj.FLAG.CLICKABLE, False)
-    SetFlag(cui_RaceScreen_Container3, lv.obj.FLAG.SCROLLABLE, False)
-    cui_RaceScreen_Container3.set_style_bg_color(lv.color_hex(0x3671C6), lv.PART.MAIN | lv.STATE.DEFAULT )
-    cui_RaceScreen_Container3.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
-    cui_RaceScreen_Label3 = lv.label(cui_DriverContainer)
-    cui_RaceScreen_Label3.set_text("VER")
-    cui_RaceScreen_Label3.set_width(lv.SIZE.CONTENT)	# 1
-    cui_RaceScreen_Label3.set_height(lv.SIZE.CONTENT)   # 1
-    cui_RaceScreen_Label3.set_x(33)
-    cui_RaceScreen_Label3.set_y(0)
-    cui_RaceScreen_Label3.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
-    cui_RaceScreen_Label3.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
-    cui_RaceScreen_Label3.set_style_text_font( font_DISPLAYM14, lv.PART.MAIN | lv.STATE.DEFAULT )
-    cui_RaceScreen_Label4 = lv.label(cui_DriverContainer)
-    cui_RaceScreen_Label4.set_text("Interval")
-    cui_RaceScreen_Label4.set_width(60)
-    cui_RaceScreen_Label4.set_height(16)
-    cui_RaceScreen_Label4.set_x(70)
-    cui_RaceScreen_Label4.set_y(0)
-    cui_RaceScreen_Label4.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
-    cui_RaceScreen_Label4.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
-    cui_RaceScreen_Label4.set_style_text_align( lv.TEXT_ALIGN.RIGHT, lv.PART.MAIN | lv.STATE.DEFAULT )
-    cui_RaceScreen_Label4.set_style_text_font( font_DISPLAYM14, lv.PART.MAIN | lv.STATE.DEFAULT )
-    _ui_comp_table[id(cui_DriverContainer)]= {"DriverContainer" : cui_DriverContainer,"RaceScreen_Label1" : cui_RaceScreen_Label1,"RaceScreen_Container3" : cui_RaceScreen_Container3,"RaceScreen_Label3" : cui_RaceScreen_Label3,"RaceScreen_Label4" : cui_RaceScreen_Label4, "_CompName" : "DriverContainer"}
-    return cui_DriverContainer
-
- # COMPONENT Page Container
-def ui_Page_Container_create(comp_parent):
-    cui_Page_Container = lv.obj(comp_parent)
-    cui_Page_Container.remove_style_all()
-    cui_Page_Container.set_width(14)
-    cui_Page_Container.set_height(10)
-    cui_Page_Container.set_x(0)
-    cui_Page_Container.set_y(84)
-    cui_Page_Container.set_align( lv.ALIGN.CENTER)
-    cui_Page_Container.set_flex_flow(lv.FLEX_FLOW.ROW)
-    cui_Page_Container.set_flex_align(lv.FLEX_ALIGN.SPACE_AROUND, lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.SPACE_AROUND)
-    SetFlag(cui_Page_Container, lv.obj.FLAG.CLICKABLE, False)
-    SetFlag(cui_Page_Container, lv.obj.FLAG.SCROLLABLE, False)
-    cui_Page1 = lv.btn(cui_Page_Container)
-    cui_Page1.set_width(4)
-    cui_Page1.set_height(4)
-    cui_Page1.set_align( lv.ALIGN.CENTER)
-    SetFlag(cui_Page1, lv.obj.FLAG.SCROLLABLE, False)
-    SetFlag(cui_Page1, lv.obj.FLAG.SCROLL_ON_FOCUS, True)
-    cui_Page1.set_style_bg_color(lv.color_hex(0x3671C6), lv.PART.MAIN | lv.STATE.DEFAULT )
-    cui_Page1.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
-    cui_Page1.set_style_shadow_color(lv.color_hex(0x3671C6), lv.PART.MAIN | lv.STATE.DEFAULT )
-    cui_Page1.set_style_shadow_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
-    cui_Page1.set_style_shadow_width( 5, lv.PART.MAIN | lv.STATE.DEFAULT )
-    cui_Page1.set_style_shadow_spread( 1, lv.PART.MAIN | lv.STATE.DEFAULT )
-    cui_Page2 = lv.btn(cui_Page_Container)
-    cui_Page2.set_width(4)
-    cui_Page2.set_height(4)
-    cui_Page2.set_align( lv.ALIGN.CENTER)
-    SetFlag(cui_Page2, lv.obj.FLAG.SCROLLABLE, False)
-    SetFlag(cui_Page2, lv.obj.FLAG.SCROLL_ON_FOCUS, True)
-    cui_Page2.set_style_bg_color(lv.color_hex(0x9A9A9A), lv.PART.MAIN | lv.STATE.DEFAULT )
-    cui_Page2.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
-    _ui_comp_table[id(cui_Page_Container)]= {"Page_Container" : cui_Page_Container,"Page1" : cui_Page1,"Page2" : cui_Page2, "_CompName" : "Page Container"}
-    return cui_Page_Container
-
- # COMPONENT WiFiItem
-def ui_WiFiItem_create(comp_parent):
-    cui_WiFiItem = lv.obj(comp_parent)
-    cui_WiFiItem.remove_style_all()
-    cui_WiFiItem.set_width(170)
-    cui_WiFiItem.set_height(25)
-    cui_WiFiItem.set_align( lv.ALIGN.CENTER)
-    SetFlag(cui_WiFiItem, lv.obj.FLAG.CLICKABLE, False)
-    SetFlag(cui_WiFiItem, lv.obj.FLAG.SCROLLABLE, False)
-    cui_WifiName = lv.label(cui_WiFiItem)
-    cui_WifiName.set_text("XiaoMiao")
-    cui_WifiName.set_width(lv.SIZE.CONTENT)	# 1
-    cui_WifiName.set_height(lv.SIZE.CONTENT)   # 1
-    cui_WifiName.set_align( lv.ALIGN.LEFT_MID)
-    cui_WifiName.set_style_text_color(lv.color_hex(0x01A3D8), lv.PART.MAIN | lv.STATE.DEFAULT )
-    cui_WifiName.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
-    cui_WifiName.set_style_text_font( font_DISPLAYM18, lv.PART.MAIN | lv.STATE.DEFAULT )
-    cui_WiFiImg = lv.img(cui_WiFiItem)
-    cui_WiFiImg.set_src(ui_images.ui_img_wifi_strong_png)
-    cui_WiFiImg.set_width(lv.SIZE.CONTENT)	# 1
-    cui_WiFiImg.set_height(lv.SIZE.CONTENT)   # 1
-    cui_WiFiImg.set_align( lv.ALIGN.RIGHT_MID)
-    SetFlag(cui_WiFiImg, lv.obj.FLAG.ADV_HITTEST, True)
-    SetFlag(cui_WiFiImg, lv.obj.FLAG.SCROLLABLE, False)
-    cui_WiFiImg.set_style_blend_mode( lv.BLEND_MODE.NORMAL, lv.PART.MAIN | lv.STATE.DEFAULT )
-    _ui_comp_table[id(cui_WiFiItem)]= {"WiFiItem" : cui_WiFiItem,"WifiName" : cui_WifiName,"WiFiImg" : cui_WiFiImg, "_CompName" : "WiFiItem"}
-    return cui_WiFiItem
-
 ui____initial_actions0 = lv.obj()
 
 def TeamRadioScreen_eventhandler(event_struct):
@@ -890,7 +771,7 @@ def ScheduleScreen_eventhandler(event_struct):
       opa_on_Animation(ui_Session_Label, 0)
       bottom_Animation(ui_Event_Label, 0)
       opa_on_Animation(ui_Time_Dot_Label, 0)
-      top_Animation(ui_Upcoming_Label, 0)
+      top_Animation(ui_TitleLabel, 0)
    return
 
 ui_ScheduleScreen = lv.obj()
@@ -927,16 +808,16 @@ ui_Second_Arc.set_style_arc_rounded( False, lv.PART.INDICATOR | lv.STATE.DEFAULT
 
 ui_Second_Arc.set_style_opa( 0, lv.PART.KNOB | lv.STATE.DEFAULT )
 
-ui_Upcoming_Label = lv.label(ui_ScheduleScreen)
-ui_Upcoming_Label.set_text("Upcoming")
-ui_Upcoming_Label.set_width(lv.SIZE.CONTENT)	# 1
-ui_Upcoming_Label.set_height(lv.SIZE.CONTENT)   # 1
-ui_Upcoming_Label.set_x(0)
-ui_Upcoming_Label.set_y(20)
-ui_Upcoming_Label.set_align( lv.ALIGN.TOP_MID)
-ui_Upcoming_Label.set_style_text_color(lv.color_hex(0x8D8D8D), lv.PART.MAIN | lv.STATE.DEFAULT )
-ui_Upcoming_Label.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
-ui_Upcoming_Label.set_style_text_font( font_DISPLAYB14, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_TitleLabel = lv.label(ui_ScheduleScreen)
+ui_TitleLabel.set_text("Upcoming")
+ui_TitleLabel.set_width(lv.SIZE.CONTENT)	# 1
+ui_TitleLabel.set_height(lv.SIZE.CONTENT)   # 1
+ui_TitleLabel.set_x(0)
+ui_TitleLabel.set_y(20)
+ui_TitleLabel.set_align( lv.ALIGN.TOP_MID)
+ui_TitleLabel.set_style_text_color(lv.color_hex(0x8D8D8D), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_TitleLabel.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_TitleLabel.set_style_text_font( font_DISPLAYB14, lv.PART.MAIN | lv.STATE.DEFAULT )
 
 ui_Gmt_Label = lv.label(ui_ScheduleScreen)
 ui_Gmt_Label.set_text("UTC/GMT +8")
@@ -1041,7 +922,101 @@ ui_Minutes_Label.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
 ui_Minutes_Label.set_style_text_align( lv.TEXT_ALIGN.LEFT, lv.PART.MAIN | lv.STATE.DEFAULT )
 ui_Minutes_Label.set_style_text_font( font_DISPLAYM10, lv.PART.MAIN | lv.STATE.DEFAULT )
 
-ui_ScheduleScreen_Container2 = lv.obj(ui_ScheduleScreen)
+ui_TimeContinerNow = lv.obj(ui_ScheduleScreen)
+ui_TimeContinerNow.remove_style_all()
+ui_TimeContinerNow.set_width(240)
+ui_TimeContinerNow.set_height(240)
+ui_TimeContinerNow.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_TimeContinerNow, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_TimeContinerNow, lv.obj.FLAG.SCROLLABLE, False)
+
+ui_ScheduleScreen_Container4 = lv.obj(ui_TimeContinerNow)
+ui_ScheduleScreen_Container4.remove_style_all()
+ui_ScheduleScreen_Container4.set_width(40)
+ui_ScheduleScreen_Container4.set_height(40)
+ui_ScheduleScreen_Container4.set_x(-27)
+ui_ScheduleScreen_Container4.set_y(-53)
+ui_ScheduleScreen_Container4.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_ScheduleScreen_Container4, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_ScheduleScreen_Container4, lv.obj.FLAG.SCROLLABLE, False)
+ui_ScheduleScreen_Container4.set_style_radius( 10, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_ScheduleScreen_Container4.set_style_bg_color(lv.color_hex(0x1A1A1A), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_ScheduleScreen_Container4.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+
+ui_Calendar_Month_Now = lv.label(ui_ScheduleScreen_Container4)
+ui_Calendar_Month_Now.set_text("05")
+ui_Calendar_Month_Now.set_width(lv.SIZE.CONTENT)	# 1
+ui_Calendar_Month_Now.set_height(lv.SIZE.CONTENT)   # 1
+ui_Calendar_Month_Now.set_align( lv.ALIGN.CENTER)
+ui_Calendar_Month_Now.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Calendar_Month_Now.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Calendar_Month_Now.set_style_text_font( font_DISPLAYR30, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_ScheduleScreen_Container5 = lv.obj(ui_TimeContinerNow)
+ui_ScheduleScreen_Container5.remove_style_all()
+ui_ScheduleScreen_Container5.set_width(40)
+ui_ScheduleScreen_Container5.set_height(40)
+ui_ScheduleScreen_Container5.set_x(34)
+ui_ScheduleScreen_Container5.set_y(-53)
+ui_ScheduleScreen_Container5.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_ScheduleScreen_Container5, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_ScheduleScreen_Container5, lv.obj.FLAG.SCROLLABLE, False)
+ui_ScheduleScreen_Container5.set_style_radius( 10, lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_ScheduleScreen_Container5.set_style_bg_color(lv.color_hex(0x1A1A1A), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_ScheduleScreen_Container5.set_style_bg_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+
+ui_Calendar_Day_Now = lv.label(ui_ScheduleScreen_Container5)
+ui_Calendar_Day_Now.set_text("28")
+ui_Calendar_Day_Now.set_width(lv.SIZE.CONTENT)	# 1
+ui_Calendar_Day_Now.set_height(lv.SIZE.CONTENT)   # 1
+ui_Calendar_Day_Now.set_align( lv.ALIGN.CENTER)
+ui_Calendar_Day_Now.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Calendar_Day_Now.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Calendar_Day_Now.set_style_text_font( font_DISPLAYR30, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_Time_Dot_Label_Now = lv.label(ui_TimeContinerNow)
+ui_Time_Dot_Label_Now.set_text(":")
+ui_Time_Dot_Label_Now.set_width(lv.SIZE.CONTENT)	# 1
+ui_Time_Dot_Label_Now.set_height(lv.SIZE.CONTENT)   # 1
+ui_Time_Dot_Label_Now.set_x(-2)
+ui_Time_Dot_Label_Now.set_y(4)
+ui_Time_Dot_Label_Now.set_align( lv.ALIGN.CENTER)
+ui_Time_Dot_Label_Now.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Time_Dot_Label_Now.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Time_Dot_Label_Now.set_style_text_font( font_DISPLAYR60, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_Time_Min_Label_Now = lv.label(ui_TimeContinerNow)
+ui_Time_Min_Label_Now.set_text("14")
+ui_Time_Min_Label_Now.set_width(lv.SIZE.CONTENT)	# 1
+ui_Time_Min_Label_Now.set_height(lv.SIZE.CONTENT)   # 1
+ui_Time_Min_Label_Now.set_x(35)
+ui_Time_Min_Label_Now.set_y(3)
+ui_Time_Min_Label_Now.set_align( lv.ALIGN.CENTER)
+ui_Time_Min_Label_Now.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Time_Min_Label_Now.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Time_Min_Label_Now.set_style_text_font( font_DISPLAYR60, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_Time_Hour_Label_Now = lv.label(ui_TimeContinerNow)
+ui_Time_Hour_Label_Now.set_text("10")
+ui_Time_Hour_Label_Now.set_width(lv.SIZE.CONTENT)	# 1
+ui_Time_Hour_Label_Now.set_height(lv.SIZE.CONTENT)   # 1
+ui_Time_Hour_Label_Now.set_x(-40)
+ui_Time_Hour_Label_Now.set_y(3)
+ui_Time_Hour_Label_Now.set_align( lv.ALIGN.CENTER)
+ui_Time_Hour_Label_Now.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
+ui_Time_Hour_Label_Now.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_Time_Hour_Label_Now.set_style_text_font( font_DISPLAYR60, lv.PART.MAIN | lv.STATE.DEFAULT )
+
+ui_TimeContinerTarget = lv.obj(ui_ScheduleScreen)
+ui_TimeContinerTarget.remove_style_all()
+ui_TimeContinerTarget.set_width(240)
+ui_TimeContinerTarget.set_height(240)
+ui_TimeContinerTarget.set_align( lv.ALIGN.CENTER)
+SetFlag(ui_TimeContinerTarget, lv.obj.FLAG.HIDDEN, True)
+SetFlag(ui_TimeContinerTarget, lv.obj.FLAG.CLICKABLE, False)
+SetFlag(ui_TimeContinerTarget, lv.obj.FLAG.SCROLLABLE, False)
+
+ui_ScheduleScreen_Container2 = lv.obj(ui_TimeContinerTarget)
 ui_ScheduleScreen_Container2.remove_style_all()
 ui_ScheduleScreen_Container2.set_width(40)
 ui_ScheduleScreen_Container2.set_height(40)
@@ -1059,11 +1034,11 @@ ui_Calendar_Month.set_text("05")
 ui_Calendar_Month.set_width(lv.SIZE.CONTENT)	# 1
 ui_Calendar_Month.set_height(lv.SIZE.CONTENT)   # 1
 ui_Calendar_Month.set_align( lv.ALIGN.CENTER)
-ui_Calendar_Month.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
-ui_Calendar_Month.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_object_set_themeable_style_property( ui_Calendar_Month, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_COLOR, UI_THEME_COLOR_COLORTEAM)
+ui_object_set_themeable_style_property( ui_Calendar_Month, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_OPA, UI_THEME_COLOR_COLORTEAM)
 ui_Calendar_Month.set_style_text_font( font_DISPLAYR30, lv.PART.MAIN | lv.STATE.DEFAULT )
 
-ui_ScheduleScreen_Container3 = lv.obj(ui_ScheduleScreen)
+ui_ScheduleScreen_Container3 = lv.obj(ui_TimeContinerTarget)
 ui_ScheduleScreen_Container3.remove_style_all()
 ui_ScheduleScreen_Container3.set_width(40)
 ui_ScheduleScreen_Container3.set_height(40)
@@ -1081,41 +1056,41 @@ ui_Calendar_Day.set_text("28")
 ui_Calendar_Day.set_width(lv.SIZE.CONTENT)	# 1
 ui_Calendar_Day.set_height(lv.SIZE.CONTENT)   # 1
 ui_Calendar_Day.set_align( lv.ALIGN.CENTER)
-ui_Calendar_Day.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
-ui_Calendar_Day.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_object_set_themeable_style_property( ui_Calendar_Day, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_COLOR, UI_THEME_COLOR_COLORTEAM)
+ui_object_set_themeable_style_property( ui_Calendar_Day, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_OPA, UI_THEME_COLOR_COLORTEAM)
 ui_Calendar_Day.set_style_text_font( font_DISPLAYR30, lv.PART.MAIN | lv.STATE.DEFAULT )
 
-ui_Time_Dot_Label = lv.label(ui_ScheduleScreen)
+ui_Time_Dot_Label = lv.label(ui_TimeContinerTarget)
 ui_Time_Dot_Label.set_text(":")
 ui_Time_Dot_Label.set_width(lv.SIZE.CONTENT)	# 1
 ui_Time_Dot_Label.set_height(lv.SIZE.CONTENT)   # 1
-ui_Time_Dot_Label.set_x(-1)
+ui_Time_Dot_Label.set_x(-2)
 ui_Time_Dot_Label.set_y(4)
 ui_Time_Dot_Label.set_align( lv.ALIGN.CENTER)
-ui_Time_Dot_Label.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
-ui_Time_Dot_Label.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_object_set_themeable_style_property( ui_Time_Dot_Label, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_COLOR, UI_THEME_COLOR_COLORTEAM)
+ui_object_set_themeable_style_property( ui_Time_Dot_Label, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_OPA, UI_THEME_COLOR_COLORTEAM)
 ui_Time_Dot_Label.set_style_text_font( font_DISPLAYR60, lv.PART.MAIN | lv.STATE.DEFAULT )
 
-ui_Time_Min_Label = lv.label(ui_ScheduleScreen)
+ui_Time_Min_Label = lv.label(ui_TimeContinerTarget)
 ui_Time_Min_Label.set_text("14")
 ui_Time_Min_Label.set_width(lv.SIZE.CONTENT)	# 1
 ui_Time_Min_Label.set_height(lv.SIZE.CONTENT)   # 1
 ui_Time_Min_Label.set_x(35)
 ui_Time_Min_Label.set_y(3)
 ui_Time_Min_Label.set_align( lv.ALIGN.CENTER)
-ui_Time_Min_Label.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
-ui_Time_Min_Label.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_object_set_themeable_style_property( ui_Time_Min_Label, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_COLOR, UI_THEME_COLOR_COLORTEAM)
+ui_object_set_themeable_style_property( ui_Time_Min_Label, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_OPA, UI_THEME_COLOR_COLORTEAM)
 ui_Time_Min_Label.set_style_text_font( font_DISPLAYR60, lv.PART.MAIN | lv.STATE.DEFAULT )
 
-ui_Time_Hour_Label = lv.label(ui_ScheduleScreen)
+ui_Time_Hour_Label = lv.label(ui_TimeContinerTarget)
 ui_Time_Hour_Label.set_text("10")
 ui_Time_Hour_Label.set_width(lv.SIZE.CONTENT)	# 1
 ui_Time_Hour_Label.set_height(lv.SIZE.CONTENT)   # 1
 ui_Time_Hour_Label.set_x(-40)
 ui_Time_Hour_Label.set_y(3)
 ui_Time_Hour_Label.set_align( lv.ALIGN.CENTER)
-ui_Time_Hour_Label.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT )
-ui_Time_Hour_Label.set_style_text_opa(255, lv.PART.MAIN| lv.STATE.DEFAULT )
+ui_object_set_themeable_style_property( ui_Time_Hour_Label, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_COLOR, UI_THEME_COLOR_COLORTEAM)
+ui_object_set_themeable_style_property( ui_Time_Hour_Label, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_OPA, UI_THEME_COLOR_COLORTEAM)
 ui_Time_Hour_Label.set_style_text_font( font_DISPLAYR60, lv.PART.MAIN | lv.STATE.DEFAULT )
 
 ui_ScheduleScreen.add_event_cb(ScheduleScreen_eventhandler, lv.EVENT.ALL, None)

@@ -114,9 +114,9 @@
           "strtype": "THEME_COLOR",
           "strval": "ColorTeamSecond",
           "intarray": [
-            255,
-            221,
-            0,
+            4,
+            175,
+            250,
             255
           ],
           "InheritedType": 0
