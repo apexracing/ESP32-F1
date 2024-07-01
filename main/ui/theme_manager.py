@@ -25,6 +25,7 @@ class Themes:
     UI_THEME_COLOR_COLORTEAMTHREE = 0
     UI_THEME_COLOR_COLORTEAM = 1
     UI_THEME_COLOR_COLORTEAMSECOND = 2
+    UI_THEME_COLOR_GRAY=3
 @singleton
 class ThemeManager:
 
@@ -33,14 +34,14 @@ class ThemeManager:
         dispp = lv.disp_get_default()
         theme = lv.theme_default_init(dispp, lv.palette_main(lv.PALETTE.BLUE), lv.palette_main(lv.PALETTE.RED), True,lv.font_default())
         dispp.set_theme(theme)
-        self._ui_theme_color_Default = [0xFFDD00, 0x3671C6, 0xFF0101]
-        self._ui_theme_alpha_Default = [255, 255, 255]
+        self._ui_theme_color_Default = [0xFFDD00, 0x3671C6, 0xFF0101,0x8D8D8D]
+        self._ui_theme_alpha_Default = [255, 255, 255,255]
 
-        self._ui_theme_color_AMG = [0xFFDD00, 0x00D1BA, 0xFFFFFF]
-        self._ui_theme_alpha_AMG = [255, 255, 255]
+        self._ui_theme_color_AMG = [0xFFDD00, 0x00D1BA, 0xFFFFFF,0x8D8D8D]
+        self._ui_theme_alpha_AMG = [255, 255, 255,255]
 
-        self._ui_theme_color_ferrari_ = [0x04AFFA, 0xFF2800, 0xFFDD00]
-        self._ui_theme_alpha_ferrari_ = [255, 255, 255]
+        self._ui_theme_color_ferrari_ = [0x04AFFA, 0xFF2800, 0xFFDD00,0x8D8D8D]
+        self._ui_theme_alpha_ferrari_ = [255, 255, 255,255]
 
         self._ui_theme_list_colors = [self._ui_theme_color_Default, self._ui_theme_color_AMG,
                                       self._ui_theme_color_ferrari_]

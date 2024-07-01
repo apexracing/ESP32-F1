@@ -3,6 +3,7 @@ from ui.resource_manager import ResourceManager
 from ui.theme_manager import ThemeManager
 import machine
 from common.time_driver import TimeDriver
+
 CPU_LOW = const(80000000)
 CPU_NORMAL = const(160000000)
 CPU_HIGH = const(240000000)
@@ -113,11 +114,12 @@ class Screen:
         anim.set_values(lv.OPA.TRANSP, lv.OPA.COVER)
         anim.set_time(800)  # 动画时间1秒
         anim.set_playback_delay(0)
-        anim.set_delay( 0)
+        anim.set_delay(0)
         anim.set_playback_time(200)  # 返回到起始状态的时间1秒
-        anim.set_repeat_count( lv.ANIM_REPEAT.INFINITE)  # 无限重复
-        anim.set_custom_exec_cb(lambda a, v:TargetObject.set_style_text_opa(v, lv.PART.MAIN | lv.STATE.DEFAULT))
+        anim.set_repeat_count(lv.ANIM_REPEAT.INFINITE)  # 无限重复
+        anim.set_custom_exec_cb(lambda a, v: TargetObject.set_style_text_opa(v, lv.PART.MAIN | lv.STATE.DEFAULT))
         lv.anim_t.start(anim)
+
     def Flash_Animation(self, TargetObject, delay):
         PropertyAnimation_0 = lv.anim_t()
         PropertyAnimation_0.init()
@@ -255,3 +257,22 @@ class Screen:
         lv.anim_t.start(PropertyAnimation_0)
         print("driver_left_Animation called")
         return
+
+    # 定义动画函数
+    def animate_in(self, TargetObject):
+        anim = lv.anim_t()
+        anim.init()
+        anim.set_var(TargetObject)
+        anim.set_time(500)
+        anim.set_values(0, 255)
+        anim.set_custom_exec_cb(lambda a, val: TargetObject.set_style_opa(val, lv.PART.MAIN | lv.STATE.DEFAULT))
+        lv.anim_t.start(anim)
+
+    def animate_out(self, TargetObject):
+        anim = lv.anim_t()
+        anim.init()
+        anim.set_var(TargetObject)
+        anim.set_time(500)
+        anim.set_values(255, 0)
+        anim.set_custom_exec_cb(lambda a, val: TargetObject.set_style_opa(val, lv.PART.MAIN | lv.STATE.DEFAULT))
+        lv.anim_t.start(anim)

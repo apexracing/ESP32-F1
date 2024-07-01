@@ -5,6 +5,7 @@ from common.time_driver import TimeDriver
 from common.f1_api import F1Api
 import time
 import math
+
 SEC_STEP = const(25)
 
 
@@ -19,10 +20,10 @@ def calculate_time_difference(start_time, end_time):
     hours = total_seconds // 3600
     total_seconds %= 3600
     # 计算分钟
-    minutes = total_seconds//60
-    seconds=total_seconds%60
-    if seconds>0:
-        minutes+=1
+    minutes = total_seconds // 60
+    seconds = total_seconds % 60
+    if seconds > 0:
+        minutes += 1
 
     return days, hours, minutes
 
@@ -36,7 +37,7 @@ class ScheduleScreen(Screen):
         self.screen.set_style_bg_color(lv.color_hex(0x000000), lv.PART.MAIN | lv.STATE.DEFAULT)
         self.screen.set_style_bg_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
         self.screen.set_style_bg_img_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
-
+        self.show_now = True
         self.ui_Second_Arc = lv.arc(self.screen)
         self.ui_Second_Arc.set_width(230)
         self.ui_Second_Arc.set_height(230)
@@ -72,9 +73,9 @@ class ScheduleScreen(Screen):
         self.ui_Upcoming_Label.set_x(0)
         self.ui_Upcoming_Label.set_y(20)
         self.ui_Upcoming_Label.set_align(lv.ALIGN.TOP_MID)
-        self.ui_Upcoming_Label.set_style_text_color(lv.color_hex(0x8D8D8D), lv.PART.MAIN | lv.STATE.DEFAULT)
         self.ui_Upcoming_Label.set_style_text_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
         self.ui_Upcoming_Label.set_style_text_font(self.resourceManager.load_font("DISPLAYB", 14), lv.PART.MAIN | lv.STATE.DEFAULT)
+        self.themeManager.ui_object_set_themeable_style_property(self.ui_Upcoming_Label, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_COLOR, Themes.UI_THEME_COLOR_COLORTEAMSECOND)
 
         ui_Gmt_Label = lv.label(self.screen)
         ui_Gmt_Label.set_text(f"UTC/GMT {self.timeDriver.get_time_zone()}")
@@ -353,6 +354,8 @@ class ScheduleScreen(Screen):
         self.screen.add_event_cb(self.ScheduleScreen_eventhandler, lv.EVENT.ALL, None)
         lv.timer_create(self.ui_update_now, SEC_STEP, None)
         lv.timer_create(self.ui_update_target, 60 * 1000, None)  # 1分钟更新一次
+        self.pressing=False
+
     def ScheduleScreen_eventhandler(self, event_struct):
         event = event_struct.code
         if event == lv.EVENT.SCREEN_LOADED and True:
@@ -371,6 +374,10 @@ class ScheduleScreen(Screen):
             self.top_Animation(self.ui_Upcoming_Label, 0)
         if event == lv.EVENT.SCREEN_LOADED:
             self.Breath_Animation(self.ui_Time_Dot_Label_Now)
+        if event == lv.EVENT.PRESSING:
+            self.pressing=True
+        if event == lv.EVENT.RELEASED:
+            self.pressing=False
         return
 
     def map_range(self, value, original_min, original_max, target_min, target_max):
@@ -391,6 +398,26 @@ class ScheduleScreen(Screen):
         self.ui_Time_Min_Label.set_text(f"{m:02}")
         self.ui_Event_Name_Label.set_text(event_name)
         self.ui_Session_Name_Label.set_text(session["session_name"])
+        # 初始化时不执行判断
+        print(f'ui_update_target{self.timeDriver.get_local_time()}')
+        if _ is not None:
+            self.changeTimeShow()
+
+    def changeTimeShow(self):
+        print(f'changeTimeShow{self.timeDriver.get_local_time()}')
+
+        if self.show_now:
+            self.show_now = False
+            self.SetFlag(self.ui_TimeContinerTarget, lv.obj.FLAG.HIDDEN, False)
+            self.SetFlag(self.ui_TimeContinerNow, lv.obj.FLAG.HIDDEN, True)
+            self.animate_in(self.ui_TimeContinerTarget)
+            self.animate_out(self.ui_TimeContinerNow)
+        else:
+            self.show_now = True
+            self.SetFlag(self.ui_TimeContinerTarget, lv.obj.FLAG.HIDDEN, True)
+            self.SetFlag(self.ui_TimeContinerNow, lv.obj.FLAG.HIDDEN, False)
+            self.animate_in(self.ui_TimeContinerNow)
+            self.animate_out(self.ui_TimeContinerTarget)
 
     def ui_update_now(self, _=None):
         '''
