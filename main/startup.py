@@ -35,9 +35,14 @@ display.backlight_on()
 print("协程任务框架循环开始")
 
 
-async def main():  
-    wifiScanScr = WiFiScanScreen()
-    wifiScanScr.src_load_anim(fademode=lv.SCR_LOAD_ANIM.MOVE_BOTTOM, speed=50)
+async def main():
+    await wifi_auto_connect()
+    if is_wifi_connect():
+        from common.time_driver import TimeDriver
+        time_driver = TimeDriver()
+        time_driver.init_sync_timer()
+    scr = ScheduleScreen()
+    scr.src_load_anim(fademode=lv.SCR_LOAD_ANIM.MOVE_BOTTOM, speed=50)
     while True:
         lv.task_handler()
         await asyncio.sleep_ms(10)
