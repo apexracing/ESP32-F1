@@ -369,7 +369,8 @@ class ScheduleScreen(Screen):
             self.opa_on_Animation(self.ui_Event_Name_Label, 0)
             self.bottom_Animation(self.ui_Session_Name_Label, 0)
             self.top_Animation(self.ui_Upcoming_Label, 0)
-
+        if event == lv.EVENT.SCREEN_LOADED:
+            self.Breath_Animation(self.ui_Time_Dot_Label_Now)
         return
 
     def map_range(self, value, original_min, original_max, target_min, target_max):

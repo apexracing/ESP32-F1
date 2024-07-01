@@ -103,6 +103,18 @@ class Screen:
         obj.set_style_opa(v, lv.STATE.DEFAULT | lv.PART.MAIN)
         return
 
+    # 定义呼吸动画的回调函数
+    def Breath_Animation(self, TargetObject):
+        # 创建动画对象
+        anim = lv.anim_t()
+        anim.init()
+        anim.set_var(TargetObject)
+        anim.set_values(lv.OPA.TRANSP, lv.OPA.COVER)
+        anim.set_time(1000)  # 动画时间1秒
+        anim.set_playback_time(1000)  # 返回到起始状态的时间1秒
+        anim.set_repeat_count( lv.ANIM_REPEAT.INFINITE)  # 无限重复
+        anim.set_custom_exec_cb(lambda a, v:TargetObject.set_style_text_opa(v, lv.PART.MAIN | lv.STATE.DEFAULT))
+        lv.anim_t.start(anim)
     def Flash_Animation(self, TargetObject, delay):
         PropertyAnimation_0 = lv.anim_t()
         PropertyAnimation_0.init()
