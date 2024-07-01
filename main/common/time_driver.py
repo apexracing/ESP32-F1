@@ -4,19 +4,7 @@ import machine
 import time
 import utime
 from lib import urequests
-
-
-def singleton(cls):
-    instance = None
-
-    def getinstance(*args, **kwargs):
-        nonlocal instance
-        if instance is None:
-            instance = cls(*args, **kwargs)
-        return instance
-
-    return getinstance
-
+from common.singleton import singleton
 
 @singleton
 class TimeDriver:
@@ -29,6 +17,7 @@ class TimeDriver:
         minutes, seconds = divmod(timezone_offset, 60)
         hours, minutes = divmod(minutes, 60)
         self.timezone = self.timezone + "%02d:%02d" % (hours, minutes)
+
 
     # 获取当前网络时区
     def __get_network_timezone(self):
@@ -64,7 +53,7 @@ class TimeDriver:
     def get_utc_time(self):
         return utime.gmtime()
     def get_unixtime(self):
-        return int(time.time_ns()/1000/1000/1000)
+        return time.time_ns()//1000000000
     def iso8610_to_unixtime(self,time_str):
         time_tuple = (int(time_str[0:4]), int(time_str[5:7]), int(time_str[8:10]),
                       int(time_str[11:13]), int(time_str[14:16]), int(time_str[17:19]), 0, 0)

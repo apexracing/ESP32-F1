@@ -1,5 +1,6 @@
 from lib import urequests as requests
 from common.time_driver import TimeDriver
+from common.singleton import singleton
 
 F1_API_HOST_BASE = "https://gitee.com/apexracing/f1livetime/raw/master"
 '''
@@ -11,24 +12,12 @@ Race   2小时,意外最长3小时
 SESSION_PERIOD = {"Sprint": 5400, "Race": 10800, "Qualifying": 3600, "Sprint Qualifying": 2700, "Practice 1": 3600, "Practice 2": 3600, "Practice 3": 3600, }
 
 
-def singleton(cls):
-    instance = None
-
-    def getinstance(*args, **kwargs):
-        nonlocal instance
-        if instance is None:
-            instance = cls(*args, **kwargs)
-        return instance
-
-    return getinstance
-
-
 @singleton
 class F1Api:
     def __init__(self):
+        print("F1 API inited!")
         self.timeDriver = TimeDriver()
         self.events = self.get_events()
-        print("----------------------------------")
 
     def update_events(self):
         self.events = self.get_events()
@@ -42,8 +31,9 @@ class F1Api:
         events = []
         rounds = sorted(data["round_number"].values())
         for _id in rounds:
+            _id=str(_id)
             event = {"event_name": data["event_name"][_id], "event_date": data["event_date"][_id], "country": data["country"][_id], "location": data["location"][_id], "sessions": []}
-            for key in data.keys():
+            for key in sorted(data.keys()):
                 if "session" in key and "date" not in key:
                     session_name = data[key][_id]
                     if session_name is not None:
@@ -59,13 +49,11 @@ class F1Api:
         返回当前正在进行的比赛，如果没有，返回下一场比赛
         :return:
         '''
-        events = self.events
         now_utc_second = self.timeDriver.get_unixtime()
-        for event in events:
+        for event in self.events:
             for session in event["sessions"]:
                 session_begin_second = session["session_begin_utc"]
                 session_end_utc_second = session["session_end_utc"]
-                print(now_utc_second, session_begin_second, session_end_utc_second)
                 if session_begin_second <= now_utc_second < session_end_utc_second:
                     return event["event_name"], session, "Racing"
                 if now_utc_second < session_begin_second:

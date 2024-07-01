@@ -4,24 +4,26 @@ from ui.theme_manager import Themes, ThemeManager
 from common.time_driver import TimeDriver
 from common.f1_api import F1Api
 import time
-
+import math
 SEC_STEP = const(25)
 
 
 def calculate_time_difference(start_time, end_time):
     # 计算总秒数差
     total_seconds = end_time - start_time
-
+    print(start_time,end_time,total_seconds)
     # 计算天数
     days = total_seconds // (24 * 3600)
-    total_seconds = total_seconds % (24 * 3600)
+    total_seconds %= (24 * 3600)
 
     # 计算小时
     hours = total_seconds // 3600
     total_seconds %= 3600
-
     # 计算分钟
-    minutes = total_seconds // 60
+    minutes = total_seconds//60
+    seconds=total_seconds%60
+    if seconds>0:
+        minutes+=1
 
     return days, hours, minutes
 
@@ -32,7 +34,6 @@ class ScheduleScreen(Screen):
         self.cpu_low()
         self.f1 = F1Api()
         self.f1_event = self.f1.get_eventing()
-        print(self.f1_event)
         self.SetFlag(self.screen, lv.obj.FLAG.SCROLLABLE, False)
         self.screen.set_style_bg_color(lv.color_hex(0x000000), lv.PART.MAIN | lv.STATE.DEFAULT)
         self.screen.set_style_bg_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
@@ -418,6 +419,6 @@ class ScheduleScreen(Screen):
             self.ui_Minutes.set_text("0")
         else:
             days, hours, minutes = calculate_time_difference(now_unixtime, event_unixtime)
-            self.ui_Days.set_text(f'{days:03}')
+            self.ui_Days.set_text(f'{days}')
             self.ui_Hours.set_text(f'{hours:02}')
             self.ui_Minutes.set_text(f'{minutes:02}')
