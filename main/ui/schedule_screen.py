@@ -11,7 +11,6 @@ SEC_STEP = const(25)
 def calculate_time_difference(start_time, end_time):
     # 计算总秒数差
     total_seconds = end_time - start_time
-    print(start_time,end_time,total_seconds)
     # 计算天数
     days = total_seconds // (24 * 3600)
     total_seconds %= (24 * 3600)
@@ -248,7 +247,7 @@ class ScheduleScreen(Screen):
         self.ui_Time_Min_Label_Now.set_text("14")
         self.ui_Time_Min_Label_Now.set_width(lv.SIZE.CONTENT)  # 1
         self.ui_Time_Min_Label_Now.set_height(lv.SIZE.CONTENT)  # 1
-        self.ui_Time_Min_Label_Now.set_x(35)
+        self.ui_Time_Min_Label_Now.set_x(38)
         self.ui_Time_Min_Label_Now.set_y(3)
         self.ui_Time_Min_Label_Now.set_align(lv.ALIGN.CENTER)
         self.ui_Time_Min_Label_Now.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT)
@@ -334,7 +333,7 @@ class ScheduleScreen(Screen):
         self.ui_Time_Min_Label.set_text("14")
         self.ui_Time_Min_Label.set_width(lv.SIZE.CONTENT)  # 1
         self.ui_Time_Min_Label.set_height(lv.SIZE.CONTENT)  # 1
-        self.ui_Time_Min_Label.set_x(35)
+        self.ui_Time_Min_Label.set_x(38)
         self.ui_Time_Min_Label.set_y(3)
         self.ui_Time_Min_Label.set_align(lv.ALIGN.CENTER)
         self.themeManager.ui_object_set_themeable_style_property(self.ui_Time_Min_Label, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_COLOR, Themes.UI_THEME_COLOR_COLORTEAM)
