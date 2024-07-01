@@ -30,7 +30,6 @@ def calculate_time_difference(start_time, end_time):
 class ScheduleScreen(Screen):
     def __init__(self):
         super().__init__()
-        self.cpu_low()
         self.f1 = F1Api()
         self.f1_event = self.f1.get_eventing()
         self.SetFlag(self.screen, lv.obj.FLAG.SCROLLABLE, False)
@@ -78,7 +77,7 @@ class ScheduleScreen(Screen):
         self.ui_Upcoming_Label.set_style_text_font(self.resourceManager.load_font("DISPLAYB", 14), lv.PART.MAIN | lv.STATE.DEFAULT)
 
         ui_Gmt_Label = lv.label(self.screen)
-        ui_Gmt_Label.set_text("UTC/GMT +8")
+        ui_Gmt_Label.set_text(f"UTC/GMT {self.timeDriver.get_time_zone()}")
         ui_Gmt_Label.set_width(lv.SIZE.CONTENT)  # 1
         ui_Gmt_Label.set_height(lv.SIZE.CONTENT)  # 1
         ui_Gmt_Label.set_x(0)
@@ -115,7 +114,7 @@ class ScheduleScreen(Screen):
         self.ui_Session_Name_Label.set_style_text_font(self.resourceManager.load_font("F1R", 14), lv.PART.MAIN | lv.STATE.DEFAULT)
 
         self.ui_Days = lv.label(self.screen)
-        self.ui_Days.set_text("5")
+        self.ui_Days.set_text("0")
         self.ui_Days.set_width(lv.SIZE.CONTENT)  # 1
         self.ui_Days.set_height(lv.SIZE.CONTENT)  # 1
         self.ui_Days.set_x(18)
@@ -126,7 +125,7 @@ class ScheduleScreen(Screen):
         self.ui_Days.set_style_text_font(self.resourceManager.load_font("DISPLAYM", 14), lv.PART.MAIN | lv.STATE.DEFAULT)
 
         self.ui_Hours = lv.label(self.screen)
-        self.ui_Hours.set_text("22")
+        self.ui_Hours.set_text("0")
         self.ui_Hours.set_width(22)
         self.ui_Hours.set_height(10)
         self.ui_Hours.set_x(18)
@@ -137,7 +136,7 @@ class ScheduleScreen(Screen):
         self.ui_Hours.set_style_text_font(self.resourceManager.load_font("DISPLAYM", 14), lv.PART.MAIN | lv.STATE.DEFAULT)
 
         self.ui_Minutes = lv.label(self.screen)
-        self.ui_Minutes.set_text("13")
+        self.ui_Minutes.set_text("0")
         self.ui_Minutes.set_width(22)
         self.ui_Minutes.set_height(10)
         self.ui_Minutes.set_x(18)
@@ -224,7 +223,7 @@ class ScheduleScreen(Screen):
         ui_ScheduleScreen_Container5.set_style_bg_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
 
         self.ui_Calendar_Day_Now = lv.label(ui_ScheduleScreen_Container5)
-        self.ui_Calendar_Day_Now.set_text("28")
+        self.ui_Calendar_Day_Now.set_text("0")
         self.ui_Calendar_Day_Now.set_width(lv.SIZE.CONTENT)  # 1
         self.ui_Calendar_Day_Now.set_height(lv.SIZE.CONTENT)  # 1
         self.ui_Calendar_Day_Now.set_align(lv.ALIGN.CENTER)
@@ -244,10 +243,10 @@ class ScheduleScreen(Screen):
         self.ui_Time_Dot_Label_Now.set_style_text_font(self.resourceManager.load_font("DISPLAYR", 60), lv.PART.MAIN | lv.STATE.DEFAULT)
 
         self.ui_Time_Min_Label_Now = lv.label(self.ui_TimeContinerNow)
-        self.ui_Time_Min_Label_Now.set_text("14")
+        self.ui_Time_Min_Label_Now.set_text("0")
         self.ui_Time_Min_Label_Now.set_width(lv.SIZE.CONTENT)  # 1
         self.ui_Time_Min_Label_Now.set_height(lv.SIZE.CONTENT)  # 1
-        self.ui_Time_Min_Label_Now.set_x(42)
+        self.ui_Time_Min_Label_Now.set_x(44)
         self.ui_Time_Min_Label_Now.set_y(3)
         self.ui_Time_Min_Label_Now.set_align(lv.ALIGN.CENTER)
         self.ui_Time_Min_Label_Now.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT)
@@ -255,7 +254,7 @@ class ScheduleScreen(Screen):
         self.ui_Time_Min_Label_Now.set_style_text_font(self.resourceManager.load_font("DISPLAYR", 60), lv.PART.MAIN | lv.STATE.DEFAULT)
 
         self.ui_Time_Hour_Label_Now = lv.label(self.ui_TimeContinerNow)
-        self.ui_Time_Hour_Label_Now.set_text("10")
+        self.ui_Time_Hour_Label_Now.set_text("0")
         self.ui_Time_Hour_Label_Now.set_width(lv.SIZE.CONTENT)  # 1
         self.ui_Time_Hour_Label_Now.set_height(lv.SIZE.CONTENT)  # 1
         self.ui_Time_Hour_Label_Now.set_x(-40)
@@ -288,7 +287,7 @@ class ScheduleScreen(Screen):
         ui_ScheduleScreen_Container2.set_style_bg_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
 
         self.ui_Calendar_Month = lv.label(ui_ScheduleScreen_Container2)
-        self.ui_Calendar_Month.set_text("05")
+        self.ui_Calendar_Month.set_text("0")
         self.ui_Calendar_Month.set_width(lv.SIZE.CONTENT)  # 1
         self.ui_Calendar_Month.set_height(lv.SIZE.CONTENT)  # 1
         self.ui_Calendar_Month.set_align(lv.ALIGN.CENTER)
@@ -310,7 +309,7 @@ class ScheduleScreen(Screen):
         ui_ScheduleScreen_Container3.set_style_bg_opa(255, lv.PART.MAIN | lv.STATE.DEFAULT)
 
         self.ui_Calendar_Day = lv.label(ui_ScheduleScreen_Container3)
-        self.ui_Calendar_Day.set_text("28")
+        self.ui_Calendar_Day.set_text("0")
         self.ui_Calendar_Day.set_width(lv.SIZE.CONTENT)  # 1
         self.ui_Calendar_Day.set_height(lv.SIZE.CONTENT)  # 1
         self.ui_Calendar_Day.set_align(lv.ALIGN.CENTER)
@@ -330,10 +329,10 @@ class ScheduleScreen(Screen):
         self.ui_Time_Dot_Label.set_style_text_font(self.resourceManager.load_font("DISPLAYR", 60), lv.PART.MAIN | lv.STATE.DEFAULT)
 
         self.ui_Time_Min_Label = lv.label(self.ui_TimeContinerTarget)
-        self.ui_Time_Min_Label.set_text("14")
+        self.ui_Time_Min_Label.set_text("0")
         self.ui_Time_Min_Label.set_width(lv.SIZE.CONTENT)  # 1
         self.ui_Time_Min_Label.set_height(lv.SIZE.CONTENT)  # 1
-        self.ui_Time_Min_Label.set_x(42)
+        self.ui_Time_Min_Label.set_x(44)
         self.ui_Time_Min_Label.set_y(3)
         self.ui_Time_Min_Label.set_align(lv.ALIGN.CENTER)
         self.themeManager.ui_object_set_themeable_style_property(self.ui_Time_Min_Label, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_COLOR, Themes.UI_THEME_COLOR_COLORTEAM)
@@ -341,7 +340,7 @@ class ScheduleScreen(Screen):
         self.ui_Time_Min_Label.set_style_text_font(self.resourceManager.load_font("DISPLAYR", 60), lv.PART.MAIN | lv.STATE.DEFAULT)
 
         self.ui_Time_Hour_Label = lv.label(self.ui_TimeContinerTarget)
-        self.ui_Time_Hour_Label.set_text("10")
+        self.ui_Time_Hour_Label.set_text("0")
         self.ui_Time_Hour_Label.set_width(lv.SIZE.CONTENT)  # 1
         self.ui_Time_Hour_Label.set_height(lv.SIZE.CONTENT)  # 1
         self.ui_Time_Hour_Label.set_x(-40)
@@ -350,15 +349,15 @@ class ScheduleScreen(Screen):
         self.themeManager.ui_object_set_themeable_style_property(self.ui_Time_Hour_Label, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_COLOR, Themes.UI_THEME_COLOR_COLORTEAM)
         self.themeManager.ui_object_set_themeable_style_property(self.ui_Time_Hour_Label, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_OPA, Themes.UI_THEME_COLOR_COLORTEAM)
         self.ui_Time_Hour_Label.set_style_text_font(self.resourceManager.load_font("DISPLAYR", 60), lv.PART.MAIN | lv.STATE.DEFAULT)
-        self.ui_update_now()
-        self.ui_update_target()
+
         self.screen.add_event_cb(self.ScheduleScreen_eventhandler, lv.EVENT.ALL, None)
         lv.timer_create(self.ui_update_now, SEC_STEP, None)
         lv.timer_create(self.ui_update_target, 60 * 1000, None)  # 1分钟更新一次
-
     def ScheduleScreen_eventhandler(self, event_struct):
         event = event_struct.code
-        if event == lv.EVENT.SCREEN_LOAD_START and True:
+        if event == lv.EVENT.SCREEN_LOADED and True:
+            self.ui_update_now()
+            self.ui_update_target()
             self.top_Animation(self.ui_Calendar_Month_Now, 0)
             self.top_Animation(self.ui_Calendar_Day_Now, 0)
             self.left_Animation(self.ui_Time_Min_Label_Now, 0)
