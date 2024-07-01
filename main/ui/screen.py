@@ -109,9 +109,12 @@ class Screen:
         anim = lv.anim_t()
         anim.init()
         anim.set_var(TargetObject)
+        anim.set_path_cb(lv.anim_t.path_ease_in_out)
         anim.set_values(lv.OPA.TRANSP, lv.OPA.COVER)
-        anim.set_time(1000)  # 动画时间1秒
-        anim.set_playback_time(1000)  # 返回到起始状态的时间1秒
+        anim.set_time(800)  # 动画时间1秒
+        anim.set_playback_delay(0)
+        anim.set_delay( 0)
+        anim.set_playback_time(200)  # 返回到起始状态的时间1秒
         anim.set_repeat_count( lv.ANIM_REPEAT.INFINITE)  # 无限重复
         anim.set_custom_exec_cb(lambda a, v:TargetObject.set_style_text_opa(v, lv.PART.MAIN | lv.STATE.DEFAULT))
         lv.anim_t.start(anim)
