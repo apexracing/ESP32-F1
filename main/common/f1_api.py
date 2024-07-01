@@ -28,7 +28,7 @@ class F1Api:
     def __init__(self):
         self.timeDriver = TimeDriver()
         self.events = self.get_events()
-        print(self.events)
+        print("----------------------------------")
 
     def update_events(self):
         self.events = self.get_events()
@@ -40,13 +40,14 @@ class F1Api:
         data = response.json()
         response.close()
         events = []
-        for id in data["round_number"]:
-            event = {"event_name": data["event_name"][id], "event_date": data["event_date"][id], "country": data["country"][id], "location": data["location"][id], "sessions": []}
+        rounds = sorted(data["round_number"].values())
+        for _id in rounds:
+            event = {"event_name": data["event_name"][_id], "event_date": data["event_date"][_id], "country": data["country"][_id], "location": data["location"][_id], "sessions": []}
             for key in data.keys():
                 if "session" in key and "date" not in key:
-                    session_name = data[key][id]
+                    session_name = data[key][_id]
                     if session_name is not None:
-                        session_date = data[key + "_date"][id]
+                        session_date = data[key + "_date"][_id]
                         session_utc_second = self.timeDriver.iso8610_to_unixtime(session_date)
                         session_end_utc_second = session_utc_second + SESSION_PERIOD[session_name]
                         event["sessions"].append({"session_name": session_name, "session_date": session_date, "session_begin_utc": session_utc_second, "session_end_utc": session_end_utc_second})
@@ -64,7 +65,7 @@ class F1Api:
             for session in event["sessions"]:
                 session_begin_second = session["session_begin_utc"]
                 session_end_utc_second = session["session_end_utc"]
-                print(now_utc_second,session_begin_second,session_end_utc_second)
+                print(now_utc_second, session_begin_second, session_end_utc_second)
                 if session_begin_second <= now_utc_second < session_end_utc_second:
                     return event["event_name"], session, "Racing"
                 if now_utc_second < session_begin_second:
