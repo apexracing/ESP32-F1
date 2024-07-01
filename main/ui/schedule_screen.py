@@ -247,7 +247,7 @@ class ScheduleScreen(Screen):
         self.ui_Time_Min_Label_Now.set_text("14")
         self.ui_Time_Min_Label_Now.set_width(lv.SIZE.CONTENT)  # 1
         self.ui_Time_Min_Label_Now.set_height(lv.SIZE.CONTENT)  # 1
-        self.ui_Time_Min_Label_Now.set_x(38)
+        self.ui_Time_Min_Label_Now.set_x(42)
         self.ui_Time_Min_Label_Now.set_y(3)
         self.ui_Time_Min_Label_Now.set_align(lv.ALIGN.CENTER)
         self.ui_Time_Min_Label_Now.set_style_text_color(lv.color_hex(0xFFFFFF), lv.PART.MAIN | lv.STATE.DEFAULT)
@@ -333,7 +333,7 @@ class ScheduleScreen(Screen):
         self.ui_Time_Min_Label.set_text("14")
         self.ui_Time_Min_Label.set_width(lv.SIZE.CONTENT)  # 1
         self.ui_Time_Min_Label.set_height(lv.SIZE.CONTENT)  # 1
-        self.ui_Time_Min_Label.set_x(38)
+        self.ui_Time_Min_Label.set_x(42)
         self.ui_Time_Min_Label.set_y(3)
         self.ui_Time_Min_Label.set_align(lv.ALIGN.CENTER)
         self.themeManager.ui_object_set_themeable_style_property(self.ui_Time_Min_Label, lv.PART.MAIN | lv.STATE.DEFAULT, lv.STYLE.TEXT_COLOR, Themes.UI_THEME_COLOR_COLORTEAM)
