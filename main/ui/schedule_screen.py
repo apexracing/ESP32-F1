@@ -412,7 +412,7 @@ class ScheduleScreen(Screen):
         event_name, session, tip = self.f1_event
         event_unixtime = session["session_begin_utc"]
         now_unixtime = self.timeDriver.get_unixtime()
-        if now_unixtime + 60 < event_unixtime:
+        if now_unixtime > event_unixtime:
             self.ui_Days.set_text("0")
             self.ui_Hours.set_text("0")
             self.ui_Minutes.set_text("0")
